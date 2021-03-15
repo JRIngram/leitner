@@ -1,7 +1,11 @@
-require('dotenv').config();
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+import { getAllCards, deleteCard } from './utils/mongo.js';
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 const express = require('express');
+require('dotenv').config();
+
 const app = express();
 const port = 3000;
 const dbUrl = process.env.DB_URL;
@@ -33,15 +37,8 @@ app.get('/addCard', (req,res) => {
 
 
 app.get('/getAllCards', async (req, res) => {
-  let queryResult;
-  MongoClient.connect(dbUrl, (err, client) => {
-    const db = client.db(dbName);
-    const collection = db.collection(tableName);
-    collection.find({}).toArray((err, results) =>{
-      res.json(results);
-    });
-    client.close();
-  });
+  const allCards = await getAllCards();
+  res.send(allCards);
 });
 
 app.get('/updateCard', async (req, res) => {
@@ -67,19 +64,9 @@ app.get('/updateCard', async (req, res) => {
 });
 
 app.get('/deleteCard', async (req, res) => {
-  const cardId = new ObjectId(req.query.id);
-
-  MongoClient.connect(dbUrl, (err, client) => {
-    console.log('Retrieve all from mongodb');
-    const db = client.db(dbName);
-    const collection = db.collection(tableName);
-    collection.deleteOne(
-      { _id : cardId }, 
-      () => {
-        res.send(`Deleted card ${cardId}.`);
-      }
-    );
-  });
+  const cardId = req.query.id;
+  const responseString = await deleteCard(cardId);
+  res.send(responseString);
 });
 
 app.listen(port, () => {
