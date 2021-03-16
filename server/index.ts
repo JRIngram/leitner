@@ -1,16 +1,20 @@
 import { Request, Response } from 'express';
 import { createRequire } from 'module';
-import { getAllCards, deleteCard, addCard, updateCard } from './utils/mongo.js';
+import {
+  getAllCards, deleteCard, addCard, updateCard,
+} from './utils/mongo';
+
 const require = createRequire(import.meta.url);
 const express = require('express');
 require('dotenv').config();
 
+const { log } = console;
 const app = express();
 const port = 3000;
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
 app.get('/addCard', async (req: Request, res: Response) => {
   const prompt = <string> req.query.prompt;
@@ -18,7 +22,6 @@ app.get('/addCard', async (req: Request, res: Response) => {
   const queryResponse = await addCard(prompt, answer);
   res.send(queryResponse);
 });
-
 
 app.get('/getAllCards', async (req: Request, res: Response) => {
   const queryResponse = await getAllCards();
@@ -40,6 +43,6 @@ app.get('/deleteCard', async (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}.`)
-  console.log(`Ensure a MongoDB data is running @ ${process.env.DB_URL}:${process.env.DB_PORT} with the project '${process.env.DB_NAME}'`);
-})
+  log(`Listening at http://localhost:${port}.`);
+  log(`Ensure a MongoDB data is running @ ${process.env.DB_URL}:${process.env.DB_PORT} with the project '${process.env.DB_NAME}'`);
+});
