@@ -7,14 +7,14 @@ const dbName = process.env.DB_NAME;
 const dbUrl = process.env.DB_URL;
 const tableName = 'cards';
 
-const getCollectionObject = async (collectionName) => {
+const getCollectionObject = async (collectionName: string) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(collectionName);
   return collection;
 }
 
-export const addCard = async (prompt, answer) => {
+export const addCard = async (prompt: string, answer: string) => {
   const collection = await getCollectionObject(tableName);
   const data = { prompt, answer }
   await collection.insertOne(data);
@@ -27,7 +27,7 @@ export const getAllCards = async () => {
   return queryResults;
 }
 
-export const updateCard = async (cardId, prompt, answer) => {
+export const updateCard = async (cardId: string, prompt: string, answer: string) => {
   const collection = await getCollectionObject(tableName);
   const objectCardId = ObjectId(cardId);
   const updatedFields = {
@@ -41,7 +41,7 @@ export const updateCard = async (cardId, prompt, answer) => {
   return `Card ${cardId} updated with ${JSON.stringify(updatedFields)}.`;
 }
 
-export const deleteCard = async (cardId) => {
+export const deleteCard = async (cardId: string) => {
   const IdToDelete = new ObjectId(cardId);
   const collection = await getCollectionObject(tableName);
   await collection.deleteOne({ _id : IdToDelete });

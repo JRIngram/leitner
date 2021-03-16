@@ -1,43 +1,40 @@
+import { Request, Response } from 'express';
 import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 import { getAllCards, deleteCard, addCard, updateCard } from './utils/mongo.js';
+const require = createRequire(import.meta.url);
 const express = require('express');
 require('dotenv').config();
 
 const app = express();
 const port = 3000;
-const dbUrl = process.env.DB_URL;
-const dbPort = process.env.DB_PORT;
-const dbName = process.env.DB_NAME;
-const tableName = 'cards';
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
-app.get('/addCard', async (req,res) => {
-  const prompt = req.query.prompt;
-  const answer = req.query.answer;
+app.get('/addCard', async (req: Request, res: Response) => {
+  const prompt = <string> req.query.prompt;
+  const answer = <string> req.query.answer;
   const queryResponse = await addCard(prompt, answer);
   res.send(queryResponse);
 });
 
 
-app.get('/getAllCards', async (req, res) => {
+app.get('/getAllCards', async (req: Request, res: Response) => {
   const queryResponse = await getAllCards();
   res.send(queryResponse);
 });
 
-app.get('/updateCard', async (req, res) => {
-  const cardId = req.query.id;
-  const updatedPrompt = req.query.prompt;
-  const updatedAnswer = req.query.answer;
+app.get('/updateCard', async (req: Request, res: Response) => {
+  const cardId = <string> req.query.id;
+  const updatedPrompt = <string> req.query.prompt;
+  const updatedAnswer = <string> req.query.answer;
   const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
   res.send(queryResponse);
 });
 
-app.get('/deleteCard', async (req, res) => {
-  const cardId = req.query.id;
+app.get('/deleteCard', async (req: Request, res: Response) => {
+  const cardId = <string> req.query.id;
   const queryResponse = await deleteCard(cardId);
   res.send(queryResponse);
 });
