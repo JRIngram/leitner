@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { createRequire } from 'module';
 import {
   getAllCards, deleteCard, addCard, updateCard,
-} from './utils/mongo';
+} from './utils/mongo.js';
 
 const require = createRequire(import.meta.url);
 const express = require('express');

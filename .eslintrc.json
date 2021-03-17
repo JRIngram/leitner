@@ -19,9 +19,6 @@
         "react",
         "@typescript-eslint"
     ],
-    "rules": {
-        "import/extensions": [2, "never"]
-    },
     "settings": {
         "import/resolver": {
             "node": {
