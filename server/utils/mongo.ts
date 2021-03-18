@@ -1,34 +1,39 @@
-const { MongoClient } = require('mongodb');
-const { ObjectId } = require('mongodb');
+import { MongoClient, ObjectId } from 'mongodb';
+
 require('dotenv').config();
 
-const dbName = process.env.DB_NAME;
-const dbUrl = process.env.DB_URL;
-const tableName = 'cards';
+const dbName = typeof process.env.DB_NAME !== 'undefined' ? process.env.DB_NAME : '';
+const dbUrl = typeof process.env.DB_URL !== 'undefined' ? process.env.DB_URL : '';
+const tableName = process.env.NODE_ENV === 'test' ? 'test' : 'cards';
 
-const getCollectionObject = async (collectionName: string) => {
-  const client = await MongoClient.connect(dbUrl);
-  const db = client.db(dbName);
-  const collection = db.collection(collectionName);
-  return collection;
-};
+if (dbName === '' && dbUrl === '') {
+  throw Error('process.env.DB_NAME or process.env.DB_URL is undefined');
+}
 
 export const addCard = async (prompt: string, answer: string) => {
-  const collection = await getCollectionObject(tableName);
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
   const data = { prompt, answer };
   await collection.insertOne(data);
-  return `Added card with ${JSON.stringify(data)}`;
+  await client.close();
+  return `Added card with prompt:${prompt} & answer:${answer}`;
 };
 
 export const getAllCards = async () => {
-  const collection = await getCollectionObject(tableName);
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
   const queryResults = await collection.find({}).toArray();
+  await client.close();
   return queryResults;
 };
 
 export const updateCard = async (cardId: string, prompt: string, answer: string) => {
-  const collection = await getCollectionObject(tableName);
-  const objectCardId = ObjectId(cardId);
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
+  const objectCardId = new ObjectId(cardId);
   const updatedFields = {
     prompt,
     answer,
@@ -37,12 +42,16 @@ export const updateCard = async (cardId: string, prompt: string, answer: string)
     { _id: objectCardId },
     { $set: updatedFields },
   );
+  await client.close();
   return `Card ${cardId} updated with ${JSON.stringify(updatedFields)}.`;
 };
 
 export const deleteCard = async (cardId: string) => {
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(tableName);
   const IdToDelete = new ObjectId(cardId);
-  const collection = await getCollectionObject(tableName);
   await collection.deleteOne({ _id: IdToDelete });
+  await client.close();
   return `Deleted card ${IdToDelete}.`;
 };
