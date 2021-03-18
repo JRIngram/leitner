@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { createRequire } from 'module';
 import {
   getAllCards, deleteCard, addCard, updateCard,
 } from './utils/mongo';
