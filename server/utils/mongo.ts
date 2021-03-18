@@ -1,6 +1,3 @@
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 require('dotenv').config();

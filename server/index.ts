@@ -2,9 +2,8 @@ import { Request, Response } from 'express';
 import { createRequire } from 'module';
 import {
   getAllCards, deleteCard, addCard, updateCard,
-} from './utils/mongo.js';
+} from './utils/mongo';
 
-const require = createRequire(import.meta.url);
 const express = require('express');
 require('dotenv').config();
 
