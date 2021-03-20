@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "preserveConstEnums": true,
-    "lib": ["ES2020"],
+    "lib": ["ES2020", "DOM"],
     "module": "CommonJS",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react"
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "**/*.test.ts"],
