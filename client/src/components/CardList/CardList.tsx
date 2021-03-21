@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import CardListItem from '../CardListItem/CardListItem';
 import axios from 'axios';
 require('dotenv').config();
 axios.defaults.baseURL = `http://localhost:3001/`;
 
+type cardType = {
+  _id: string,
+  prompt: string,
+  answer: string,
+}
 class CardList extends React.Component<any, any> {
   constructor(props:any){
     super(props);
@@ -25,8 +29,24 @@ class CardList extends React.Component<any, any> {
     catch(err){
       throw new Error(err);
     }
+  });
 
-  }); 
+  loadList = () => {
+    if(this.state.cards.length > 0){
+      return this.state.cards.map((card: cardType, index:number) => {
+        console.log("boop");
+        return ( 
+          <div>
+            <CardListItem prompt={card.prompt} answer={card.answer} />
+            <hr/>
+          </div>
+        );
+      });
+    }
+    else{
+      return <p>Loading cards...</p>
+    }
+  }
 
   componentDidMount(){
     this.loadData();
@@ -35,11 +55,8 @@ class CardList extends React.Component<any, any> {
   render() {
     return (
       <div>
-          <p>{JSON.stringify(this.state)}</p>
-          <p>Below?</p>
-          <p>{this.state.cards.id}</p>
+          {this.loadList()}
       </div>
-  
     )
   }
 }

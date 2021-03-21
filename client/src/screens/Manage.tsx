@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import CardList from '../components/CardList/CardList';
-import CardListItem from '../components/CardListItem/CardListItem';
 
 const Manage = () => {
   return (
@@ -15,13 +13,6 @@ const Manage = () => {
         <button>Quizes</button>
       </div>
       <CardList />
-      <CardListItem prompt="HELLO THERE" answer="GOODBYE THERE" />
-      <hr/>
-      <CardListItem prompt="Hi lucy :)" answer="I love you! :)" />
-      <hr/>
-      <CardListItem prompt="HELLO THERE" answer="GOODBYE THERE" />
-      <hr/>
-      <CardListItem prompt="HELLO THERE" answer="GOODBYE THERE" />
     </div>
 
 
