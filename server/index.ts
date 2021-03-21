@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import {
   getAllCards, deleteCard, addCard, updateCard,
 } from './utils/mongo';
@@ -9,6 +9,12 @@ require('dotenv').config();
 const { log } = console;
 const app = express();
 const port = process.env.SERVER_PORT;
+
+app.use((req: Request, res: Response, next: NextFunction)=> {
+  res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

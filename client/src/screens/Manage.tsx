@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CardList from '../components/CardList/CardList';
+import CardListItem from '../components/CardListItem/CardListItem';
 
 const Manage = () => {
   return (
@@ -12,29 +14,14 @@ const Manage = () => {
         <button>Cards</button>
         <button>Quizes</button>
       </div>
-      <details>
-        <summary>This is an example prompt... / this is an example answer...</summary>
-        <p>Prompt: this is an example prompt: Hello I am a prompt!</p>
-        <p>Answer: this is an example answer: Hello I am an Answer!</p>
-      </details>
+      <CardList />
+      <CardListItem prompt="HELLO THERE" answer="GOODBYE THERE" />
       <hr/>
-      <details>
-        <summary>This is an example prompt... / this is an example answer...</summary>
-        <p>Prompt: this is an example prompt: Hello I am a prompt!</p>
-        <p>Answer: this is an example answer: Hello I am an Answer!</p>
-      </details>
+      <CardListItem prompt="Hi lucy :)" answer="I love you! :)" />
       <hr/>
-      <details>
-        <summary>This is an example prompt... / this is an example answer...</summary>
-        <p>Prompt: this is an example prompt: Hello I am a prompt!</p>
-        <p>Answer: this is an example answer: Hello I am an Answer!</p>
-      </details>
+      <CardListItem prompt="HELLO THERE" answer="GOODBYE THERE" />
       <hr/>
-      <details>
-        <summary>This is an example prompt... / this is an example answer...</summary>
-        <p>Prompt: this is an example prompt: Hello I am a prompt!</p>
-        <p>Answer: this is an example answer: Hello I am an Answer!</p>
-      </details>
+      <CardListItem prompt="HELLO THERE" answer="GOODBYE THERE" />
     </div>
 
 
