@@ -37,7 +37,7 @@ class CardList extends React.Component<any, any> {
         console.log("boop");
         return ( 
           <div>
-            <CardListItem prompt={card.prompt} answer={card.answer} />
+            <CardListItem id={card._id} prompt={card.prompt} answer={card.answer} />
             <hr/>
           </div>
         );

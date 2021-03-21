@@ -4,9 +4,13 @@ import {
 } from './mongo';
 
 const dbName = process.env.DB_NAME;
-const dbUrl = process.env.DB_URL;
+const dbUrl = typeof process.env.DB_URL === 'undefined' ? '' : process.env.DB_URL;
 const collectionName = 'test';
 const { warn } = console;
+
+if (dbUrl === 'DB_URL IS NOT DEFINED') {
+  throw new Error('DB_URL IS NOT DEFINED');
+}
 
 afterEach(async () => {
   const client = await MongoClient.connect(dbUrl);
