@@ -17,14 +17,7 @@ class CardList extends React.Component<any, any> {
 
   loadData = () => axios.get('getAllCards').then(response => { 
     try{
-      console.log(response.data[0]);
-      this.setState({cards: response.data})
-      console.log(this.state);
-      console.log(this.state.cards);
-      console.log(this.state.cards[0]);
-      console.log(this.state.cards[0]._id);
-      console.log(this.state.cards[0].prompt);
-      console.log(this.state.cards[0].answer);
+      this.setState({cards: response.data});
     }
     catch(err){
       throw new Error(err);
@@ -34,10 +27,14 @@ class CardList extends React.Component<any, any> {
   loadList = () => {
     if(this.state.cards.length > 0){
       return this.state.cards.map((card: cardType, index:number) => {
-        console.log("boop");
         return ( 
-          <div>
-            <CardListItem id={card._id} prompt={card.prompt} answer={card.answer} />
+          <div key={card._id} >
+            <CardListItem 
+              id={card._id} 
+              prompt={card.prompt}
+              answer={card.answer}
+              onDelete={() => { this.loadData() }}
+            />
             <hr/>
           </div>
         );

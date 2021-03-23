@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 const navBarStyle = {
   backgroundColor: '#094d9b',

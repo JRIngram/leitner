@@ -43,6 +43,7 @@ app.get('/updateCard', async (req: Request, res: Response) => {
 app.get('/deleteCard', async (req: Request, res: Response) => {
   const cardId = <string> req.query.id;
   const queryResponse = await deleteCard(cardId);
+  log(`delete card ${cardId}`);
   res.send(queryResponse);
 });
 
