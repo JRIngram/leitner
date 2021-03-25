@@ -1,12 +1,6 @@
-// import dependencies
 import React from 'react'
-import ReactDOM from 'react-dom';
-
-// import react-testing methods
 import { render } from '@testing-library/react'
 import  userEvent from '@testing-library/user-event';
-
-// add custom jest matchers from jest-dom
 import '@testing-library/jest-dom/extend-expect'
 import { ColouredButton, ButtonType } from './ColouredButton';
 

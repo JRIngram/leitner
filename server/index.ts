@@ -10,6 +10,9 @@ const { log } = console;
 const app = express();
 const port = process.env.SERVER_PORT;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -20,9 +23,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.get('/addCard', async (req: Request, res: Response) => {
-  const prompt = <string> req.query.prompt;
-  const answer = <string> req.query.answer;
+app.post('/addCard', async (req: Request, res: Response) => {
+  const prompt = <string> req.body.prompt;
+  const answer = <string> req.body.answer;
   const queryResponse = await addCard(prompt, answer);
   res.send(queryResponse);
 });
@@ -32,11 +35,12 @@ app.get('/getAllCards', async (req: Request, res: Response) => {
   res.send(queryResponse);
 });
 
-app.get('/updateCard', async (req: Request, res: Response) => {
-  const cardId = <string> req.query.id;
-  const updatedPrompt = <string> req.query.prompt;
-  const updatedAnswer = <string> req.query.answer;
+app.post('/updateCard', async (req: Request, res: Response) => {
+  const cardId = <string> req.body.id;
+  const updatedPrompt = <string> req.body.prompt;
+  const updatedAnswer = <string> req.body.answer;
   const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
+  log(`updating ${cardId}`);
   res.send(queryResponse);
 });
 

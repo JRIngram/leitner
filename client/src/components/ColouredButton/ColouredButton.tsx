@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type OutlinedButtonProps = {
+type ColouredButtonProps = {
   text: string
   buttonType: ButtonType
   onClickAction: Function
@@ -72,7 +72,7 @@ const AddButtonClick ={
   color: '#050',
 }
 
-const ColouredButton = (props: OutlinedButtonProps) => {
+const ColouredButton = (props: ColouredButtonProps) => {
   const [actionStyle, setActionStyle] = useState('default')
 
   const renderButtonStyle = (buttonStyle: ButtonType) => {
