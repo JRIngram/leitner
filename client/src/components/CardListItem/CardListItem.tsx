@@ -51,7 +51,7 @@ const CardListItem = (props: CardListItemProps) => {
   return (
     <details data-testid={id}>
       <summary>
-        {prompt} / {answer}
+        {prompt.substring(0, 20)} / {answer.substring(0, 20)}
         <span>
           <ColouredButton onClickAction={() => { setEditMode(true) }} text="edit" buttonType={ButtonType.default} />
           <ColouredButton 

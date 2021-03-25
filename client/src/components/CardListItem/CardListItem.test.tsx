@@ -11,7 +11,7 @@ describe('CardListItem', () => {
     const deleteButtonText = 'delete';
     const editButtonText = 'edit';
     
-    const {getByTestId} = render(<CardListItem onDelete={() => { return true }} id={testId} prompt={prompt} answer={answer} />);
+    const {getByTestId} = render(<CardListItem onEdit={() => { return true}} onDelete={() => { return true }} id={testId} prompt={prompt} answer={answer} />);
     expect(getByTestId(testId)).toHaveTextContent(prompt);
     expect(getByTestId(testId)).toHaveTextContent(answer);
     expect(getByTestId(`coloured-button-delete`)).toHaveTextContent(deleteButtonText);

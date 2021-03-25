@@ -36,8 +36,8 @@ const CardForm = (props: CardFormProps) => {
   const [answer, setAnswer] = useState('');
   const [loadedExistingValues, setLoadedExistingValues] = useState(false);
 
-  const addCard = () => {
-    axios({
+  const addCard = async () => {
+    await axios({
       method: 'post',
       url: 'addCard',
       data: {
@@ -47,9 +47,9 @@ const CardForm = (props: CardFormProps) => {
     });
   }
 
-  const updateCard = () => {
+  const updateCard = async () => {
     const id = props.cardId;
-    axios({
+    await axios({
       method: 'post',
       url: 'updateCard',
       data: {
@@ -76,8 +76,8 @@ const CardForm = (props: CardFormProps) => {
           <ColouredButton 
             text="add card" 
             buttonType={ButtonType.add} 
-            onClickAction={() => { 
-              addCard();
+            onClickAction={async () => { 
+              await addCard();
               props.afterGreenButtonClick();
             }} 
           />
@@ -87,8 +87,8 @@ const CardForm = (props: CardFormProps) => {
           <ColouredButton 
             text="edit card" 
             buttonType={ButtonType.add} 
-            onClickAction={() => { 
-              updateCard();
+            onClickAction={async () => { 
+              await updateCard();
               props.afterGreenButtonClick();
             }} 
           />
