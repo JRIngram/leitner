@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
-import axios from 'axios';
+import { getAllCards } from '../../utils/axios';
 import CardListItem from '../CardListItem/CardListItem';
 import ListDivider from '../Divider/Divider';
-axios.defaults.baseURL = `http://localhost:3001/`;
+
 
 type cardType = {
   _id: string,
@@ -16,7 +16,7 @@ const ManageCards = () => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);
   const [cards, setCards] = useState<cardType[]>([]);
 
-  const loadData = useCallback(() => axios.get('getAllCards').then(response => { 
+  const loadData = useCallback(() => getAllCards().then(response => { 
     console.log("Requesting data");
     try{
       setCards(response.data);

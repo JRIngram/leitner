@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import Divider from '../Divider/Divider';
-import axios from 'axios';
-axios.defaults.baseURL = `http://localhost:3001/`;
+import { addCard, updateCard } from '../../utils/axios';
 
 enum CardFormType{
   'add',
@@ -36,30 +35,6 @@ const CardForm = (props: CardFormProps) => {
   const [answer, setAnswer] = useState('');
   const [loadedExistingValues, setLoadedExistingValues] = useState(false);
 
-  const addCard = async () => {
-    await axios({
-      method: 'post',
-      url: 'addCard',
-      data: {
-        prompt,
-        answer
-      }
-    });
-  }
-
-  const updateCard = async () => {
-    const id = props.cardId;
-    await axios({
-      method: 'post',
-      url: 'updateCard',
-      data: {
-        id,
-        prompt,
-        answer
-      }
-    });
-  }
-
   useEffect(() => {
     if(!loadedExistingValues){
       typeof props.cardPrompt !== 'undefined' ? setPrompt(props.cardPrompt) : setPrompt('');
@@ -77,7 +52,7 @@ const CardForm = (props: CardFormProps) => {
             text="add card" 
             buttonType={ButtonType.add} 
             onClickAction={async () => { 
-              await addCard();
+              await addCard(prompt, answer);
               props.afterGreenButtonClick();
             }} 
           />
@@ -87,8 +62,10 @@ const CardForm = (props: CardFormProps) => {
           <ColouredButton 
             text="edit card" 
             buttonType={ButtonType.add} 
-            onClickAction={async () => { 
-              await updateCard();
+            onClickAction={async () => {
+              if(typeof props.cardId === 'string'){
+                await updateCard(props.cardId, prompt, answer);
+              }
               props.afterGreenButtonClick();
             }} 
           />

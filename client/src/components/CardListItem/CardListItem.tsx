@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
-import axios from 'axios';
-axios.defaults.baseURL = `http://localhost:3001/`;
+import { deleteCard } from '../../utils/axios';
 
 type CardListItemProps = {
   id: string,
@@ -18,10 +17,6 @@ const CardListItem = (props: CardListItemProps) => {
   const prompt = props.prompt;
   const answer = props.answer;
   
-  const deleteCard = () => {
-    axios.get(`deleteCard?id=${id}`)
-  }
-
   const renderItemContent = () => {
     if(editMode){
       return (
@@ -56,7 +51,7 @@ const CardListItem = (props: CardListItemProps) => {
           <ColouredButton onClickAction={() => { setEditMode(true) }} text="edit" buttonType={ButtonType.default} />
           <ColouredButton 
             onClickAction={() => { 
-              deleteCard();
+              deleteCard(id);
               props.onDelete();
             }} 
             text="delete" 
