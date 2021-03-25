@@ -1,6 +1,6 @@
 import axios from 'axios';
 require('dotenv').config();
-axios.defaults.baseURL = `http://${process.env.HOST}:${process.env.PORT}/`;
+axios.defaults.baseURL = `http://localhost:3001/`;
 
 const addCard = async (prompt: string, answer: string) => {
   await axios({
