@@ -45,8 +45,8 @@ describe('deleteCard', () => {
   it('returns status 200', async () => {
     await addCard("test", "test");
     const cards = await (await getAllCards()).data;
-    const firstCardId = cards[0].id;
-    console.log(firstCardId);
+    const firstCardId = cards[0]._id;
+    expect(firstCardId).not.toBeUndefined();
     const response = await deleteCard(firstCardId);
     expect(response.status).toEqual(200);
   });
@@ -56,7 +56,8 @@ describe('updateCard', () => {
   it('returns status 200', async () => {
     await addCard("test", "test");
     const cards = await (await getAllCards()).data;
-    const firstCardId = cards[0].id;
+    const firstCardId = cards[0]._id;
+    expect(firstCardId).not.toBeUndefined();
     const response = await updateCard(firstCardId, "updatedTestPrompt", "updatedTestAnswer");
     expect(response.status).toEqual(200);
   });
