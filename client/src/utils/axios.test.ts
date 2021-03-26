@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import {addCard, getAllCards, updateCard, deleteCard} from './axios';
 
 const dbName = 'leitner';

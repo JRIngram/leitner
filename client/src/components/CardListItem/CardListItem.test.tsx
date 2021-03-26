@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 import CardListItem from './CardListItem';
 
 describe('CardListItem', () => {
-  it('Renders with correct text and html', async () => {
+  it('Renders initially with correct text and html', async () => {
     const testId = "test-id";
     const prompt = "i am a prompt";
     const answer = "i am an answer";

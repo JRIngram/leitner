@@ -48,7 +48,7 @@ const CardForm = (props: CardFormProps) => {
     switch(formType){
       case CardFormType.add:
         return (
-          <ColouredButton 
+          <ColouredButton
             text="add card" 
             buttonType={ButtonType.add} 
             onClickAction={async () => { 
@@ -74,11 +74,17 @@ const CardForm = (props: CardFormProps) => {
   }
 
   return (
-    <div>
+    <div data-testid={`card-form`}>
       <form>
         <div>
-          <label style={styles.labelStyle}>Prompt</label>
+          <label
+            style={styles.labelStyle}
+            data-testid='card-form-prompt-label'
+          >
+              Prompt
+          </label>
           <input 
+            data-testid='card-form-prompt-input'
             style={styles.inputStyle}
             type="text"
             value={prompt}
@@ -88,8 +94,14 @@ const CardForm = (props: CardFormProps) => {
           />
         </div>
         <div>
-          <label style={styles.labelStyle}>Answer</label>
+          <label 
+            style={styles.labelStyle}
+            data-testid='card-form-answer-label'
+          >
+            Answer
+          </label>
           <input 
+            data-testid='card-form-answer-input'
             style={styles.inputStyle}
             type="text" 
             value={answer}
@@ -98,7 +110,7 @@ const CardForm = (props: CardFormProps) => {
         </div>
       </form>
       {renderFormButtons()}
-      <ColouredButton text="cancel" buttonType={ButtonType.default} onClickAction={() => { props.onCancel() }} />
+      <ColouredButton data-testid={'card-form-cancel-button'} text="cancel" buttonType={ButtonType.default} onClickAction={() => { props.onCancel() }} />
       <Divider />
     </div>
   )
