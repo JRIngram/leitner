@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const dbName = typeof process.env.DB_NAME !== 'undefined' ? process.env.DB_NAME : '';
 const dbUrl = typeof process.env.DB_URL !== 'undefined' ? process.env.DB_URL : '';
-const tableName = process.env.NODE_ENV === 'test' ? 'test' : 'cards';
+const tableName = process.env.TEST_ENV === 'true' ? 'test' : 'cards';
 
 if (dbName === '' && dbUrl === '') {
   throw Error('process.env.DB_NAME or process.env.DB_URL is undefined');

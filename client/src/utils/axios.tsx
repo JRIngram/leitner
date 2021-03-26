@@ -3,7 +3,7 @@ require('dotenv').config();
 axios.defaults.baseURL = `http://localhost:3001/`;
 
 const addCard = async (prompt: string, answer: string) => {
-  await axios({
+  return await axios({
     method: 'post',
     url: 'addCard',
     data: {
@@ -13,10 +13,10 @@ const addCard = async (prompt: string, answer: string) => {
   });
 }
 
-const getAllCards = async () => axios.get('getAllCards');
+const getAllCards = async () => await axios.get('getAllCards');
 
 const updateCard = async (id: string, prompt: string, answer: string) => {
-  await axios({
+  return await axios({
     method: 'post',
     url: 'updateCard',
     data: {
@@ -27,8 +27,14 @@ const updateCard = async (id: string, prompt: string, answer: string) => {
   });
 }
 
-const deleteCard = (id: string) => {
-  axios.get(`deleteCard?id=${id}`)
+const deleteCard = async (id: string) => {
+  return await axios({
+    method: 'post',
+    url: 'deleteCard',
+    data: {
+      id,
+    }
+  });
 }
 
 export { addCard, getAllCards, updateCard, deleteCard }

@@ -21,8 +21,8 @@ const CardListItem = (props: CardListItemProps) => {
     if(editMode){
       return (
         <CardForm
-          afterGreenButtonClick={() => {
-            props.onEdit() 
+          afterGreenButtonClick={async () => {
+            await props.onEdit() 
             setEditMode(false);
           }}
           onCancel={() => setEditMode(false)}
@@ -50,8 +50,8 @@ const CardListItem = (props: CardListItemProps) => {
         <span>
           <ColouredButton onClickAction={() => { setEditMode(true) }} text="edit" buttonType={ButtonType.default} />
           <ColouredButton 
-            onClickAction={() => { 
-              deleteCard(id);
+            onClickAction={async () => { 
+              await deleteCard(id);
               props.onDelete();
             }} 
             text="delete" 
