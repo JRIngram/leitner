@@ -22,7 +22,7 @@ const dropCollection = async (collcetionName: string) => {
     warn(`${collcetionName} does not exist, so cannot be dropped.`);
   }
   await client.close();
-}
+};
 
 beforeAll(async () => {
   await dropCollection(cardCollectionName);

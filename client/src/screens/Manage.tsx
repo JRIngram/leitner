@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ManageCards from '../components/ManageCards/ManageCards';
 import Divider from '../components/Divider/Divider';
 import { ColouredButton, ButtonType } from '../components/ColouredButton/ColouredButton';
+import ManageQuizzes from '../components/ManageQuizzes/ManageQuizzes';
 
 enum ManageModes{
   'cards',
@@ -51,7 +52,7 @@ const Manage = () => {
       case ManageModes.cards:
         return <ManageCards />;
       case ManageModes.quizzes:
-        return <p>Still under development :-)</p>;  
+        return <ManageQuizzes />;  
     }
   }
 

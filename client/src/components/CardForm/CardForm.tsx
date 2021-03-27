@@ -80,6 +80,7 @@ const CardForm = (props: CardFormProps) => {
           <label
             style={styles.labelStyle}
             data-testid='card-form-prompt-label'
+            htmlFor="prompt"
           >
               Prompt
           </label>
@@ -91,12 +92,14 @@ const CardForm = (props: CardFormProps) => {
             onChange={event => { 
               setPrompt(event.target.value) 
             }}
+            id="prompt"
           />
         </div>
         <div>
           <label 
             style={styles.labelStyle}
             data-testid='card-form-answer-label'
+            htmlFor="answer"
           >
             Answer
           </label>
@@ -106,6 +109,7 @@ const CardForm = (props: CardFormProps) => {
             type="text" 
             value={answer}
             onChange={event => { setAnswer(event.target.value )}}
+            id="answer"
           />
         </div>
       </form>
