@@ -24,12 +24,13 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".ts"]
+                "extensions": [".js", ".ts", ".tsx"]
             }
         }
     },
     "rules": {
         "import/extensions": 0,
         "no-underscore-dangle": 0
-    }
+    },
+    "ignorePatterns": ["server/**/*.js"]
 }
