@@ -8,7 +8,6 @@ describe('Divider', () => {
     const {getByTestId} = render(<Divider />);
     const testId = 'divider';
     expect(getByTestId(testId)).toBeVisible();
-    // expect(getByTestId(testId));
     expect(getByTestId(testId)).toHaveStyle('borderStyle: solid');
     expect(getByTestId(testId)).toHaveStyle('borderTopWidth: 1px');
     expect(getByTestId(testId)).toHaveStyle('borderBottomWidth: 1px');
