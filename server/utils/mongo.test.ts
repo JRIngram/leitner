@@ -5,23 +5,31 @@ import {
 
 const dbName = process.env.DB_NAME;
 const dbUrl = typeof process.env.DB_URL === 'undefined' ? '' : process.env.DB_URL;
-const collectionName = 'test';
+const cardCollectionName = 'testCards';
 const { warn } = console;
 
 if (dbUrl === 'DB_URL IS NOT DEFINED') {
   throw new Error('DB_URL IS NOT DEFINED');
 }
 
-afterEach(async () => {
+const dropCollection = async (collcetionName: string) => {
   const client = await MongoClient.connect(dbUrl);
   const db = await client.db(dbName);
-  const collection = await db.collection(collectionName);
+  const collection = await db.collection(collcetionName);
   try {
     await collection.drop();
   } catch (err) {
-    warn(`${collectionName} does not exist, so cannot be dropped.`);
+    warn(`${collcetionName} does not exist, so cannot be dropped.`);
   }
   await client.close();
+}
+
+beforeAll(async () => {
+  await dropCollection(cardCollectionName);
+});
+
+afterEach(async () => {
+  await dropCollection(cardCollectionName);
 });
 
 describe('add card', () => {

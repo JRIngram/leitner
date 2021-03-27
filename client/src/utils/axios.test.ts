@@ -3,18 +3,18 @@ import {addCard, getAllCards, updateCard, deleteCard} from './axios';
 
 const dbName = 'leitner';
 const dbUrl = 'mongodb://127.0.0.1';
-const collectionName = 'test';
+const cardCollectionName = 'testCards';
 const { warn } = console;
 
 
 afterEach(async () => {
   const client = await MongoClient.connect(dbUrl);
   const db = await client.db(dbName);
-  const collection = await db.collection(collectionName);
+  const collection = await db.collection(cardCollectionName);
   try {
     await collection.drop();
   } catch (err) {
-    warn(`${collectionName} does not exist, so cannot be dropped.`);
+    warn(`${cardCollectionName} does not exist, so cannot be dropped.`);
   }
   await client.close();
 });

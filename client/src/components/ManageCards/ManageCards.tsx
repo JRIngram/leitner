@@ -3,7 +3,7 @@ import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards } from '../../utils/axios';
 import CardListItem from '../CardListItem/CardListItem';
-import ListDivider from '../Divider/Divider';
+import Divider from '../Divider/Divider';
 
 
 type cardType = {
@@ -43,6 +43,7 @@ const ManageCards = () => {
             onCancel={() => setAddCardVisisble(false)}
             formType={CardFormType.add}
           />
+          <Divider />
         </div>
       )
     }
@@ -60,7 +61,7 @@ const ManageCards = () => {
               onEdit={() => { loadData() }}
               onDelete={() => { loadData() }}
             />
-            <ListDivider />
+            <Divider />
           </div>
         );
       });
@@ -75,6 +76,7 @@ const ManageCards = () => {
     <div>
       <ColouredButton onClickAction={() => setAddCardVisisble(true)} text='add cards' buttonType={ButtonType.add} />
       {showAddCardSection()}
+      <Divider />
       <div>
         {loadList()}
       </div>
