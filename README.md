@@ -28,4 +28,11 @@ Field|Meaning|Example
 `HOST`|The host domain|`localhost` if running locally|
 `TEST_ENV`|Whether this is running on a test environment|Set to `false` if running in production, set to `true` if running on tests|
 
+## Running tests
 **Note:** It is highly important that you set TEST_ENV to `true` before running `npm run test`. This command clears the database during the test run. *If `TEST_ENV` is not set to true, your production collections will be cleared and dropped!*
+
+To run the tests:
+1. Start a server instance using `npm run start:server`.
+2. (optional) Run `npm run lint` to check the code styling.
+3. (optional) Run `npm tsc` to compile and typecheck the `.ts` files
+4. Run `npm run test` to run the unit tests.
