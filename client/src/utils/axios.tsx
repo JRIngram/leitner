@@ -37,4 +37,24 @@ const deleteCard = async (id: string) => {
   });
 }
 
-export { addCard, getAllCards, updateCard, deleteCard }
+const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]) => {
+  console.log("adding");
+  console.log(cardIds.toString());
+  try{
+    return await axios({
+      method: 'post',
+      url: 'addQuiz',
+      data: {
+        quizName,
+        quizDescription,
+        cardIds
+      }
+    })
+  }
+  catch(err){
+    console.error(err);
+  }
+
+}
+
+export { addCard, getAllCards, updateCard, deleteCard, addQuiz }

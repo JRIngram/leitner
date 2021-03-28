@@ -24,10 +24,10 @@ const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
   return (
     <div>
       <div style={styles.checkboxContainer}>
-        <label htmlFor="add card">Add Card</label>
+        <label htmlFor={`add card ${props.id}`}>Add Card</label>
         <input 
           type="checkbox"
-          id="add card"
+          id={`add card ${props.id}`}
           onChange={
             (e) => {props.handleCheckChange(e.target.checked, props.id)}
           }/>

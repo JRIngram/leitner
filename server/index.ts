@@ -53,17 +53,18 @@ app.post('/deleteCard', async (req: Request, res: Response) => {
 });
 
 type addQuizQuery = {
-  name: string,
-  description: string,
+  quizName: string,
+  quizDescription: string,
   cardIds: string[]
 }
 
-app.get('/addQuiz', async (req: Request<{}, {}, {}, addQuizQuery>, res: Response) => {
-  const { name } = req.query;
-  const { description } = req.query;
-  const { cardIds } = req.query;
-  console.log(await addQuiz(name, description, cardIds));
-  res.send(cardIds);
+app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, addQuizQuery>, res: Response) => {
+  const { quizName } = req.body;
+  const { quizDescription } = req.body;
+  const { cardIds } = req.body;
+  const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
+  log(`adding quiz with ids ${cardIds}`);
+  res.send(queryResponse);
 });
 
 app.listen(port, () => {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { addQuiz } from '../../utils/axios';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
 
@@ -37,7 +38,6 @@ const ManageQuizzes = () => {
         onClickAction={() => true}
       />
       <h2>Add a Quiz</h2>
-      <p>{checkedCards.toString()}</p>
       <form>
         <div>
           <label style={styles.labelStyle} htmlFor="quizName">Quiz Name</label>
@@ -61,7 +61,9 @@ const ManageQuizzes = () => {
       <ColouredButton
         buttonType={ButtonType.add}
         text="confirm add quiz"
-        onClickAction={() => true}
+        onClickAction={async () => { 
+          await addQuiz(quizName, quizDescription, checkedCards);
+        }} 
       />
       <ManageQuizzesCardList handleCheckChange={handleCheckChange}/>
     </div>
