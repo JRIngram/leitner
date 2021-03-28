@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import CardListItem from './CardListItem';
+import CardListItem from './ManageCardListItem';
 
 describe('CardListItem', () => {
   it('Renders initially with correct text and html', async () => {
-    const testId = "test-id";
+    const testId = "manage-card-list-item";
     const prompt = "i am a prompt";
     const answer = "i am an answer";
     const deleteButtonText = 'delete';
