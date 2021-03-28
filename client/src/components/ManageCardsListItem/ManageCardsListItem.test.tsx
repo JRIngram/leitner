@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import CardListItem from './ManageCardListItem';
+import CardListItem from './ManageCardsListItem';
 
 describe('CardListItem', () => {
   it('Renders initially with correct text and html', async () => {

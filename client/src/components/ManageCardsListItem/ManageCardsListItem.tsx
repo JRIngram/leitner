@@ -3,7 +3,7 @@ import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { deleteCard } from '../../utils/axios';
 
-type CardListItemProps = {
+type ManageCardsListItemProps = {
   id: string,
   prompt: string,
   answer: string,
@@ -11,7 +11,7 @@ type CardListItemProps = {
   onDelete: Function
 }
 
-const ManageCardListItem = (props: CardListItemProps) => {
+const ManageCardsListItem = (props: ManageCardsListItemProps) => {
   const [editMode, setEditMode] = useState(false);
   const id = props.id;
   const prompt = props.prompt;
@@ -59,4 +59,4 @@ const ManageCardListItem = (props: CardListItemProps) => {
   );
 }
 
-export default ManageCardListItem;
+export default ManageCardsListItem;

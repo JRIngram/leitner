@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards } from '../../utils/axios';
-import CardListItem from '../ManageCardListItem/ManageCardListItem';
+import CardListItem from '../ManageCardsListItem/ManageCardsListItem';
 import Divider from '../Divider/Divider';
 
 
