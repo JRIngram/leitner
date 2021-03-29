@@ -20,7 +20,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.get('/', (res: Response) => {
+app.get('/', (req:Request, res: Response) => {
   res.send('Hello World!');
 });
 

@@ -53,7 +53,7 @@ const CardForm = (props: CardFormProps) => {
             buttonType={ButtonType.add} 
             onClickAction={async () => { 
               await addCard(prompt, answer);
-              props.afterGreenButtonClick();
+              await props.afterGreenButtonClick();
             }} 
           />
         )

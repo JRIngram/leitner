@@ -1,5 +1,4 @@
-import React from 'react';
-import Divider from '../Divider/Divider';
+import React, { useState } from 'react';
 
 type  ManageQuizzesCardListItemProps = {
   id: string,
@@ -20,21 +19,32 @@ const styles = {
 
 
 const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
+  const [isChecked, setIsChecked] = useState(false);
+  const testId = `manage-quiz-card-list-item-${props.id}`
 
   return (
-    <div>
+    <div data-testid={testId}>
       <div style={styles.checkboxContainer}>
-        <label htmlFor={`add card ${props.id}`}>Add Card</label>
+        <label 
+          htmlFor={`add card ${props.id}`}
+          data-testid={`${testId}-checkbox-label`}
+        >
+          Add Card
+        </label>
         <input 
+          data-testid={`${testId}-checkbox-${isChecked}`}
           type="checkbox"
           id={`add card ${props.id}`}
           onChange={
-            (e) => {props.handleCheckChange(e.target.checked, props.id)}
+            (e) => {
+              setIsChecked(e.target.checked)
+              props.handleCheckChange(e.target.checked, props.id)
+            }
           }/>
       </div>
       <div style={styles.paragraphContainer}>
-        <p>Prompt: {props.prompt}</p>
-        <p>Answer: {props.answer}</p>
+        <p data-testid={`${testId}-prompt`}>Prompt: {props.prompt}</p>
+        <p data-testid={`${testId}-answer`}>Answer: {props.answer}</p>
       </div>
     </div>
   );
