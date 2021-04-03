@@ -9,4 +9,8 @@ module.exports = {
   coveragePathIgnorePatterns: [
     'client/src/react-app-env.d.ts',
   ],
+  roots: [
+    'server',
+    'client',
+  ],
 };

@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { addQuiz } from '../../utils/axios';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
-import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
+import AddQuiz from '../AddQuiz/AddQuiz';
+import ViewQuizzes from '../ViewQuizzes/ViewQuizzes';
+
+enum manageQuizScreens {
+  'add quiz',
+  'view quizzes'
+}
 
 const styles = { 
   labelStyle: {
@@ -17,55 +22,58 @@ const styles = {
 }
 
 const ManageQuizzes = () => {
-  const [quizName, setQuizName] = useState('');
-  const [quizDescription, setQuizDescription] = useState('');
-  const [checkedCards, setCheckedCards] = useState<string[]>([]);
+  const [manageQuizScreen, setManageQuizScreen] = useState(manageQuizScreens['add quiz'])
 
-  const handleCheckChange = (itemChecked: boolean, changedCardId: string) => {
-    if(itemChecked){
-      setCheckedCards([...checkedCards, changedCardId]);
+  const renderNavButtons = () => {
+    switch(manageQuizScreen){
+      case manageQuizScreens['view quizzes']:
+        return (
+          <div>
+            <ColouredButton
+              buttonType={ButtonType.nav}
+              text="add quiz"
+              onClickAction={() => setManageQuizScreen(manageQuizScreens['add quiz'])}
+            />
+            <ColouredButton
+              buttonType={ButtonType.navFilled}
+              text="edit quizzes"
+              onClickAction={() => null}
+            />
+          </div>
+        )
+      case manageQuizScreens['add quiz']:
+      default:
+        return (
+          <div>
+            <ColouredButton
+              buttonType={ButtonType.navFilled}
+              text="add quiz"
+              onClickAction={() => null}
+            />
+            <ColouredButton
+              buttonType={ButtonType.nav}
+              text="edit quizzes"
+              onClickAction={() => setManageQuizScreen(manageQuizScreens['view quizzes'])}
+            />
+          </div>
+        )
     }
-    else{
-      setCheckedCards(checkedCards.filter(cardIds => cardIds !== changedCardId));
+  }
+
+  const renderSubscreen = () => {
+    switch(manageQuizScreen){
+      case manageQuizScreens['view quizzes']:
+        return <ViewQuizzes />
+      case manageQuizScreens['add quiz']:
+      default:
+        return <AddQuiz />
     }
   }
 
   return (
     <div>
-      <ColouredButton
-        buttonType={ButtonType.navFilled}
-        text="add quiz"
-        onClickAction={() => true}
-      />
-      <h2>Add a Quiz</h2>
-      <form>
-        <div>
-          <label style={styles.labelStyle} htmlFor="quizName">Quiz Name</label>
-          <input 
-            style={styles.inputStyle}
-            type="text"
-            id="quizName"
-            onChange={event => { setQuizName(event.target.value) }}
-          />
-        </div>
-        <div>
-          <label style={styles.labelStyle} htmlFor="quizDescription">Description</label>
-          <input 
-            style={styles.inputStyle}
-            type="text"
-            id="quizDescription"
-            onChange={event => { setQuizDescription(event.target.value) }}
-          />
-        </div>
-      </form>
-      <ColouredButton
-        buttonType={ButtonType.add}
-        text="confirm add quiz"
-        onClickAction={async () => { 
-          await addQuiz(quizName, quizDescription, checkedCards);
-        }} 
-      />
-      <ManageQuizzesCardList handleCheckChange={handleCheckChange}/>
+      {renderNavButtons()}
+      {renderSubscreen()}
     </div>
   );
 }

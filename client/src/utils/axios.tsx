@@ -15,6 +15,16 @@ const addCard = async (prompt: string, answer: string) => {
 
 const getAllCards = async () => await axios.get('getAllCards');
 
+const getCardsByIds = async (cardIds: string[]) => {
+  let queryString = '';
+  cardIds.forEach(cardId => {
+    queryString = queryString + `id=${cardId}&`;
+  });
+  queryString = queryString.substr(0, queryString.length - 1);
+  console.log(queryString);
+  return await axios.get(`getCardsByIds?${queryString}`)
+};
+
 const updateCard = async (id: string, prompt: string, answer: string) => {
   return await axios({
     method: 'post',
@@ -38,23 +48,22 @@ const deleteCard = async (id: string) => {
 }
 
 const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]) => {
-  console.log("adding");
-  console.log(cardIds.toString());
-  try{
-    return await axios({
-      method: 'post',
-      url: 'addQuiz',
-      data: {
-        quizName,
-        quizDescription,
-        cardIds
-      }
-    })
-  }
-  catch(err){
-    console.error(err);
-  }
-
+  return await axios({
+    method: 'post',
+    url: 'addQuiz',
+    data: {
+      quizName,
+      quizDescription,
+      cardIds
+    }
+  });
 }
 
-export { addCard, getAllCards, updateCard, deleteCard, addQuiz }
+const getAllQuizzes = async () => {
+  return await axios({
+    method: 'get',
+    url: 'getAllQuizzes',
+  });
+}
+
+export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes }

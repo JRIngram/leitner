@@ -30,6 +30,16 @@ export const getAllCards = async () => {
   return queryResults;
 };
 
+export const getCardsByIds = async (ids: string[]) => {
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(cardCollection);
+  const objectIds = ids.map((id) => new ObjectId(id));
+  const queryResults = await collection.find({ _id: { $in: objectIds } }).toArray();
+  await client.close();
+  return queryResults;
+};
+
 export const updateCard = async (cardId: string, prompt: string, answer: string) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
@@ -74,4 +84,13 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
   } catch (err) {
     return `${err}`;
   }
+};
+
+export const getAllQuizzes = async () => {
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(quizCollection);
+  const queryResults = await collection.find({}).toArray();
+  await client.close();
+  return queryResults;
 };

@@ -17,8 +17,8 @@ const ManageCards = () => {
   const [cards, setCards] = useState<cardType[]>([]);
 
   const loadData = useCallback(() => getAllCards().then(response => { 
-    console.log("Requesting data");
     try{
+      console.log("Requesting data");
       setCards(response.data);
     }
     catch(err){

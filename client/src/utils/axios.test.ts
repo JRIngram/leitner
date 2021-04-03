@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import {addCard, getAllCards, updateCard, deleteCard} from './axios';
+import {addCard, getAllCards, updateCard, deleteCard, addQuiz} from './axios';
 
 const dbName = 'leitner';
 const dbUrl = 'mongodb://127.0.0.1';
@@ -62,3 +62,10 @@ describe('updateCard', () => {
     expect(response.status).toEqual(200);
   });
 });
+
+describe('addQuiz', () => {
+  it('returns status 200', async () => {
+    const response = await addQuiz('test name','test description', ['000000000000','111111111111', '222222222222']);
+    expect(response.status).toEqual(200);
+  })
+})

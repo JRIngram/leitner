@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  getAllCards, deleteCard, addCard, updateCard,
-  addQuiz,
+  getAllCards, getCardsByIds, deleteCard, addCard, updateCard,
+  addQuiz, getAllQuizzes,
 } from './utils/mongo';
 
 const express = require('express');
@@ -33,6 +33,14 @@ app.post('/addCard', async (req: Request, res: Response) => {
 
 app.get('/getAllCards', async (req: Request, res: Response) => {
   const queryResponse = await getAllCards();
+  log('retrieving all cards');
+  res.send(queryResponse);
+});
+
+app.get('/getCardsByIds', async (req: Request, res: Response) => {
+  const cardIds = <string[]> req.query.id;
+  log(`retrieving cards with ids ${cardIds.toString}`);
+  const queryResponse = await getCardsByIds(cardIds);
   res.send(queryResponse);
 });
 
@@ -58,12 +66,18 @@ type addQuizQuery = {
   cardIds: string[]
 }
 
-app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, addQuizQuery>, res: Response) => {
+app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Response) => {
   const { quizName } = req.body;
   const { quizDescription } = req.body;
   const { cardIds } = req.body;
   const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
   log(`adding quiz with ids ${cardIds}`);
+  res.send(queryResponse);
+});
+
+app.get('/getAllQuizzes', async (req: Request, res: Response) => {
+  const queryResponse = await getAllQuizzes();
+  log('retrieving all quizzes');
   res.send(queryResponse);
 });
 
