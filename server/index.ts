@@ -38,8 +38,8 @@ app.get('/getAllCards', async (req: Request, res: Response) => {
 });
 
 app.get('/getCardsByIds', async (req: Request, res: Response) => {
-  const cardIds = <string[]> req.query.id;
-  log(`retrieving cards with ids ${cardIds.toString}`);
+  const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
+  log(`retrieving cards with ids ${cardIds.toString()}`);
   const queryResponse = await getCardsByIds(cardIds);
   res.send(queryResponse);
 });

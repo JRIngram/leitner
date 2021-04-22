@@ -30,6 +30,23 @@ const AddQuiz = () => {
     }
   }
 
+  const displayAddQuizButton = () => {
+    if(checkedCards.length > 0){
+      return (
+        <ColouredButton
+          buttonType={ButtonType.add}
+          text="confirm add quiz"
+          onClickAction={async () => { 
+            await addQuiz(quizName, quizDescription, checkedCards);
+          }} 
+        />
+      )
+    }
+    else{
+      return <p>A quiz must contain at least one card</p>;
+    }
+  }
+
   return (
     <div>
       <h2>Add a Quiz</h2>
@@ -53,13 +70,7 @@ const AddQuiz = () => {
           />
         </div>
       </form>
-      <ColouredButton
-        buttonType={ButtonType.add}
-        text="confirm add quiz"
-        onClickAction={async () => { 
-          await addQuiz(quizName, quizDescription, checkedCards);
-        }} 
-      />
+      {displayAddQuizButton()}
       <ManageQuizzesCardList handleCheckChange={handleCheckChange}/>
     </div>
   );
