@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getAllQuizzes } from '../../utils/axios';
-import ViewQuizzesListItem from '../ViewQuizzesListItem/ViewQuizzesListItem'
+import {ColouredButton, ButtonType} from '../ColouredButton/ColouredButton';
+import ViewQuizzesListItem from '../ViewQuizzesListItem/ViewQuizzesListItem';
 import Divider from '../Divider/Divider';
+import { deleteQuiz } from '../../utils/axios';
 
 type quizType = { 
   _id: string,
@@ -31,6 +33,16 @@ const ViewQuizzes = () => {
       return quizzes.map((quiz: quizType) => {
         return (
           <div>
+            <ColouredButton 
+              text="Delete Quiz" 
+              buttonType={ButtonType.delete} 
+              onClickAction={
+                async () => {
+                  await deleteQuiz(quiz._id);
+                  loadData();
+                }
+              }
+            />
             <ViewQuizzesListItem 
               name={quiz.name}
               description={quiz.description} 

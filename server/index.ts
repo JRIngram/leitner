@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import {
   getAllCards, getCardsByIds, deleteCard, addCard, updateCard,
-  addQuiz, getAllQuizzes,
+  addQuiz, getAllQuizzes, deleteQuiz,
 } from './utils/mongo';
 
 const express = require('express');
@@ -78,6 +78,13 @@ app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Respons
 app.get('/getAllQuizzes', async (req: Request, res: Response) => {
   const queryResponse = await getAllQuizzes();
   log('retrieving all quizzes');
+  res.send(queryResponse);
+});
+
+app.post('/deleteQuiz', async (req: Request, res: Response) => {
+  const { quizId } = req.body;
+  const queryResponse = await deleteQuiz(quizId);
+  log(`delete quiz ${quizId}`);
   res.send(queryResponse);
 });
 

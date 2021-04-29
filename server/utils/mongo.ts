@@ -61,10 +61,10 @@ export const deleteCard = async (cardId: string) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
-  const IdToDelete = new ObjectId(cardId);
-  await collection.deleteOne({ _id: IdToDelete });
+  const idToDelete = new ObjectId(cardId);
+  await collection.deleteOne({ _id: idToDelete });
   await client.close();
-  return `Deleted card ${IdToDelete}.`;
+  return `Deleted card ${idToDelete}.`;
 };
 
 export const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]) => {
@@ -94,3 +94,13 @@ export const getAllQuizzes = async () => {
   await client.close();
   return queryResults;
 };
+
+export const deleteQuiz = async (quizId: string) => {
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(quizCollection);
+  const idToDelete = new ObjectId(quizId);
+  await collection.deleteOne({ _id: idToDelete });
+  await client.close();
+  return `Deleted card ${quizId}.`;
+}

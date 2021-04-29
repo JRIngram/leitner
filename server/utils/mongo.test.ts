@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import {
   addCard, getAllCards, updateCard, deleteCard,
-  addQuiz, getAllQuizzes,
+  addQuiz, getAllQuizzes, deleteQuiz,
 } from './mongo';
 
 const dbName = process.env.DB_NAME;
@@ -26,17 +26,24 @@ const dropCollection = async (collcetionName: string) => {
   await client.close();
 };
 
-beforeAll(async () => {
+const dropCollections = async () => {
   await dropCollection(cardCollectionName);
   await dropCollection(quizCollectionName);
+}
+
+beforeAll(async () => {
+  await dropCollections();
 });
 
 afterEach(async () => {
-  await dropCollection(cardCollectionName);
-  await dropCollection(quizCollectionName);
+  await dropCollections();
 });
 
 describe('cards', () => {
+  afterEach(async () => {
+    await dropCollections();
+  });
+
   describe('get all cards', () => {
     it('returns an empty array when no cards have been added', async () => {
       const actualCards = await getAllCards();
@@ -106,6 +113,10 @@ describe('cards', () => {
 });
 
 describe('quizzes', () => {
+  afterEach(async () => {
+    await dropCollections();
+  });
+
   describe('get all quizzes', () => {
     it('get all quizzes returns an empty array when no quizzes have been added', async () => {
       const quizzes = await getAllQuizzes();
@@ -127,7 +138,7 @@ describe('quizzes', () => {
       expect(quizzes.length).toEqual(1);
     });
 
-    it('returns an array with length 5 when 5 quiz has been added', async () => {
+    it('returns an array with length 3 when 3 quizzes have been added', async () => {
       const testQuizName = 'testQuizName';
       const testQuizDescription = 'A test quiz';
       const testPrompt = 'testPrompt';
@@ -137,12 +148,11 @@ describe('quizzes', () => {
       await addCard(`${testPrompt}3`, `${testAnswer}3`);
       const addedCards = await getAllCards();
       const cardIds = addedCards.map((card) => card._id);
-      for (let i = 0; i < 5; i += 1) {
-        // eslint-disable-next-line no-await-in-loop
-        await addQuiz(`${testQuizName}${i}`, testQuizDescription, cardIds);
-      }
+      await addQuiz(`${testQuizName}${1}`, testQuizDescription, cardIds);
+      await addQuiz(`${testQuizName}${2}`, testQuizDescription, cardIds);
+      await addQuiz(`${testQuizName}${3}`, testQuizDescription, cardIds);
       const quizzes = await getAllQuizzes();
-      expect(quizzes.length).toEqual(5);
+      expect(quizzes.length).toEqual(3);
     });
   });
 
@@ -158,5 +168,23 @@ describe('quizzes', () => {
     const cardIds = addedCards.map((card) => card._id);
     const addQuizMessage = await addQuiz(testQuizName, testQuizDescription, cardIds);
     expect(addQuizMessage).toEqual(`Created quiz with ${testQuizName}, ${testQuizDescription}, ${cardIds}`);
+  });
+
+  it('can delete a quiz', async () => {
+    const testQuizName = 'testQuizName';
+    const testQuizDescription = 'A test quiz';
+    const testPrompt = 'testPrompt';
+    const testAnswer = 'testAnswer';
+    await addCard(`${testPrompt}1`, `${testAnswer}1`);
+    await addCard(`${testPrompt}2`, `${testAnswer}2`);
+    await addCard(`${testPrompt}3`, `${testAnswer}3`);
+    const addedCards = await getAllCards();
+    const cardIds = addedCards.map((card) => card._id);
+    await addQuiz(testQuizName, testQuizDescription, cardIds);
+    let returnedQuizzes = await getAllQuizzes();
+    expect(returnedQuizzes.length).toEqual(1);
+    await deleteQuiz(returnedQuizzes[0]._id);
+    returnedQuizzes = await getAllQuizzes();
+    expect(returnedQuizzes.length).toEqual(0);
   });
 });
