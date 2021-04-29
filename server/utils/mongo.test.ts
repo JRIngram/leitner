@@ -29,7 +29,7 @@ const dropCollection = async (collcetionName: string) => {
 const dropCollections = async () => {
   await dropCollection(cardCollectionName);
   await dropCollection(quizCollectionName);
-}
+};
 
 beforeAll(async () => {
   await dropCollections();

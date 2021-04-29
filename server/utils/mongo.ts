@@ -103,4 +103,4 @@ export const deleteQuiz = async (quizId: string) => {
   await collection.deleteOne({ _id: idToDelete });
   await client.close();
   return `Deleted card ${quizId}.`;
-}
+};
