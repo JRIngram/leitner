@@ -80,7 +80,7 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
     };
     await collection.insertOne(quizData);
     await client.close();
-    return `Created quiz with ${JSON.stringify(quizData)}`;
+    return `Created quiz with ${quizName}, ${quizDescription}, ${cardObjectIds}`;
   } catch (err) {
     return `${err}`;
   }
