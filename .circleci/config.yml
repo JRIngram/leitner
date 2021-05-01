@@ -13,7 +13,7 @@ jobs:
           command: |
             apt-get install -y mongodb-org
       - run: mongod --version
-      - run: mongod start
+      - run: mongod --port $DB_PORT
   lint: 
     executor:
       name: node/default
