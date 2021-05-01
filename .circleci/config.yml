@@ -19,7 +19,9 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - run: npm i && cd client && npm i
+      - run: npm i
+      - run: ls
+      - run: cd client && npm i && ls && cd ../
       - save_cache:
           key: node-cache
           paths:
