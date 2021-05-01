@@ -8,10 +8,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-        name: MongoDB Install
-        commands: |
-          sudo apt-get install -y mongodb
+      - run: sudo apt-get install -y mongodb
   lint: 
     executor:
       name: node/default
