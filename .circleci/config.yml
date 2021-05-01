@@ -8,6 +8,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
+      - run: npm install eslint-config-react-app
       - run: npm run lint
 workflows:
   lint:
