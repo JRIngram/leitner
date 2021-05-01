@@ -2,13 +2,6 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  lint:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - run: npm install
-      - run: npm run lint
   tsc: 
     executor:
       name: node/default
@@ -22,7 +15,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm run test
+      - run: npm run start:server && npm run test
 workflows:
   test:
     jobs:
