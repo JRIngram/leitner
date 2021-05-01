@@ -15,9 +15,17 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm run tsc
+      - run: npm run tsc 
+  unit-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run start:server && npm run test
 workflows:
   test:
     jobs:
       - lint
+      - tsc
       - unit-test
