@@ -1,0 +1,45 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+jobs:
+  install:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:  
+          name: npm install
+          command: npm i && cd client && npm i && cd ../
+      - save_cache:
+          key: node-cache-{{ .Branch }}
+          paths:
+            - node_modules/
+            - client/node_modules/
+  lint: 
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - restore_cache:
+          keys: 
+            - node-cache-{{ .Branch }}
+      - run: npm run lint 
+  tsc: 
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - restore_cache:
+          keys: 
+            - node-cache-{{ .Branch }}
+      - run: npm run tsc 
+workflows:
+  test:
+    jobs:
+      - install
+      - lint:
+          requires:
+          - install
+      - tsc:
+          requires:
+          - install
