@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm install eslint-config-react-app
+      - run: npm install eslint-plugin-testing-library@latest --save-dev
       - run: npm run lint
 workflows:
   lint:
