@@ -18,8 +18,8 @@ workflows:
   lint:
     jobs:
       - install
-      - lint
-        requires:
-          - build
+      - lint:
+          requires:
+            - install
 
 
