@@ -13,6 +13,7 @@ jobs:
           command: |
             apt-get install -y mongodb-org
       - run: mongod --version
+      - run: mongod start
   lint: 
     executor:
       name: node/default
