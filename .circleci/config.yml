@@ -33,6 +33,13 @@ jobs:
 workflows:
   test:
     jobs:
-      - lint
-      - tsc
-      - unit-test
+      - build
+      - lint:
+          requires: 
+          - build
+      - tsc:
+          requires: 
+          - build
+      - unit-test:
+          requires: 
+          - build
