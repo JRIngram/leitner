@@ -14,6 +14,17 @@ jobs:
             apt-get install -y mongodb-org
       - run: mongod --version
       - run: mongod --port $DB_PORT &
+  install:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run: npm install
+      - save_cache:
+          key: node-cache
+          paths:
+            - node_modules/
+            - client/node_modules
   lint: 
     executor:
       name: node/default
@@ -25,19 +36,32 @@ jobs:
     executor:
       name: node/default
     steps:
-      - checkout
-      - run: npm install
+      - restore_cache:
+          keys: 
+            - node-cache
       - run: npm run tsc 
   unit-test:
+    docker:
+      - image: circleci/mongo:4.4.0
     executor:
       name: node/default
     steps:
       - checkout
+      - setup_remote_docker
+      - run:
+          name: MongoDB Install 
+          command: |
+            apt-get install -y mongodb-org
+      - run: mongod --version
+      - run: mongod --port $DB_PORT &
       - run: npm install
       - run: npm run start:server & npm run test
 workflows:
   test:
     jobs:
+      - install
       - lint
-      - tsc
+      - tsc:
+          requires:
+          - install
       - unit-test
