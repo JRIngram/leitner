@@ -61,8 +61,12 @@ workflows:
   test:
     jobs:
       - install
-      - lint
+      - lint:
+          requires:
+          - install
       - tsc:
           requires:
           - install
-      - unit-test
+      - unit-test:
+          requires:
+          - install
