@@ -8,10 +8,23 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm install eslint-config-react-app
-      - run: npm install eslint-plugin-testing-library@latest --save-dev
       - run: npm run lint
+  tsc: 
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run tsc 
+  unit-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run test
 workflows:
-  lint:
+  test:
     jobs:
-      - lint
+      - tsc
+      - unit-test
