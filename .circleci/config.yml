@@ -30,11 +30,11 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - run: ls
-      - run: ls client/
       - restore_cache:
           keys: 
             - node-cache
+      - run: ls
+      - run: ls client/
       - run: npm run lint 
   tsc: 
     executor:
