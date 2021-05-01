@@ -11,7 +11,7 @@ jobs:
       - run:
           name: MongoDB Install 
           command: |
-            ls -la
+            apt-get install -y mongodb
   lint: 
     executor:
       name: node/default
