@@ -29,19 +29,10 @@ jobs:
       - run: npm install
       - run: npm run tsc 
   unit-test:
-    docker:
-      - image: circleci/mongo:4.4.0
     executor:
       name: node/default
     steps:
       - checkout
-      - setup_remote_docker
-      - run:
-          name: MongoDB Install 
-          command: |
-            apt-get install -y mongodb-org
-      - run: mongod --version
-      - run: mongod --port $DB_PORT &
       - run: npm install
       - run: npm run start:server & npm run test
 workflows:
