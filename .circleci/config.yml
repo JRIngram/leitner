@@ -36,6 +36,7 @@ jobs:
     executor:
       name: node/default
     steps:
+      - checkout
       - restore_cache:
           keys: 
             - node-cache
