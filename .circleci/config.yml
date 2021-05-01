@@ -2,29 +2,29 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  build:
-    docker:
-      - image: circleci/mongo:4.4.0
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: MongoDB Install 
-          command: |
-            apt-get install -y mongodb-org
-      - run: mongod --version
-      - run: mongod --port $DB_PORT &
+  # build:
+  #   docker:
+  #     - image: circleci/mongo:4.4.0
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker
+  #     - run:
+  #         name: MongoDB Install 
+  #         command: |
+  #           apt-get install -y mongodb-org
+  #     - run: mongod --version
+  #     - run: mongod --port $DB_PORT &
   install:
     executor:
       name: node/default
     steps:
       - checkout
       - run: npm i
-      - run: cd client && npm i && ls && cd ../
+      - run: cd client && npm i && cd ../
       - run: ls
       - run: ls client/ 
       - save_cache:
-          key: node-cache
+          key: node-cache-{{ .Branch }}
           paths:
             - node_modules/
             - client/node_modules/
@@ -33,8 +33,9 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - run: npm i
-      - run: cd client && npm i && ls && cd ../
+      - restore_cache:
+          keys: 
+            - node-cache-{{ .Branch }}
       - run: ls
       - run: ls client/
       - run: npm run lint 
@@ -45,7 +46,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - node-cache
+            - node-cache-{{ .Branch }}
       - run: npm run tsc 
   unit-test:
     executor:
@@ -54,15 +55,15 @@ jobs:
       - checkout
       - restore_cache:
           keys: 
-            - node-cache
+            - node-cache-{{ .Branch }}
       - run: npm run start:server & npm run test
 workflows:
   test:
     jobs:
       - install
-      - lint
-          # requires:
-          # - install
+      - lint:
+          requires:
+          - install
       - tsc:
           requires:
           - install
