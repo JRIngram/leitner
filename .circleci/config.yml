@@ -2,27 +2,14 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  # build:
-  #   docker:
-  #     - image: circleci/mongo:4.4.0
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker
-  #     - run:
-  #         name: MongoDB Install 
-  #         command: |
-  #           apt-get install -y mongodb-org
-  #     - run: mongod --version
-  #     - run: mongod --port $DB_PORT &
   install:
     executor:
       name: node/default
     steps:
       - checkout
-      - run: npm i
-      - run: cd client && npm i && cd ../
-      - run: ls
-      - run: ls client/ 
+      - run:  
+          name: npm install
+          command: npm i && cd client && npm i && cd ../
       - save_cache:
           key: node-cache-{{ .Branch }}
           paths:
@@ -36,8 +23,6 @@ jobs:
       - restore_cache:
           keys: 
             - node-cache-{{ .Branch }}
-      - run: ls
-      - run: ls client/
       - run: npm run lint 
   tsc: 
     executor:
@@ -48,15 +33,6 @@ jobs:
           keys: 
             - node-cache-{{ .Branch }}
       - run: npm run tsc 
-  unit-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - restore_cache:
-          keys: 
-            - node-cache-{{ .Branch }}
-      - run: npm run start:server & npm run test
 workflows:
   test:
     jobs:
@@ -65,8 +41,5 @@ workflows:
           requires:
           - install
       - tsc:
-          requires:
-          - install
-      - unit-test:
           requires:
           - install
