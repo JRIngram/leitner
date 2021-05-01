@@ -20,13 +20,14 @@ jobs:
     steps:
       - checkout
       - run: npm i
-      - run: ls
       - run: cd client && npm i && ls && cd ../
+      - run: ls
+      - run: ls client/ 
       - save_cache:
           key: node-cache
           paths:
             - node_modules/
-            - client/node_modules
+            - client/node_modules/
   lint: 
     executor:
       name: node/default
