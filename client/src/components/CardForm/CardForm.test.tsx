@@ -1,8 +1,7 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { CardForm, CardFormType} from './CardForm';
-import userEvent from '@testing-library/user-event';
 
 const formTestId = 'card-form';
 const promptLabelId = 'card-form-prompt-label'

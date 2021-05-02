@@ -5,6 +5,7 @@ type  ManageQuizzesCardListItemProps = {
   prompt: string,
   answer: string,
   handleCheckChange: Function,
+  checked: boolean
 }
 
 const styles = {
@@ -19,7 +20,7 @@ const styles = {
 
 
 const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(props.checked);
   const testId = `manage-quiz-card-list-item-${props.id}`
 
   return (
@@ -35,6 +36,7 @@ const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
           data-testid={`${testId}-checkbox-${isChecked}`}
           type="checkbox"
           id={`add card ${props.id}`}
+          checked={isChecked}
           onChange={
             (e) => {
               setIsChecked(e.target.checked)

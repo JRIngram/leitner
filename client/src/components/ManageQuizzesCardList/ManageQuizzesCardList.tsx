@@ -11,6 +11,7 @@ type cardType = {
 
 type ManageQuizzesCardListProps = {
   handleCheckChange: Function
+  selectedCardIds?: string[]
 }
 
 const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
@@ -18,6 +19,7 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
 
   const loadData = useCallback(() => getAllCards().then(response => { 
     console.log("Requesting data");
+    console.log(props.selectedCardIds)
     try{
       setCards(response.data);
     }
@@ -30,6 +32,14 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
     loadData();
   }, [loadData]);
 
+  const isCardSelected = (cardId: string) => {
+    const { selectedCardIds } = props;
+    if(typeof selectedCardIds !== 'undefined'){
+      return selectedCardIds.includes(cardId);
+    }
+    return false;
+  }
+
   const loadList = () => {
     if(cards.length > 0){
       return cards.map((card: cardType, index:number) => {
@@ -40,6 +50,7 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
               prompt={card.prompt}
               answer={card.answer}
               handleCheckChange={props.handleCheckChange}
+              checked={isCardSelected(card._id)}
             />
             <Divider />
           </div>

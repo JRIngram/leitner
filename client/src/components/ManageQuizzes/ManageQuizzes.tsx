@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import AddQuiz from '../AddQuiz/AddQuiz';
-import ViewQuizzes from '../ViewQuizzes/ViewQuizzes';
+import AmendQuizzes from '../AmendQuizzes/AmendQuizzes';
 
 enum manageQuizScreens {
   'add quiz',
   'view quizzes'
-}
-
-const styles = { 
-  labelStyle: {
-    display: 'block'
-  },
-  inputStyle: {
-    fontSize: '14px',
-    borderRadius: '5px',
-    border: '1px solid',
-    padding: '10px',
-    marginBottom: '10px',
-  }
 }
 
 const ManageQuizzes = () => {
@@ -62,8 +49,8 @@ const ManageQuizzes = () => {
 
   const renderSubscreen = () => {
     switch(manageQuizScreen){
-      case manageQuizScreens['view quizzes']:
-        return <ViewQuizzes />
+      case manageQuizScreens['view quizzes']: 
+        return <AmendQuizzes />
       case manageQuizScreens['add quiz']:
       default:
         return <AddQuiz />
