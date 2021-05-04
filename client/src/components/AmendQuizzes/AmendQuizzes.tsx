@@ -28,7 +28,7 @@ const AmendQuizzes = () => {
 
   useEffect(() => {
     loadData();
-  }, [loadData]);
+  }, [loadData, editQuizId]);
 
   const renderPage = () => {
     if(editQuizId !== ''){
@@ -45,6 +45,7 @@ const AmendQuizzes = () => {
           quizDescription={quizUnderEdit.description}
           cardsInQuiz={quizUnderEdit.cardObjectIds}
           onCancel={() => {setEditQuizId('')}}
+          afterUpdate={() => {setEditQuizId('')}}
         />
       );
     }

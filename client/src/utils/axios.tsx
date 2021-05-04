@@ -66,6 +66,21 @@ const getAllQuizzes = async () => {
   });
 }
 
+const updateQuiz = async (
+  quizId: string, quizName: string, quizDescription: string, cardIds: string[],
+) => {
+  return await axios({
+    method: 'post',
+    url:'updateQuiz',
+    data: {
+      quizId,
+      quizName,
+      quizDescription,
+      cardIds
+    }
+  })
+}
+
 const deleteQuiz = async (quizId: string) => {
   return await axios({
     method: 'post',
@@ -76,4 +91,4 @@ const deleteQuiz = async (quizId: string) => {
   });
 }
 
-export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, deleteQuiz}
+export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz}

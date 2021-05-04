@@ -95,6 +95,28 @@ export const getAllQuizzes = async () => {
   return queryResults;
 };
 
+export const updateQuiz = async (
+  quizId: string, quizName: string, quizDescription: string, cardIds: string[],
+) => {
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(quizCollection);
+  const _id = new ObjectId(quizId);
+  const cardObjectIds = cardIds.map((cardId) => new ObjectId(cardId));
+  const updatedFields = {
+    _id,
+    name: quizName,
+    description: quizDescription,
+    cardObjectIds,
+  };
+  await collection.updateOne(
+    { _id },
+    { $set: updatedFields },
+  );
+  await client.close();
+  return `Quiz ${quizId} updated with ${JSON.stringify(updatedFields)}.`;
+};
+
 export const deleteQuiz = async (quizId: string) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);

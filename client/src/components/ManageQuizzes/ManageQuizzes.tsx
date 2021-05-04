@@ -23,7 +23,7 @@ const ManageQuizzes = () => {
             />
             <ColouredButton
               buttonType={ButtonType.navFilled}
-              text="edit quizzes"
+              text="amend quizzes"
               onClickAction={() => null}
             />
           </div>
@@ -39,7 +39,7 @@ const ManageQuizzes = () => {
             />
             <ColouredButton
               buttonType={ButtonType.nav}
-              text="edit quizzes"
+              text="amend quizzes"
               onClickAction={() => setManageQuizScreen(manageQuizScreens['view quizzes'])}
             />
           </div>

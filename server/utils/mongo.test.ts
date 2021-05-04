@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import {
   addCard, getAllCards, updateCard, deleteCard,
-  addQuiz, getAllQuizzes, deleteQuiz,
+  addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
 
 const dbName = process.env.DB_NAME;
@@ -186,5 +186,121 @@ describe('quizzes', () => {
     await deleteQuiz(returnedQuizzes[0]._id);
     returnedQuizzes = await getAllQuizzes();
     expect(returnedQuizzes.length).toEqual(0);
+  });
+
+  describe('update quiz', () => {
+    it('can update a quiz with all fields changing', async () => {
+      const testQuizName = 'testQuizName';
+      const testQuizDescription = 'A test quiz';
+      const testPrompt = 'testPrompt';
+      const testAnswer = 'testAnswer';
+
+      await addCard(`${testPrompt}-1`, `${testAnswer}-1`);
+      await addCard(`${testPrompt}-2`, `${testAnswer}-2`);
+      const addedCards = await getAllCards();
+      const cardIds = addedCards.map((card) => card._id);
+      await addQuiz(testQuizName, testQuizDescription, cardIds);
+      let returnedQuizzes = await getAllQuizzes();
+      const testQuiz = returnedQuizzes[0];
+      const expectedName = `${testQuiz.name}-updated`;
+      const expectedDescription = `${testQuiz.name}-updated`;
+      const expectedCardIds = [testQuiz.cardObjectIds[0]];
+      await updateQuiz(
+        testQuiz._id,
+        expectedName,
+        expectedDescription,
+        expectedCardIds,
+      );
+      returnedQuizzes = await getAllQuizzes();
+      const updatedTestQuiz = returnedQuizzes[0];
+      expect(updatedTestQuiz._id).toEqual(testQuiz._id);
+      expect(updatedTestQuiz.name).toEqual(expectedName);
+      expect(updatedTestQuiz.description).toEqual(expectedDescription);
+      expect(updatedTestQuiz.cardObjectIds).toEqual(expectedCardIds);
+    });
+
+    it('can update a quiz with only the name changing', async () => {
+      const testQuizName = 'testQuizName';
+      const testQuizDescription = 'A test quiz';
+      const testPrompt = 'testPrompt';
+      const testAnswer = 'testAnswer';
+
+      await addCard(`${testPrompt}-1`, `${testAnswer}-1`);
+      await addCard(`${testPrompt}-2`, `${testAnswer}-2`);
+      const addedCards = await getAllCards();
+      const cardIds = addedCards.map((card) => card._id);
+      await addQuiz(testQuizName, testQuizDescription, cardIds);
+      let returnedQuizzes = await getAllQuizzes();
+      const testQuiz = returnedQuizzes[0];
+      const expectedName = `${testQuiz.name}-updated`;
+      await updateQuiz(
+        testQuiz._id,
+        expectedName,
+        testQuiz.description,
+        testQuiz.cardObjectIds,
+      );
+      returnedQuizzes = await getAllQuizzes();
+      const updatedTestQuiz = returnedQuizzes[0];
+      expect(updatedTestQuiz._id).toEqual(testQuiz._id);
+      expect(updatedTestQuiz.name).toEqual(expectedName);
+      expect(updatedTestQuiz.description).toEqual(testQuiz.description);
+      expect(updatedTestQuiz.cardObjectIds).toEqual(testQuiz.cardObjectIds);
+    });
+
+    it('can update a quiz with only the description changing', async () => {
+      const testQuizName = 'testQuizName';
+      const testQuizDescription = 'A test quiz';
+      const testPrompt = 'testPrompt';
+      const testAnswer = 'testAnswer';
+
+      await addCard(`${testPrompt}-1`, `${testAnswer}-1`);
+      await addCard(`${testPrompt}-2`, `${testAnswer}-2`);
+      const addedCards = await getAllCards();
+      const cardIds = addedCards.map((card) => card._id);
+      await addQuiz(testQuizName, testQuizDescription, cardIds);
+      let returnedQuizzes = await getAllQuizzes();
+      const testQuiz = returnedQuizzes[0];
+      const expectedDescription = `${testQuiz.description}-updated`;
+      await updateQuiz(
+        testQuiz._id,
+        testQuiz.name,
+        expectedDescription,
+        testQuiz.cardObjectIds,
+      );
+      returnedQuizzes = await getAllQuizzes();
+      const updatedTestQuiz = returnedQuizzes[0];
+      expect(updatedTestQuiz._id).toEqual(testQuiz._id);
+      expect(updatedTestQuiz.name).toEqual(testQuiz.name);
+      expect(updatedTestQuiz.description).toEqual(expectedDescription);
+      expect(updatedTestQuiz.cardObjectIds).toEqual(testQuiz.cardObjectIds);
+    });
+
+    it('can update a quiz with only the cards changing', async () => {
+      const testQuizName = 'testQuizName';
+      const testQuizDescription = 'A test quiz';
+      const testPrompt = 'testPrompt';
+      const testAnswer = 'testAnswer';
+
+      await addCard(`${testPrompt}-1`, `${testAnswer}-1`);
+      await addCard(`${testPrompt}-2`, `${testAnswer}-2`);
+      const addedCards = await getAllCards();
+      const cardIds = addedCards.map((card) => card._id);
+      await addQuiz(testQuizName, testQuizDescription, cardIds);
+      let returnedQuizzes = await getAllQuizzes();
+      const testQuiz = returnedQuizzes[0];
+      const expectedCardIds = [testQuiz.cardObjectIds[0]];
+      await updateQuiz(
+        testQuiz._id,
+        testQuiz.name,
+        testQuiz.description,
+        expectedCardIds,
+      );
+      returnedQuizzes = await getAllQuizzes();
+      const updatedTestQuiz = returnedQuizzes[0];
+      expect(updatedTestQuiz._id).toEqual(testQuiz._id);
+      expect(updatedTestQuiz.name).toEqual(testQuiz.name);
+      expect(updatedTestQuiz.description).toEqual(testQuiz.description);
+      expect(updatedTestQuiz.cardObjectIds).toEqual(expectedCardIds);
+    });
   });
 });

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
+import { updateQuiz } from '../../utils/axios'
 
 const styles = { 
   labelStyle: {
@@ -21,6 +22,7 @@ type EditQuizProps = {
   quizId: string,
   cardsInQuiz: string[],
   onCancel: Function,
+  afterUpdate: Function,
 }
 
 const EditQuiz = (props: EditQuizProps) => {
@@ -37,15 +39,17 @@ const EditQuiz = (props: EditQuizProps) => {
     }
   }
 
-  const displayAddQuizButton = () => {
-    const loadAddButton = () => {
+  const displayConfirmEditQuizButton = () => {
+    const loadConfirmEditButton = () => {
+      console.log(checkedCards.length)
       if(checkedCards.length > 0){
         return (
           <ColouredButton
             buttonType={ButtonType.add}
             text="confirm edit quiz"
             onClickAction={async () => { 
-              console.log("I WILL EDIT A QUIZ")
+              await updateQuiz(props.quizId, quizName, quizDescription, checkedCards);
+              props.afterUpdate();
             }} 
           />
         )
@@ -57,7 +61,7 @@ const EditQuiz = (props: EditQuizProps) => {
     
     return (
       <div>
-        {loadAddButton()}
+        {loadConfirmEditButton()}
         <ColouredButton
           buttonType={ButtonType.default}
           text="cancel"
@@ -92,7 +96,7 @@ const EditQuiz = (props: EditQuizProps) => {
           />
         </div>
       </form>
-      {displayAddQuizButton()}
+      {displayConfirmEditQuizButton()}
       <ManageQuizzesCardList handleCheckChange={handleCheckChange} selectedCardIds={props.cardsInQuiz}/>
     </div>
   );
