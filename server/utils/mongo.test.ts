@@ -8,7 +8,6 @@ const dbName = process.env.DB_NAME;
 const dbUrl = typeof process.env.DB_URL === 'undefined' ? '' : process.env.DB_URL;
 const cardCollectionName = 'testCards';
 const quizCollectionName = 'testQuizzes';
-const { warn } = console;
 
 if (dbUrl === 'DB_URL IS NOT DEFINED') {
   throw new Error('DB_URL IS NOT DEFINED');
