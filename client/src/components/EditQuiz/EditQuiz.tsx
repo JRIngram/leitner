@@ -41,7 +41,6 @@ const EditQuiz = (props: EditQuizProps) => {
 
   const displayConfirmEditQuizButton = () => {
     const loadConfirmEditButton = () => {
-      console.log(checkedCards.length)
       if(checkedCards.length > 0){
         return (
           <ColouredButton
@@ -72,32 +71,50 @@ const EditQuiz = (props: EditQuizProps) => {
   }
 
   return (
-    <div>
-      <h2>Editing quiz {props.quizId}</h2>
+    <div data-testid={`edit-quiz-${props.quizId}`}>
+      <h2 data-testid={`edit-quiz-${props.quizId}-header`}>Editing quiz {props.quizId}</h2>
       <form>
         <div>
-          <label style={styles.labelStyle} htmlFor="quizName">Quiz Name</label>
+          <label 
+            style={styles.labelStyle} 
+            htmlFor="quizName"
+            data-testid={`edit-quiz-${props.quizId}-name-label`}
+          >
+            Quiz Name
+          </label>
           <input 
             style={styles.inputStyle}
             type="text"
             id="quizName"
             value={quizName}
             onChange={event => { setQuizName(event.target.value) }}
+            data-testid={`edit-quiz-${props.quizId}-name-input`}
           />
         </div>
         <div>
-          <label style={styles.labelStyle} htmlFor="quizDescription">Description</label>
+          <label
+            style={styles.labelStyle}
+            htmlFor="quizDescription"
+            data-testid={`edit-quiz-${props.quizId}-description-label`}
+          >
+            Description
+          </label>
           <input 
             style={styles.inputStyle}
             type="text"
             id="quizDescription"
             value={quizDescription}
             onChange={event => { setQuizDescription(event.target.value) }}
+            data-testid={`edit-quiz-${props.quizId}-description-input`}
           />
         </div>
       </form>
       {displayConfirmEditQuizButton()}
-      <ManageQuizzesCardList handleCheckChange={handleCheckChange} selectedCardIds={props.cardsInQuiz}/>
+      <ManageQuizzesCardList
+        handleCheckChange={handleCheckChange}
+        selectedCardIds={props.cardsInQuiz}
+        testId={`manage-quizzes-card-list-${props.quizId}`}
+      />
     </div>
   );
 }

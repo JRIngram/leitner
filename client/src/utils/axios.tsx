@@ -2,6 +2,12 @@ import axios from 'axios';
 require('dotenv').config();
 axios.defaults.baseURL = `http://localhost:3001/`;
 
+type cardType = {
+  _id: string,
+  prompt: string,
+  answer: string
+}
+
 const addCard = async (prompt: string, answer: string) => {
   return await axios({
     method: 'post',
@@ -13,7 +19,7 @@ const addCard = async (prompt: string, answer: string) => {
   });
 }
 
-const getAllCards = async () => await axios.get('getAllCards');
+const getAllCards = async () => await axios.get<cardType[]>('getAllCards');
 
 const getCardsByIds = async (cardIds: string[]) => {
   let queryString = '';
@@ -22,7 +28,7 @@ const getCardsByIds = async (cardIds: string[]) => {
   });
   queryString = queryString.substr(0, queryString.length - 1);
   console.log(queryString);
-  return await axios.get(`getCardsByIds?${queryString}`)
+  return await axios.get<cardType[]>(`getCardsByIds?${queryString}`)
 };
 
 const updateCard = async (id: string, prompt: string, answer: string) => {

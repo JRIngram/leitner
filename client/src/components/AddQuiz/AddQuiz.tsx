@@ -71,7 +71,10 @@ const AddQuiz = () => {
         </div>
       </form>
       {displayAddQuizButton()}
-      <ManageQuizzesCardList handleCheckChange={handleCheckChange}/>
+      <ManageQuizzesCardList 
+        handleCheckChange={handleCheckChange}
+        testId={`manage-quizzes-card-list-add-quiz`}
+      />
     </div>
   );
 }

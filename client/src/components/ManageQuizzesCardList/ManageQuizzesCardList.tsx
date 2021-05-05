@@ -12,14 +12,13 @@ type cardType = {
 type ManageQuizzesCardListProps = {
   handleCheckChange: Function
   selectedCardIds?: string[]
+  testId: string
 }
 
 const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   const [cards, setCards] = useState<cardType[]>([]);
 
   const loadData = useCallback(() => getAllCards().then(response => { 
-    console.log("Requesting data");
-    console.log(props.selectedCardIds)
     try{
       setCards(response.data);
     }
@@ -63,7 +62,7 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   }
 
   return (
-    <div>
+    <div data-testid={props.testId}>
       {loadList()}
     </div>
   )

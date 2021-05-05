@@ -20,9 +20,8 @@ const dropCollection = async (collcetionName: string) => {
   const collection = await db.collection(collcetionName);
   try {
     await collection.drop();
-  } catch (err) {
-    warn(`${collcetionName} does not exist, so cannot be dropped.`);
-  }
+  // eslint-disable-next-line no-empty
+  } catch (err) {}
   await client.close();
 };
 

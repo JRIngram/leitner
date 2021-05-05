@@ -14,7 +14,7 @@ const dropCollection = async (collcetionName: string) => {
   try {
     await collection.drop();
   } catch (err) {
-    warn(`${collcetionName} does not exist, so cannot be dropped.`);
+    
   }
   await client.close();
 };

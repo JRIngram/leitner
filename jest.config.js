@@ -4,7 +4,7 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     'client/**/*.{ts,tsx}',
-    'server/**/*.ts',
+    'server/**/*.js',
   ],
   coveragePathIgnorePatterns: [
     'client/src/react-app-env.d.ts',
