@@ -48,7 +48,7 @@ const AddQuiz = () => {
   }
 
   return (
-    <div>
+    <div data-testid='add-quiz'>
       <h2>Add a Quiz</h2>
       <form>
         <div>

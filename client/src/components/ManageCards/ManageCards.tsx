@@ -15,20 +15,26 @@ type cardType = {
 const ManageCards = () => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);
   const [cards, setCards] = useState<cardType[]>([]);
-
-  const loadData = useCallback(() => getAllCards().then(response => { 
-    try{
-      console.log("Requesting data");
-      setCards(response.data);
-    }
-    catch(err){
-      throw new Error(err);
-    }
-  }), []);
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {
+    let didCancel = false;
+
+    const loadData = () => {
+      if(isLoadingData && didCancel){
+        getAllCards().then(response => {
+          if(!didCancel){
+            setCards(response.data);
+          }
+        });
+        setIsLoadingData(false);
+      }
+    }
+
     loadData();
-  }, [loadData]);
+
+    return () => { didCancel = true };
+  }, [isLoadingData]);
 
   const showAddCardSection = () => {
     if(addCardVisisble){
@@ -38,7 +44,7 @@ const ManageCards = () => {
           <CardForm
             afterGreenButtonClick={() => {
               setAddCardVisisble(false);
-              loadData();
+              setIsLoadingData(true);
             }}
             onCancel={() => setAddCardVisisble(false)}
             formType={CardFormType.add}
@@ -58,8 +64,8 @@ const ManageCards = () => {
               id={card._id} 
               prompt={card.prompt}
               answer={card.answer}
-              onEdit={() => { loadData() }}
-              onDelete={() => { loadData() }}
+              onEdit={() => { setIsLoadingData(true) }}
+              onDelete={() => {  setIsLoadingData(true) }}
             />
             <Divider />
           </div>
