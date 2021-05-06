@@ -44,7 +44,7 @@ describe('getAllCards', () => {
 
   it('returns cards', async () => {
     await addCard("testPrompt", "testAnswer");
-    const cards = await (await getAllCards()).data;
+    const cards = await getAllCards().then(response => response.data);
     const firstCard = cards[0];
     expect(firstCard.prompt).toEqual('testPrompt');
     expect(firstCard.answer).toEqual('testAnswer');
@@ -54,7 +54,7 @@ describe('getAllCards', () => {
 describe('deleteCard', () => {
   it('returns status 200', async () => {
     await addCard("test", "test");
-    const cards = await (await getAllCards()).data;
+    const cards = await getAllCards().then(response => response.data);
     const firstCardId = cards[0]._id;
     expect(firstCardId).not.toBeUndefined();
     const response = await deleteCard(firstCardId);
@@ -65,7 +65,7 @@ describe('deleteCard', () => {
 describe('updateCard', () => {
   it('returns status 200', async () => {
     await addCard("test", "test");
-    const cards = await (await getAllCards()).data;
+    const cards = await getAllCards().then(response => response.data);
     const firstCardId = cards[0]._id;
     expect(firstCardId).not.toBeUndefined();
     const response = await updateCard(firstCardId, "updatedTestPrompt", "updatedTestAnswer");

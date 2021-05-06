@@ -59,7 +59,7 @@ const Manage = () => {
   return (
     <div>
       <h1>Manage</h1>
-      <p>Manage your cards and quizes</p>
+      <p>Manage your cards and quizzes</p>
       {renderNavButtons()}
       <Divider />
       {renderManagerSection()}

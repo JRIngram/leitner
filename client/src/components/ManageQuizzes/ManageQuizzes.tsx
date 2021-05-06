@@ -58,7 +58,7 @@ const ManageQuizzes = () => {
   }
 
   return (
-    <div>
+    <div data-testid='manage-quizzes'>
       {renderNavButtons()}
       {renderSubscreen()}
     </div>

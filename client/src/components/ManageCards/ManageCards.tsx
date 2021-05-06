@@ -73,7 +73,7 @@ const ManageCards = () => {
 
 
   return (
-    <div>
+    <div data-testid='manage-cards'>
       <ColouredButton onClickAction={() => setAddCardVisisble(true)} text='add cards' buttonType={ButtonType.add} />
       {showAddCardSection()}
       <Divider />

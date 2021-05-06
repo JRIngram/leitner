@@ -1,6 +1,6 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 import { CardForm, CardFormType} from './CardForm';
 
 const formTestId = 'card-form';
