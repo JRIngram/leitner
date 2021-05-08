@@ -73,6 +73,7 @@ const AddQuiz = () => {
       {displayAddQuizButton()}
       <ManageQuizzesCardList 
         handleCheckChange={handleCheckChange}
+        selectedCardIds={checkedCards}
         testId={`manage-quizzes-card-list-add-quiz`}
       />
     </div>

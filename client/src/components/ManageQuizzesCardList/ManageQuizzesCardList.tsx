@@ -11,14 +11,13 @@ type cardType = {
 
 type ManageQuizzesCardListProps = {
   handleCheckChange: Function
-  selectedCardIds?: string[]
+  selectedCardIds: string[]
   testId: string
 }
 
 const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   const [cards, setCards] = useState<cardType[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
-
 
 
   useEffect(() => {
@@ -47,10 +46,7 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
 
   const isCardSelected = (cardId: string) => {
     const { selectedCardIds } = props;
-    if(typeof selectedCardIds !== 'undefined'){
-      return selectedCardIds.includes(cardId);
-    }
-    return false;
+    return selectedCardIds.includes(cardId);
   }
 
   const loadList = () => {
