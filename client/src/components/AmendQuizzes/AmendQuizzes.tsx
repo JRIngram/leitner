@@ -32,26 +32,21 @@ const AmendQuizzes = () => {
 
   const renderPage = () => {
     if(editQuizId !== ''){
-      const quizUnderEdit = quizzes.filter((quiz) => {
-        if(quiz._id === editQuizId){
-          return quiz;
-        }
-      })[0];
-
-      return (
-        <EditQuiz 
-          quizId={quizUnderEdit._id}
-          quizName={quizUnderEdit.name}
-          quizDescription={quizUnderEdit.description}
-          cardsInQuiz={quizUnderEdit.cardObjectIds}
-          onCancel={() => {setEditQuizId('')}}
-          afterUpdate={() => {setEditQuizId('')}}
-        />
-      );
+      const quizUnderEdit = quizzes.find(quiz => quiz._id === editQuizId);
+      if(quizUnderEdit){
+        return (
+          <EditQuiz
+            quizId={quizUnderEdit._id}
+            quizName={quizUnderEdit.name}
+            quizDescription={quizUnderEdit.description}
+            cardsInQuiz={quizUnderEdit.cardObjectIds}
+            onCancel={() => {setEditQuizId('')}}
+            afterUpdate={() => {setEditQuizId('')}}
+          />
+        );
+      }
     }
-    else{
-      return loadQuizzes();
-    }
+    return loadQuizzes();
   }
 
   const loadQuizzes = () => {
@@ -90,23 +85,6 @@ const AmendQuizzes = () => {
     }
     return <p>No quizzes have been created...</p>
   }
-
-  // const renderEditQuiz = () => {
-
-  // }
-
-  // ON CLICKING AN EDIT QUIZ BUTTON
-  // ALL QUIZZES ON SCREEN SHOULD DISAPPEAR
-  // AND THE USER SHOULD SEE THE EDIT QUIZ SCREEN
-  // THE ID, NAME, DESCRIPTION AND CARD IDS WILL BE PASSED
-  // TO <EDITQUIZ /> WHICH IS V. SIMILAR TO <ADDQUIZ />
-  // USER CAN:
-  //  ADD QUIZ
-  //    WHICH UPDATES MONGODB
-  //  CANCEL
-  //    WHICH TAKES USERS BACK TO SCREEN BEFORE
-
-  // VIEW QUIZZES NEEDS STATE TO MANAGE EDIT MODE VS. VIEW MODE
 
   return (
     <div>

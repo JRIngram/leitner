@@ -1,11 +1,11 @@
 import { MongoClient } from 'mongodb';
 import {addCard, getAllCards, updateCard, deleteCard, addQuiz, getAllQuizzes} from './axios';
+require('dotenv').config();
 
-const dbName = 'leitner';
-const dbUrl = 'mongodb://127.0.0.1';
+const dbName = typeof process.env.DB_NAME !== 'undefined' ? process.env.DB_NAME : '';
+const dbUrl = typeof process.env.DB_URL !== 'undefined' ? process.env.DB_URL : '';
 const cardCollectionName = 'testCards';
 const quizCollectionName = 'testQuizzes';
-const { warn } = console;
 
 const dropCollection = async (collcetionName: string) => {
   const client = await MongoClient.connect(dbUrl);

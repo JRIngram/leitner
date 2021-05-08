@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards } from '../../utils/axios';
@@ -20,21 +20,21 @@ const ManageCards = () => {
   useEffect(() => {
     let didCancel = false;
 
-    const loadData = () => {
-      if(isLoadingData && didCancel){
-        getAllCards().then(response => {
+    const loadData = async () => {
+      if(isLoadingData && !didCancel){
+        await getAllCards().then(response => {
           if(!didCancel){
             setCards(response.data);
+            setIsLoadingData(false);
           }
         });
-        setIsLoadingData(false);
       }
     }
 
     loadData();
 
     return () => { didCancel = true };
-  }, [isLoadingData]);
+  }, [isLoadingData, cards]);
 
   const showAddCardSection = () => {
     if(addCardVisisble){
@@ -56,7 +56,7 @@ const ManageCards = () => {
   }
 
   const loadList = () => {
-    if(cards.length > 0){
+    if(cards.length > 0 && !isLoadingData){
       return cards.map((card: cardType, index:number) => {
         return ( 
           <div key={card._id} >
@@ -71,6 +71,9 @@ const ManageCards = () => {
           </div>
         );
       });
+    }
+    else if(!isLoadingData){
+      return <p>No cards have been created.</p>
     }
     else{
       return <p>Loading cards...</p>

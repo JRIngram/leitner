@@ -17,6 +17,7 @@ type ManageQuizzesCardListProps = {
 
 const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   const [cards, setCards] = useState<cardType[]>([]);
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
   const loadData = useCallback(() => getAllCards().then(response => { 
     try{
@@ -28,7 +29,9 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   }), []);
 
   useEffect(() => {
+    setIsLoadingData(true);
     loadData();
+    setIsLoadingData(false);
   }, [loadData]);
 
   const isCardSelected = (cardId: string) => {
@@ -40,7 +43,7 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   }
 
   const loadList = () => {
-    if(cards.length > 0){
+    if(cards.length > 0 && !isLoadingData){
       return cards.map((card: cardType, index:number) => {
         return ( 
           <div key={card._id} >
@@ -55,6 +58,9 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
           </div>
         );
       });
+    }
+    else if(!isLoadingData){
+      return <p>No cards have been created.</p>
     }
     else{
       return <p>Loading cards...</p>

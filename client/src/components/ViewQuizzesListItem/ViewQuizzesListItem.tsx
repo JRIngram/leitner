@@ -25,7 +25,7 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
     catch(err){
       throw new Error(err);
     }
-  }), []);
+  }), [props.cardIds]);
 
   useEffect(() => {
     loadData();
