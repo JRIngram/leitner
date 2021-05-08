@@ -1,32 +1,13 @@
-import { MongoClient } from 'mongodb';
 import {addCard, getAllCards, updateCard, deleteCard, addQuiz, getAllQuizzes} from './axios';
-require('dotenv').config();
+import dropAllTestCollections from '../../../testUtils/testUtils';
 
-const dbName = typeof process.env.DB_NAME !== 'undefined' ? process.env.DB_NAME : '';
-const dbUrl = typeof process.env.DB_URL !== 'undefined' ? process.env.DB_URL : '';
-const cardCollectionName = 'testCards';
-const quizCollectionName = 'testQuizzes';
-
-const dropCollection = async (collcetionName: string) => {
-  const client = await MongoClient.connect(dbUrl);
-  const db = await client.db(dbName);
-  const collection = await db.collection(collcetionName);
-  try {
-    await collection.drop();
-  } catch (err) {
-    
-  }
-  await client.close();
-};
 
 beforeAll(async () => {
-  await dropCollection(cardCollectionName);
-  await dropCollection(quizCollectionName);
+  await dropAllTestCollections();
 });
 
 afterEach(async () => {
-  await dropCollection(cardCollectionName);
-  await dropCollection(quizCollectionName);
+  await dropAllTestCollections();
 });
 
 describe('add', () => {

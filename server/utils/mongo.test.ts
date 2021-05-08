@@ -1,45 +1,20 @@
-import { MongoClient } from 'mongodb';
 import {
   addCard, getAllCards, updateCard, deleteCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
-
-const dbName = process.env.DB_NAME;
-const dbUrl = typeof process.env.DB_URL === 'undefined' ? '' : process.env.DB_URL;
-const cardCollectionName = 'testCards';
-const quizCollectionName = 'testQuizzes';
-
-if (dbUrl === 'DB_URL IS NOT DEFINED') {
-  throw new Error('DB_URL IS NOT DEFINED');
-}
-
-const dropCollection = async (collcetionName: string) => {
-  const client = await MongoClient.connect(dbUrl);
-  const db = await client.db(dbName);
-  const collection = await db.collection(collcetionName);
-  try {
-    await collection.drop();
-  // eslint-disable-next-line no-empty
-  } catch (err) {}
-  await client.close();
-};
-
-const dropCollections = async () => {
-  await dropCollection(cardCollectionName);
-  await dropCollection(quizCollectionName);
-};
+import dropAllTestCollections from '../../testUtils/testUtils';
 
 beforeAll(async () => {
-  await dropCollections();
+  await dropAllTestCollections();
 });
 
 afterEach(async () => {
-  await dropCollections();
+  await dropAllTestCollections();
 });
 
 describe('cards', () => {
   afterEach(async () => {
-    await dropCollections();
+    await dropAllTestCollections();
   });
 
   describe('get all cards', () => {
@@ -112,7 +87,7 @@ describe('cards', () => {
 
 describe('quizzes', () => {
   afterEach(async () => {
-    await dropCollections();
+    await dropAllTestCollections();
   });
 
   describe('get all quizzes', () => {
