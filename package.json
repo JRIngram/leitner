@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx jest",
     "tsc": "npx tsc",
-    "lint": "npx eslint . --ext .js,.ts,.tsx",
+    "lint": "npx eslint . --ext .js,.ts,.tsx --fix",
     "start:server": "npm run tsc && node server/index.js",
     "start:client": "cd client && npm run start",
     "prepare": "husky install"
