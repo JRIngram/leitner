@@ -43,7 +43,7 @@ const AddQuiz = () => {
       )
     }
     else{
-      return <p>A quiz must contain at least one card</p>;
+      return <p>A quiz must contain at least one card.</p>;
     }
   }
 
@@ -52,21 +52,35 @@ const AddQuiz = () => {
       <h2>Add a Quiz</h2>
       <form>
         <div>
-          <label style={styles.labelStyle} htmlFor="quizName">Quiz Name</label>
+          <label 
+            style={styles.labelStyle} 
+            htmlFor="quizName"
+            data-testid="add-quiz-name-label"
+          >
+            Quiz Name
+          </label>
           <input 
             style={styles.inputStyle}
             type="text"
             id="quizName"
             onChange={event => { setQuizName(event.target.value) }}
+            data-testid="add-quiz-name-input"
           />
         </div>
         <div>
-          <label style={styles.labelStyle} htmlFor="quizDescription">Description</label>
+          <label 
+            style={styles.labelStyle}
+            htmlFor="quizDescription"
+            data-testid="add-quiz-description-label"
+          >
+            Description
+          </label>
           <input 
             style={styles.inputStyle}
             type="text"
             id="quizDescription"
             onChange={event => { setQuizDescription(event.target.value) }}
+            data-testid="add-quiz-description-input"
           />
         </div>
       </form>
