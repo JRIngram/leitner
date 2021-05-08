@@ -1,0 +1,39 @@
+import React from 'react';
+import { render } from '@testing-library/react';
+import ManageQuizzesCardList from './ManageQuizzesCardList';
+import '@testing-library/jest-dom/extend-expect';
+import { addCard, getAllCards } from '../../utils/axios';
+import dropCollections from '../../../../testUtils/testUtils';
+
+beforeAll(async() => {await dropCollections()});
+afterEach(async() => {await dropCollections()});
+
+describe('rendering', () => {
+  it('renders correctly when no cards have been created', () => {
+    const { getByTestId, getByText } = render(
+      <ManageQuizzesCardList 
+        testId='manage-quizzes-card-list'
+        handleCheckChange={() => true}
+        selectedCardIds={[]}
+      />
+    );
+    expect(getByTestId('manage-quizzes-card-list')).toBeVisible();
+    expect(getByText('No cards have been created.')).toBeVisible();
+  });
+
+  it('renders correctly when a card has been created but not checked', async () => {
+    await addCard('testPrompt', 'testAnswer');
+    const addedCardId = await getAllCards().then(response => response.data[0]._id);
+    const itemTestId = `manage-quiz-card-list-item-${addedCardId}`;
+    const { getByTestId, findByTestId } = render(
+        <ManageQuizzesCardList 
+          testId='manage-quizzes-card-list'
+          handleCheckChange={() => true}
+          selectedCardIds={[]}
+        />
+      )
+    expect(await findByTestId('manage-quizzes-card-list')).toBeVisible();
+    expect(await findByTestId(itemTestId)).toBeVisible();
+    expect(await findByTestId(`${itemTestId}-checkbox-false`)).toBeVisible();
+  });
+});

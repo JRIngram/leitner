@@ -19,20 +19,31 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   const [cards, setCards] = useState<cardType[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
-  const loadData = useCallback(() => getAllCards().then(response => { 
-    try{
-      setCards(response.data);
-    }
-    catch(err){
-      throw new Error(err);
-    }
-  }), []);
+
 
   useEffect(() => {
-    setIsLoadingData(true);
-    loadData();
-    setIsLoadingData(false);
-  }, [loadData]);
+    let didCancel = false;
+
+    const loadData = () => {
+      getAllCards().then(response => { 
+        try{
+          if(!didCancel){
+            setCards(response.data);
+          }
+        }
+        catch(err){
+          throw new Error(err);
+        }
+      });
+      setIsLoadingData(false);
+    }
+
+    if(!didCancel){
+      loadData();
+    }
+
+    return () => { didCancel = true}
+  }, []);
 
   const isCardSelected = (cardId: string) => {
     const { selectedCardIds } = props;
