@@ -9,8 +9,8 @@ beforeAll(async() => {await dropCollections()});
 afterEach(async() => {await dropCollections()});
 
 describe('rendering', () => {
-  it('renders correctly when no cards have been created', () => {
-    const { getByTestId, getByText } = render(
+  it('renders correctly when no cards have been created', async () => {
+    const { getByTestId, findByText } = render(
       <ManageQuizzesCardList
         testId='manage-quizzes-card-list'
         handleCheckChange={() => true}
@@ -18,12 +18,13 @@ describe('rendering', () => {
       />
     );
     expect(getByTestId('manage-quizzes-card-list')).toBeVisible();
-    expect(getByText('No cards have been created.')).toBeVisible();
+    expect(await findByText('No cards have been created.')).toBeVisible();
   });
 
   it('renders correctly when a card has been created but not checked', async () => {
     await addCard('testPrompt', 'testAnswer');
-    const addedCardId = await getAllCards().then(response => response.data[0]._id);
+    const addedCards = await getAllCards();
+    const addedCardId = addedCards.data[0]._id;
     const itemTestId = `manage-quiz-card-list-item-${addedCardId}`;
     const { findByTestId } = render(
         <ManageQuizzesCardList

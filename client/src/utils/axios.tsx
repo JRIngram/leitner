@@ -19,7 +19,9 @@ const addCard = async (prompt: string, answer: string) => {
   });
 }
 
-const getAllCards = async () => await axios.get<cardType[]>('getAllCards');
+const getAllCards = async () => {
+  return await axios.get<cardType[]>('getAllCards');
+};
 
 const getCardsByIds = async (cardIds: string[]) => {
   let queryString = '';

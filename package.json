@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest",
+    "test": "npx jest -i",
     "tsc": "npx tsc",
     "lint": "npx eslint . --ext .js,.ts,.tsx --fix",
     "start:server": "npm run tsc && node server/index.js",

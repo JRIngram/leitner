@@ -22,26 +22,23 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
 
   useEffect(() => {
     let didCancel = false;
-
-    const loadData = () => {
-      getAllCards().then(response => { 
-        try{
-          if(!didCancel){
-            setCards(response.data);
-          }
-        }
-        catch(err){
-          throw new Error(err);
-        }
-      });
-      setIsLoadingData(false);
+    const loadData = async () => {
+      const response = await getAllCards();
+      const allCards = response.data;
+      if(!didCancel){
+        setIsLoadingData(true);
+      }
+      if(!didCancel){
+        setCards(allCards);
+      }
+      if(!didCancel){
+        setIsLoadingData(false);
+      }
     }
 
-    if(!didCancel){
-      loadData();
-    }
+    loadData();
 
-    return () => { didCancel = true}
+    return () => {didCancel = true}
   }, []);
 
   const isCardSelected = (cardId: string) => {
