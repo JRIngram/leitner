@@ -16,6 +16,7 @@ type quizType = {
 const AmendQuizzes = () => {
   const [quizzes, setQuizzes] = useState<quizType[]>([]);
   const [editQuizId, setEditQuizId] = useState('');
+  const [isLoadingData, setIsLoadingData] = useState(true);
   
   const loadData =  useCallback(() => getAllQuizzes().then(response => {
       try{
@@ -28,6 +29,7 @@ const AmendQuizzes = () => {
 
   useEffect(() => {
     loadData();
+    setIsLoadingData(false);
   }, [loadData, editQuizId]);
 
   const renderPage = () => {
@@ -50,10 +52,10 @@ const AmendQuizzes = () => {
   }
 
   const loadQuizzes = () => {
-    if(quizzes.length > 0){
+    if(quizzes.length > 0 && !isLoadingData){
       return quizzes.map((quiz: quizType) => {
         return (
-          <div>
+          <div data-testid={`ammend-quiz-${quiz._id}`}>
             <ColouredButton 
               text="edit quiz" 
               buttonType={ButtonType.default} 
@@ -83,7 +85,12 @@ const AmendQuizzes = () => {
         )
       });
     }
-    return <p>No quizzes have been created...</p>
+    else if(!isLoadingData){
+      return <p>No quizzes have been created.</p>
+    }
+    else{
+      return <p>Loading quizzes...</p>
+    }
   }
 
   return (

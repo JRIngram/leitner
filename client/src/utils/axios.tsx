@@ -8,6 +8,12 @@ type cardType = {
   answer: string
 }
 
+type quizType = { 
+  _id: string,
+  name: string,
+  description: string,
+  cardObjectIds: string[]
+}
 const addCard = async (prompt: string, answer: string) => {
   return await axios({
     method: 'post',
@@ -68,10 +74,7 @@ const addQuiz = async (quizName: string, quizDescription: string, cardIds: strin
 }
 
 const getAllQuizzes = async () => {
-  return await axios({
-    method: 'get',
-    url: 'getAllQuizzes',
-  });
+  return await axios.get<quizType[]>('getAllQuizzes');
 }
 
 const updateQuiz = async (
