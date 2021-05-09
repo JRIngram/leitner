@@ -22,12 +22,13 @@ const ManageCards = () => {
 
     const loadData = async () => {
       if(isLoadingData && !didCancel){
-        await getAllCards().then(response => {
-          if(!didCancel){
-            setCards(response.data);
-            setIsLoadingData(false);
-          }
-        });
+        const returnedCards = (await getAllCards()).data;
+        if(!didCancel){
+          setCards(returnedCards);
+        }
+        if(!didCancel){
+          setIsLoadingData(false);
+        }
       }
     }
 
@@ -57,9 +58,9 @@ const ManageCards = () => {
 
   const loadList = () => {
     if(cards.length > 0 && !isLoadingData){
-      return cards.map((card: cardType, index:number) => {
+      return cards.map((card: cardType) => {
         return ( 
-          <div key={card._id} >
+          <div key={card._id}>
             <CardListItem 
               id={card._id} 
               prompt={card.prompt}

@@ -44,7 +44,7 @@ const ManageCardsListItem = (props: ManageCardsListItemProps) => {
   }
 
   return (
-    <div data-testid="manage-card-list-item">
+    <div data-testid={`manage-card-list-item-${props.id}`}>
       <ColouredButton onClickAction={() => { setEditMode(true) }} text="edit" buttonType={ButtonType.default} />
       <ColouredButton 
         onClickAction={async () => { 
