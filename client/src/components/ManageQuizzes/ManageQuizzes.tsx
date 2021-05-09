@@ -5,7 +5,7 @@ import AmendQuizzes from '../AmendQuizzes/AmendQuizzes';
 
 enum manageQuizScreens {
   'add quiz',
-  'view quizzes'
+  'amend quizzes'
 }
 
 const ManageQuizzes = () => {
@@ -13,7 +13,7 @@ const ManageQuizzes = () => {
 
   const renderNavButtons = () => {
     switch(manageQuizScreen){
-      case manageQuizScreens['view quizzes']:
+      case manageQuizScreens['amend quizzes']:
         return (
           <div>
             <ColouredButton
@@ -40,7 +40,7 @@ const ManageQuizzes = () => {
             <ColouredButton
               buttonType={ButtonType.nav}
               text="amend quizzes"
-              onClickAction={() => setManageQuizScreen(manageQuizScreens['view quizzes'])}
+              onClickAction={() => setManageQuizScreen(manageQuizScreens['amend quizzes'])}
             />
           </div>
         )
@@ -49,7 +49,7 @@ const ManageQuizzes = () => {
 
   const renderSubscreen = () => {
     switch(manageQuizScreen){
-      case manageQuizScreens['view quizzes']: 
+      case manageQuizScreens['amend quizzes']: 
         return <AmendQuizzes />
       case manageQuizScreens['add quiz']:
       default:

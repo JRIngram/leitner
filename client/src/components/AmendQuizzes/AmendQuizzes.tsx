@@ -95,7 +95,7 @@ const AmendQuizzes = () => {
   }
 
   return (
-    <div>
+    <div data-testid='amend-quizzes'>
       {renderPage()}
     </div>
   )
