@@ -1,5 +1,5 @@
 import {
-  addCard, getAllCards, updateCard, deleteCard,
+  addCard, getAllCards, getCardsByIds, updateCard, deleteCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
 import dropAllTestCollections from '../../testUtils/testUtils';
@@ -46,6 +46,20 @@ describe('cards', () => {
       const firstCard = cards[0];
       expect(firstCard.prompt).toEqual(testPrompt);
       expect(firstCard.answer).toEqual(testAnswer);
+    });
+  });
+
+  describe('get card by ids', () => {
+    it('can get cards by ids', async () => {
+      const testPrompt = 'testPrompt';
+      const testAnswer = 'testAnswer';
+      await addCard(testPrompt, testAnswer);
+      await addCard(testPrompt, testAnswer);
+      await addCard(testPrompt, testAnswer);
+      const returnedCards = await getAllCards();
+      const cardIds = returnedCards.map((card) => card._id);
+      const returnedCardByIds = await getCardsByIds(cardIds);
+      expect(returnedCardByIds.length).toEqual(3);
     });
   });
 

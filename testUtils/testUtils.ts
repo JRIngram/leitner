@@ -1,5 +1,7 @@
 import { MongoClient } from 'mongodb';
 
+require('dotenv').config();
+
 const dbName = process.env.DB_NAME;
 const dbUrl = typeof process.env.DB_URL === 'undefined' ? '' : process.env.DB_URL;
 const cardCollectionName = 'testCards';
