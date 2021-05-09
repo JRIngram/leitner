@@ -75,7 +75,8 @@ const AmendQuizzes = () => {
                 }
               }
             />
-            <ViewQuizzesListItem 
+            <ViewQuizzesListItem
+              id={quiz._id}
               name={quiz.name}
               description={quiz.description} 
               cardIds={quiz.cardObjectIds}

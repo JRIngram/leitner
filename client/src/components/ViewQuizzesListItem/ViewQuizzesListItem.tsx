@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { getCardsByIds } from '../../utils/axios';
 
 type viewQuizzesListItemProps = {
+  id: string
   name: string
   description: string
   cardIds: string[]
@@ -16,36 +17,36 @@ type cardType = {
 const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
   const [cards, setCards] = useState<cardType[]>([]);
 
-  const loadData = useCallback(() => getCardsByIds(props.cardIds).then(response => {
-    console.log("Grabbing cards by ids");
-    try{
-      console.log("Requesting data");
-      setCards(response.data);
-    }
-    catch(err){
-      throw new Error(err);
-    }
-  }), [props.cardIds]);
-
   useEffect(() => {
+    let didCancel = false;
+
+    const loadData = async () => {
+      const returnedCards = await getCardsByIds(props.cardIds);
+      if(!didCancel){
+        setCards(returnedCards.data);
+      }
+    }
+
     loadData();
-  }, [loadData]);
+
+    return () => { didCancel = true }
+  }, [props.cardIds]);
 
   const loadCards = () => {
     if(cards.length > 0){
       return cards.map((card: cardType) => {
         return (
-          <li>{card.prompt}</li>
+          <li key={card._id}>{card.prompt}</li>
         )
       })
     }
   }
 
   return (
-    <div>
+    <div data-testid={`view-quizzes-list-item-${props.id}`}>
       <p>Name: {props.name}</p>
       <p>Description: {props.description}</p>
-      <ul>
+      <ul data-testid={`view-quizzes-list-item-${props.id}-card-list`}>
         {loadCards()}
       </ul>
     </div>
