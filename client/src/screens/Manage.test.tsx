@@ -21,15 +21,15 @@ describe('Manage', () => {
   });
 
   it('renders correctly when displaying Manage Quizzes', async () => {
-    const { getByText, queryByTestId, getByTestId, findByTestId } = render(<Manage />);
+    const { getByText, queryByTestId, findByTestId } = render(<Manage />);
     const header = getByText('Manage');
     const subheading = getByText('Manage your cards and quizzes');
     const manageCardsButton = getByText('Manage Cards');
     const manageQuizzesButton = getByText('Manage Quizzes');
     fireEvent.click(manageQuizzesButton);
     await waitFor(() => {
-      expect(getByTestId('add-quiz')).toBeVisible();
-    })
+      expect(getByText('add quiz')).toBeVisible();
+    });
     const manageQuizzesScreen = await findByTestId('manage-quizzes');
     const manageCardsScreen = queryByTestId('manage-cards');
     expect(header).toBeVisible();
@@ -38,5 +38,31 @@ describe('Manage', () => {
     expect(manageQuizzesButton).toBeVisible();
     expect(manageCardsScreen).toBeNull();
     expect(manageQuizzesScreen).toBeVisible();
+  });
+
+  it('renders correctly when displaying Manage Quizzes and then displaying Manage Cards', async () => {
+    const { getByText, findByText } = render(<Manage />);
+    const manageCardsButton = getByText('Manage Cards');
+    const manageQuizzesButton = getByText('Manage Quizzes');
+    fireEvent.click(manageQuizzesButton);
+    expect(await findByText('add quiz')).toBeVisible();
+    fireEvent.click(manageCardsButton);
+    expect(await findByText('add cards')).toBeVisible();
+  });
+
+  it('stays in manage cards mode when clicking manage card button', async () => {
+    const { getByText, findByText } = render(<Manage />);
+    const manageCardsButton = getByText('Manage Cards');
+    fireEvent.click(manageCardsButton);
+    expect(await findByText('add cards')).toBeVisible();
+  });
+
+  it('stays in manage quizzes mode when clicking manage quizzes button', async () => {
+    const { getByText, findByText } = render(<Manage />);
+    const manageQuizzesButton = getByText('Manage Quizzes');
+    fireEvent.click(manageQuizzesButton);
+    expect(await findByText('add quiz')).toBeVisible();
+    fireEvent.click(manageQuizzesButton);
+    expect(await findByText('add quiz')).toBeVisible();
   });
 });
