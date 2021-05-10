@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import userEvent from '@testing-library/user-event';
 import AddQuiz from './AddQuiz';
 import { addCard, getAllCards } from '../../utils/axios';
 import dropCollections from '../../../../testUtils/testUtils';
@@ -49,3 +50,17 @@ describe('Checkboxes', () => {
     expect(await findByText('A quiz must contain at least one card.')).toBeVisible();
   });
 });
+
+describe('Adding a quiz', () => {
+  it('allows the user to add a quiz', async () => {
+    await addCard("testPrompt", "testAnswer");
+    const returnedCards = await getAllCards().then(response => response.data);
+    const firstCardId = returnedCards[0]._id;
+    const { findByTestId, getByTestId, findByText } = render(<AddQuiz />);
+    fireEvent.click(await findByTestId(`manage-quiz-card-list-item-${firstCardId}-checkbox-false`));
+    userEvent.type(getByTestId('add-quiz-name-input'), 'testQuizName');
+    userEvent.type(getByTestId('add-quiz-description-input'), 'testQuizDescription');
+    fireEvent.click(await findByText('confirm add quiz'));
+    expect(await findByText('Quiz successfully added.')).toBeVisible();
+  });
+})

@@ -20,6 +20,7 @@ const AddQuiz = () => {
   const [quizName, setQuizName] = useState('');
   const [quizDescription, setQuizDescription] = useState('');
   const [checkedCards, setCheckedCards] = useState<string[]>([]);
+  const [addResponseStatus, setAddResponseStatus] = useState(0);
 
   const handleCheckChange = (itemChecked: boolean, changedCardId: string) => {
     if(itemChecked){
@@ -36,14 +37,25 @@ const AddQuiz = () => {
         <ColouredButton
           buttonType={ButtonType.add}
           text="confirm add quiz"
-          onClickAction={async () => { 
-            await addQuiz(quizName, quizDescription, checkedCards);
+          onClickAction={async () => {
+            setAddResponseStatus(0);
+            const response = await addQuiz(quizName, quizDescription, checkedCards);
+            setAddResponseStatus(response.status);
           }} 
         />
       )
     }
     else{
       return <p>A quiz must contain at least one card.</p>;
+    }
+  }
+
+  const displayResponseInfo = () => {
+    if(addResponseStatus === 200){
+      return <p>Quiz successfully added.</p>
+    }
+    else if(addResponseStatus !== 0){
+      return <p>Error adding quiz.</p>
     }
   }
 
@@ -84,6 +96,7 @@ const AddQuiz = () => {
           />
         </div>
       </form>
+      {displayResponseInfo()}
       {displayAddQuizButton()}
       <ManageQuizzesCardList 
         handleCheckChange={handleCheckChange}
