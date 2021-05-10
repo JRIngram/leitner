@@ -55,7 +55,7 @@ const AmendQuizzes = () => {
     if(quizzes.length > 0 && !isLoadingData){
       return quizzes.map((quiz: quizType) => {
         return (
-          <div data-testid={`ammend-quiz-${quiz._id}`}>
+          <div data-testid={`ammend-quiz-${quiz._id}`} key={quiz._id}>
             <ColouredButton 
               text="edit quiz" 
               buttonType={ButtonType.default} 

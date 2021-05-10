@@ -35,7 +35,6 @@ const getCardsByIds = async (cardIds: string[]) => {
     queryString = queryString + `id=${cardId}&`;
   });
   queryString = queryString.substr(0, queryString.length - 1);
-  console.log(queryString);
   return await axios.get<cardType[]>(`getCardsByIds?${queryString}`)
 };
 
