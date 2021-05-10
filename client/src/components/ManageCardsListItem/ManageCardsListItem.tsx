@@ -3,7 +3,7 @@ import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { deleteCard } from '../../utils/axios';
 
-type CardListItemProps = {
+type ManageCardsListItemProps = {
   id: string,
   prompt: string,
   answer: string,
@@ -11,7 +11,7 @@ type CardListItemProps = {
   onDelete: Function
 }
 
-const CardListItem = (props: CardListItemProps) => {
+const ManageCardsListItem = (props: ManageCardsListItemProps) => {
   const [editMode, setEditMode] = useState(false);
   const id = props.id;
   const prompt = props.prompt;
@@ -44,24 +44,19 @@ const CardListItem = (props: CardListItemProps) => {
   }
 
   return (
-    <details data-testid={id}>
-      <summary>
-        {prompt.substring(0, 20)} / {answer.substring(0, 20)}
-        <span>
-          <ColouredButton onClickAction={() => { setEditMode(true) }} text="edit" buttonType={ButtonType.default} />
-          <ColouredButton 
-            onClickAction={async () => { 
-              await deleteCard(id);
-              props.onDelete();
-            }} 
-            text="delete" 
-            buttonType={ButtonType.delete} 
-          />
-        </span>
-      </summary>
+    <div data-testid={`manage-card-list-item-${props.id}`}>
+      <ColouredButton onClickAction={() => { setEditMode(true) }} text="edit" buttonType={ButtonType.default} />
+      <ColouredButton 
+        onClickAction={async () => { 
+          await deleteCard(id);
+          props.onDelete();
+        }} 
+        text="delete" 
+        buttonType={ButtonType.delete} 
+      />
       {renderItemContent()}
-    </details>
+    </div>
   );
 }
 
-export default CardListItem
+export default ManageCardsListItem;

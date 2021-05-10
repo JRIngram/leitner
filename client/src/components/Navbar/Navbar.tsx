@@ -25,7 +25,7 @@ const Navbar = () => {
     <nav style={navBarStyle}>
       <p style={titleStyle}>Leitner</p>
       {items.map((itemName, index) => {
-        return <a key={index} href="" style={itemStyle}>{itemName}</a>
+        return <a href="" style={itemStyle} key={index}>{itemName}</a>
       })}
     </nav>
   )

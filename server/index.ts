@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import {
-  getAllCards, deleteCard, addCard, updateCard,
+  getAllCards, getCardsByIds, deleteCard, addCard, updateCard,
+  addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './utils/mongo';
 
 const express = require('express');
@@ -19,7 +20,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req:Request, res: Response) => {
   res.send('Hello World!');
 });
 
@@ -32,6 +33,14 @@ app.post('/addCard', async (req: Request, res: Response) => {
 
 app.get('/getAllCards', async (req: Request, res: Response) => {
   const queryResponse = await getAllCards();
+  log('retrieving all cards');
+  res.send(queryResponse);
+});
+
+app.get('/getCardsByIds', async (req: Request, res: Response) => {
+  const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
+  log(`retrieving cards with ids ${cardIds.toString()}`);
+  const queryResponse = await getCardsByIds(cardIds);
   res.send(queryResponse);
 });
 
@@ -48,6 +57,51 @@ app.post('/deleteCard', async (req: Request, res: Response) => {
   const cardId = <string> req.body.id;
   const queryResponse = await deleteCard(cardId);
   log(`delete card ${cardId}`);
+  res.send(queryResponse);
+});
+
+type addQuizQuery = {
+  quizName: string,
+  quizDescription: string,
+  cardIds: string[]
+}
+
+app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Response) => {
+  const { quizName } = req.body;
+  const { quizDescription } = req.body;
+  const { cardIds } = req.body;
+  const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
+  log(`adding quiz with ids ${cardIds}`);
+  res.send(queryResponse);
+});
+
+app.get('/getAllQuizzes', async (req: Request, res: Response) => {
+  const queryResponse = await getAllQuizzes();
+  log('retrieving all quizzes');
+  res.send(queryResponse);
+});
+
+type updateQuizQuery = {
+  quizId: string,
+  quizName: string,
+  quizDescription: string,
+  cardIds: string[]
+}
+
+app.post('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
+  const { quizId } = req.body;
+  const { quizName } = req.body;
+  const { quizDescription } = req.body;
+  const { cardIds } = req.body;
+  const queryResponse = await updateQuiz(quizId, quizName, quizDescription, cardIds);
+  log(`updating quiz ${quizId} with ids ${cardIds}`);
+  res.send(queryResponse);
+});
+
+app.post('/deleteQuiz', async (req: Request, res: Response) => {
+  const { quizId } = req.body;
+  const queryResponse = await deleteQuiz(quizId);
+  log(`delete quiz ${quizId}`);
   res.send(queryResponse);
 });
 

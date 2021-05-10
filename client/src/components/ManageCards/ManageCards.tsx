@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards } from '../../utils/axios';
-import CardListItem from '../CardListItem/CardListItem';
-import ListDivider from '../Divider/Divider';
+import CardListItem from '../ManageCardsListItem/ManageCardsListItem';
+import Divider from '../Divider/Divider';
 
 
 type cardType = {
@@ -15,20 +15,27 @@ type cardType = {
 const ManageCards = () => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);
   const [cards, setCards] = useState<cardType[]>([]);
-
-  const loadData = useCallback(() => getAllCards().then(response => { 
-    console.log("Requesting data");
-    try{
-      setCards(response.data);
-    }
-    catch(err){
-      throw new Error(err);
-    }
-  }), []);
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {
+    let didCancel = false;
+
+    const loadData = async () => {
+      if(isLoadingData && !didCancel){
+        const returnedCards = (await getAllCards()).data;
+        if(!didCancel){
+          setCards(returnedCards);
+        }
+        if(!didCancel){
+          setIsLoadingData(false);
+        }
+      }
+    }
+
     loadData();
-  }, [loadData]);
+
+    return () => { didCancel = true };
+  }, [isLoadingData, cards]);
 
   const showAddCardSection = () => {
     if(addCardVisisble){
@@ -38,32 +45,36 @@ const ManageCards = () => {
           <CardForm
             afterGreenButtonClick={() => {
               setAddCardVisisble(false);
-              loadData();
+              setIsLoadingData(true);
             }}
             onCancel={() => setAddCardVisisble(false)}
             formType={CardFormType.add}
           />
+          <Divider />
         </div>
       )
     }
   }
 
   const loadList = () => {
-    if(cards.length > 0){
-      return cards.map((card: cardType, index:number) => {
+    if(cards.length > 0 && !isLoadingData){
+      return cards.map((card: cardType) => {
         return ( 
-          <div key={card._id} >
+          <div key={card._id}>
             <CardListItem 
               id={card._id} 
               prompt={card.prompt}
               answer={card.answer}
-              onEdit={() => { loadData() }}
-              onDelete={() => { loadData() }}
+              onEdit={() => { setIsLoadingData(true) }}
+              onDelete={() => {  setIsLoadingData(true) }}
             />
-            <ListDivider />
+            <Divider />
           </div>
         );
       });
+    }
+    else if(!isLoadingData){
+      return <p>No cards have been created.</p>
     }
     else{
       return <p>Loading cards...</p>
@@ -72,9 +83,10 @@ const ManageCards = () => {
 
 
   return (
-    <div>
+    <div data-testid='manage-cards'>
       <ColouredButton onClickAction={() => setAddCardVisisble(true)} text='add cards' buttonType={ButtonType.add} />
       {showAddCardSection()}
+      <Divider />
       <div>
         {loadList()}
       </div>
