@@ -7,7 +7,7 @@ import {
 const express = require('express');
 require('dotenv').config();
 
-const { log } = console;
+const { log, error } = console;
 const app = express();
 const port = process.env.SERVER_PORT;
 
@@ -21,43 +21,64 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.get('/', (req:Request, res: Response) => {
-  res.send('Hello World!');
+  res.send('Leitner DB');
 });
 
 app.post('/addCard', async (req: Request, res: Response) => {
-  const prompt = <string> req.body.prompt;
-  const answer = <string> req.body.answer;
-  const queryResponse = await addCard(prompt, answer);
-  res.send(queryResponse);
+  try {
+    const prompt = <string> req.body.prompt;
+    const answer = <string> req.body.answer;
+    const queryResponse = await addCard(prompt, answer);
+    res.send(queryResponse);
+  } catch {
+    res.sendStatus(500);
+  }
 });
 
 app.get('/getAllCards', async (req: Request, res: Response) => {
-  const queryResponse = await getAllCards();
-  log('retrieving all cards');
-  res.send(queryResponse);
+  try {
+    const queryResponse = await getAllCards();
+    log('retrieving all cards');
+    res.send(queryResponse);
+  } catch {
+    res.sendStatus(500);
+  }
 });
 
 app.get('/getCardsByIds', async (req: Request, res: Response) => {
-  const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
-  log(`retrieving cards with ids ${cardIds.toString()}`);
-  const queryResponse = await getCardsByIds(cardIds);
-  res.send(queryResponse);
+  try {
+    const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
+    log(`retrieving cards with ids ${cardIds.toString()}`);
+    const queryResponse = await getCardsByIds(cardIds);
+    res.send(queryResponse);
+  } catch (err) {
+    error(err);
+    res.sendStatus(500);
+  }
 });
 
 app.post('/updateCard', async (req: Request, res: Response) => {
-  const cardId = <string> req.body.id;
-  const updatedPrompt = <string> req.body.prompt;
-  const updatedAnswer = <string> req.body.answer;
-  const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
-  log(`updating ${cardId}`);
-  res.send(queryResponse);
+  try {
+    const cardId = <string> req.body.id;
+    const updatedPrompt = <string> req.body.prompt;
+    const updatedAnswer = <string> req.body.answer;
+    const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
+    log(`updating ${cardId}`);
+    res.send(queryResponse);
+  } catch {
+    res.sendStatus(500);
+  }
 });
 
 app.post('/deleteCard', async (req: Request, res: Response) => {
-  const cardId = <string> req.body.id;
-  const queryResponse = await deleteCard(cardId);
-  log(`delete card ${cardId}`);
-  res.send(queryResponse);
+  try {
+    const cardId = <string> req.body.id;
+    const queryResponse = await deleteCard(cardId);
+    log(`delete card ${cardId}`);
+    res.send(queryResponse);
+  } catch {
+    res.sendStatus(500);
+  }
 });
 
 type addQuizQuery = {
@@ -67,18 +88,26 @@ type addQuizQuery = {
 }
 
 app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Response) => {
-  const { quizName } = req.body;
-  const { quizDescription } = req.body;
-  const { cardIds } = req.body;
-  const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
-  log(`adding quiz with ids ${cardIds}`);
-  res.send(queryResponse);
+  try {
+    const { quizName } = req.body;
+    const { quizDescription } = req.body;
+    const { cardIds } = req.body;
+    const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
+    log(`adding quiz with ids ${cardIds}`);
+    res.send(queryResponse);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
 app.get('/getAllQuizzes', async (req: Request, res: Response) => {
-  const queryResponse = await getAllQuizzes();
-  log('retrieving all quizzes');
-  res.send(queryResponse);
+  try {
+    const queryResponse = await getAllQuizzes();
+    log('retrieving all quizzes');
+    res.send(queryResponse);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
 type updateQuizQuery = {
@@ -89,20 +118,28 @@ type updateQuizQuery = {
 }
 
 app.post('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
-  const { quizId } = req.body;
-  const { quizName } = req.body;
-  const { quizDescription } = req.body;
-  const { cardIds } = req.body;
-  const queryResponse = await updateQuiz(quizId, quizName, quizDescription, cardIds);
-  log(`updating quiz ${quizId} with ids ${cardIds}`);
-  res.send(queryResponse);
+  try {
+    const { quizId } = req.body;
+    const { quizName } = req.body;
+    const { quizDescription } = req.body;
+    const { cardIds } = req.body;
+    const queryResponse = await updateQuiz(quizId, quizName, quizDescription, cardIds);
+    log(`updating quiz ${quizId} with ids ${cardIds}`);
+    res.send(queryResponse);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
 app.post('/deleteQuiz', async (req: Request, res: Response) => {
-  const { quizId } = req.body;
-  const queryResponse = await deleteQuiz(quizId);
-  log(`delete quiz ${quizId}`);
-  res.send(queryResponse);
+  try {
+    const { quizId } = req.body;
+    const queryResponse = await deleteQuiz(quizId);
+    log(`delete quiz ${quizId}`);
+    res.send(queryResponse);
+  } catch (err) {
+    res.sendStatus(500);
+  }
 });
 
 app.listen(port, () => {
