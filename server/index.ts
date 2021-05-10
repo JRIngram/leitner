@@ -30,7 +30,8 @@ app.post('/addCard', async (req: Request, res: Response) => {
     const answer = <string> req.body.answer;
     const queryResponse = await addCard(prompt, answer);
     res.send(queryResponse);
-  } catch {
+  } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -40,7 +41,8 @@ app.get('/getAllCards', async (req: Request, res: Response) => {
     const queryResponse = await getAllCards();
     log('retrieving all cards');
     res.send(queryResponse);
-  } catch {
+  } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -65,7 +67,8 @@ app.post('/updateCard', async (req: Request, res: Response) => {
     const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
     log(`updating ${cardId}`);
     res.send(queryResponse);
-  } catch {
+  } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -76,7 +79,8 @@ app.post('/deleteCard', async (req: Request, res: Response) => {
     const queryResponse = await deleteCard(cardId);
     log(`delete card ${cardId}`);
     res.send(queryResponse);
-  } catch {
+  } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -96,6 +100,7 @@ app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Respons
     log(`adding quiz with ids ${cardIds}`);
     res.send(queryResponse);
   } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -106,6 +111,7 @@ app.get('/getAllQuizzes', async (req: Request, res: Response) => {
     log('retrieving all quizzes');
     res.send(queryResponse);
   } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -127,6 +133,7 @@ app.post('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: R
     log(`updating quiz ${quizId} with ids ${cardIds}`);
     res.send(queryResponse);
   } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
@@ -138,6 +145,7 @@ app.post('/deleteQuiz', async (req: Request, res: Response) => {
     log(`delete quiz ${quizId}`);
     res.send(queryResponse);
   } catch (err) {
+    error(err);
     res.sendStatus(500);
   }
 });
