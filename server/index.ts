@@ -15,6 +15,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
+  const date = new Date();
+  const fullTime = date.toUTCString();
+  log(`{${fullTime}} - ${req.method} - ${req.originalUrl}`);
+  next();
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
@@ -39,7 +46,6 @@ app.post('/addCard', async (req: Request, res: Response) => {
 app.get('/getAllCards', async (req: Request, res: Response) => {
   try {
     const queryResponse = await getAllCards();
-    log('retrieving all cards');
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -50,7 +56,6 @@ app.get('/getAllCards', async (req: Request, res: Response) => {
 app.get('/getCardsByIds', async (req: Request, res: Response) => {
   try {
     const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
-    log(`retrieving cards with ids ${cardIds.toString()}`);
     const queryResponse = await getCardsByIds(cardIds);
     res.send(queryResponse);
   } catch (err) {
@@ -65,7 +70,6 @@ app.post('/updateCard', async (req: Request, res: Response) => {
     const updatedPrompt = <string> req.body.prompt;
     const updatedAnswer = <string> req.body.answer;
     const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
-    log(`updating ${cardId}`);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -77,7 +81,6 @@ app.post('/deleteCard', async (req: Request, res: Response) => {
   try {
     const cardId = <string> req.body.id;
     const queryResponse = await deleteCard(cardId);
-    log(`delete card ${cardId}`);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -97,7 +100,6 @@ app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Respons
     const { quizDescription } = req.body;
     const { cardIds } = req.body;
     const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
-    log(`adding quiz with ids ${cardIds}`);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -108,7 +110,6 @@ app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Respons
 app.get('/getAllQuizzes', async (req: Request, res: Response) => {
   try {
     const queryResponse = await getAllQuizzes();
-    log('retrieving all quizzes');
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -130,7 +131,6 @@ app.post('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: R
     const { quizDescription } = req.body;
     const { cardIds } = req.body;
     const queryResponse = await updateQuiz(quizId, quizName, quizDescription, cardIds);
-    log(`updating quiz ${quizId} with ids ${cardIds}`);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -142,7 +142,6 @@ app.post('/deleteQuiz', async (req: Request, res: Response) => {
   try {
     const { quizId } = req.body;
     const queryResponse = await deleteQuiz(quizId);
-    log(`delete quiz ${quizId}`);
     res.send(queryResponse);
   } catch (err) {
     error(err);

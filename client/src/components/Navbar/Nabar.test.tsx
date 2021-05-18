@@ -7,7 +7,7 @@ describe('navbar', () => {
   it('renders with correct links', () => {
     const {getByText} = render(<NavBar />)
     const navBarTitle = getByText('Leitner');
-    const quizLink = getByText('Quizes');
+    const quizLink = getByText('Quizzes');
     const manageLink = getByText('Manage');
     expect(navBarTitle).toBeVisible();
     expect(manageLink).toBeVisible();
