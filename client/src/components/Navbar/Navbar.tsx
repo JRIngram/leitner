@@ -18,7 +18,7 @@ const itemStyle = {
   padding: 30,
 }
 
-const items = ['Quizes', 'Manage'];
+const items = ['Quizzes', 'Manage'];
 
 const Navbar = () => {
   return (
