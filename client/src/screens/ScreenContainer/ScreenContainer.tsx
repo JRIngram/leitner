@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Manage from '../Manage/Manage';
+import Study from '../Study/Study';
 
 const styles = {
   container: {
@@ -14,8 +15,7 @@ const styles = {
     display: 'inline',
     color: '#FFF',
     fontSize: 30,
-    padding: '10px',
-    margin: '10px'
+    margin: '1%'
   },
   itemStyle: {
     display: 'inline',
@@ -36,18 +36,18 @@ const styles = {
 
 
 const ScreenContainer = () => {
-  const screens = ['Quizzes', 'Manage'];
+  const screens = ['Study', 'Manage'];
   const [currentScreen, setCurrentScreen] = useState(screens[0]);
 
 
   const renderScreen = () => {
     switch (currentScreen){
       case screens[0]:
-        return <p>TODO: add quizzes screen</p>
+        return <Study />
       case screens[1]:
         return <Manage />
       default:
-        return <p>TODO: add quizzes screen</p>
+        return <Study />
 
     }
   }
@@ -61,6 +61,7 @@ const ScreenContainer = () => {
             <p
               style={screen === currentScreen ? styles.activeItemStyle : styles.itemStyle}
               key={index}
+              data-testid={`navbar-item-${index}`}
               onClick={
                 ()=>{ setCurrentScreen(screen) }
               }

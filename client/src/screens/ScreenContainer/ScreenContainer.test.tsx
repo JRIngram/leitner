@@ -6,28 +6,31 @@ import ScreenContainer from './ScreenContainer';
 describe('ScreenContainer', () => {
   describe('navbar', () => {
     it('renders correctly on initial render', () => {
-      const { getByText } = render(<ScreenContainer />);
+      const { getByText, getByTestId } = render(<ScreenContainer />);
       expect(getByText('Leitner')).toBeVisible();
-      expect(getByText('Quizzes')).toBeVisible();
+      expect(getByTestId('navbar-item-0')).toBeVisible();
       expect(getByText('Manage')).toBeVisible();
-      expect(getByText('TODO: add quizzes screen')).toBeVisible();
+      expect(getByText('Study using your created flashcards and quizzes.')).toBeVisible();
     });
 
     it('render correctly if user clicks on Manage', async () => {
-      const { getByText, findByText, queryAllByText } = render(<ScreenContainer />);
+      const { getByText, findByText, getByTestId} = render(<ScreenContainer />);
       fireEvent.click(getByText('Manage'));
       expect(await findByText('Manage your cards and quizzes')).toBeVisible();
       expect(getByText('Leitner')).toBeVisible();
-      expect(getByText('Quizzes')).toBeVisible();
-      expect(queryAllByText('Manage').length).toEqual(2);
+      expect(getByText('Study')).toBeVisible();
+      expect(getByTestId('navbar-item-1')).toBeVisible();
     });
 
     it('renders correctly after clicking Manage and then Quizzes', async () => {
-      const { getByText, findByText } = render(<ScreenContainer />);
+      const { getByText, findByText, getByTestId } = render(<ScreenContainer />);
       fireEvent.click(getByText('Manage'));
       expect(await findByText('Manage your cards and quizzes')).toBeVisible();
-      fireEvent.click(getByText('Quizzes'));
-      expect(await findByText('TODO: add quizzes screen')).toBeVisible();
+      fireEvent.click(getByText('Study'));
+      expect(await findByText('Study using your created flashcards and quizzes.')).toBeVisible();
+      expect(getByText('Leitner')).toBeVisible();
+      expect(getByTestId('navbar-item-0')).toBeVisible();
+      expect(getByText('Manage')).toBeVisible();
     });
   });
 })
