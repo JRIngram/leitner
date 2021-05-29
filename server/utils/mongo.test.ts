@@ -2,7 +2,7 @@ import {
   addCard, getAllCards, getCardsByIds, updateCard, deleteCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
-import dropAllTestCollections from '../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../testUtils/testUtils';
 
 beforeAll(async () => {
   await dropAllTestCollections();

@@ -3,10 +3,10 @@ import { render, fireEvent } from '@testing-library/react';
 import ManageQuizzesCardList from './ManageQuizzesCardList';
 import '@testing-library/jest-dom/extend-expect';
 import { addCard, getAllCards } from '../../utils/axios';
-import dropCollections from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../../testUtils/testUtils';
 
-beforeAll(async() => {await dropCollections()});
-afterEach(async() => {await dropCollections()});
+beforeAll(async() => {await dropAllTestCollections()});
+afterEach(async() => {await dropAllTestCollections()});
 
 describe('rendering', () => {
   it('renders correctly when no cards have been created', async () => {

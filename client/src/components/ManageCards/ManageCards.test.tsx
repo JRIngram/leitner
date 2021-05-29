@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import ManageCards from './ManageCards';
 import { addCard, getAllCards } from '../../utils/axios';
-import dropAllTestCollections from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../../testUtils/testUtils';
 
 beforeAll(async () => { await dropAllTestCollections()});
 afterEach(async () => { await dropAllTestCollections()});

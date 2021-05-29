@@ -1,5 +1,5 @@
 import {addCard, getAllCards, updateCard, deleteCard, addQuiz, getAllQuizzes} from './axios';
-import dropAllTestCollections from '../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../testUtils/testUtils';
 
 
 beforeAll(async () => {

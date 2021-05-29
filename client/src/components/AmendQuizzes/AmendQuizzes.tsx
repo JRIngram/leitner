@@ -25,7 +25,7 @@ const AmendQuizzes = () => {
       catch(err){
         throw new Error(err);
       }
-    }), [])
+    }), []);
 
   useEffect(() => {
     loadData();

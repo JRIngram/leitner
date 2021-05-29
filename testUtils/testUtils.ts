@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { addCard, getAllCards, addQuiz } from '../client/src/utils/axios';
 
 require('dotenv').config();
 
@@ -23,4 +24,9 @@ export const dropAllTestCollections = async () => {
   await dropCollection(quizCollectionName);
 };
 
-export default dropAllTestCollections;
+export const createQuiz = async (quizName: string, quizDescription: string) => {
+  await addCard('testPrompt', 'testAnswer');
+  const returnedCard = await getAllCards();
+  const cardId = returnedCard.data[0]._id;
+  await addQuiz(quizName, quizDescription, [cardId]);
+};
