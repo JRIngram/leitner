@@ -11,7 +11,7 @@ afterEach(async () => { await dropAllTestCollections() });
 
 describe('rendering', () => {
   it('renders correctly when no cards have been added', () => {
-    const { getByText, getByTestId } = render(<ViewQuizzesListItem
+    const { getByText, queryByTestId } = render(<ViewQuizzesListItem
       id='012345'
       name='testName'
       description='testDescription'
@@ -19,14 +19,14 @@ describe('rendering', () => {
     />);
     expect(getByText('Name: testName')).toBeVisible();
     expect(getByText('Description: testDescription')).toBeVisible();
-    expect(getByTestId(`view-quizzes-list-item-012345-card-list`)).toBeVisible()
+    expect(queryByTestId(`view-quizzes-list-item-012345-card-list`)).toBeNull();
   });
 
   it('renders correctly when cards have been added', async () => {
     await addCard('testPrompt', 'testAnswer');
     const returnedCards = (await getAllCards()).data;
     const firstCard = returnedCards[0];
-    const { getByText, getByTestId, findByText } = render(<ViewQuizzesListItem
+    const { getByText, findByTestId, findByText } = render(<ViewQuizzesListItem
       id='012345'
       name='testName'
       description='testDescription'
@@ -34,7 +34,7 @@ describe('rendering', () => {
     />);
     expect(getByText('Name: testName')).toBeVisible();
     expect(getByText('Description: testDescription')).toBeVisible();
-    expect(getByTestId(`view-quizzes-list-item-012345-card-list`)).toBeVisible();
+    expect(await findByTestId(`view-quizzes-list-item-012345-card-list`)).toBeVisible();
     expect(await findByText(`${firstCard.prompt}`)).toBeVisible();
   });
 });

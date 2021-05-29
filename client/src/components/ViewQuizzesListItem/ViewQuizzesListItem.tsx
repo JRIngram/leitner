@@ -33,12 +33,21 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
   }, [props.cardIds]);
 
   const loadCards = () => {
+    const renderCards =() => {
+      if(cards.length > 0){
+        return cards.map((card: cardType) => {
+          return (
+            <li key={card._id}>{card.prompt}</li>
+          )
+        })
+      }
+    }
     if(cards.length > 0){
-      return cards.map((card: cardType) => {
-        return (
-          <li key={card._id}>{card.prompt}</li>
-        )
-      })
+      return (
+        <ul data-testid={`view-quizzes-list-item-${props.id}-card-list`}>
+          {renderCards()}
+        </ul>
+      );
     }
   }
 
@@ -46,9 +55,7 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
     <div data-testid={`view-quizzes-list-item-${props.id}`}>
       <p>Name: {props.name}</p>
       <p>Description: {props.description}</p>
-      <ul data-testid={`view-quizzes-list-item-${props.id}-card-list`}>
-        {loadCards()}
-      </ul>
+      {loadCards()}
     </div>
   )
 }
