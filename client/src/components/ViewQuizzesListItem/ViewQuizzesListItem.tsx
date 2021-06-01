@@ -52,7 +52,7 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
   }
 
   return (
-    <div data-testid={`view-quizzes-list-item-${props.id}`}>
+    <div data-testid={`view-quizzes-list-item-${props.id}`} key={`${props.id}`}>
       <p>Name: {props.name}</p>
       <p>Description: {props.description}</p>
       {loadCards()}
