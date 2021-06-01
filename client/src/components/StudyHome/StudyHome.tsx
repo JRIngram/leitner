@@ -39,7 +39,7 @@ const StudyHome = (props: StudyHomeProps) => {
     loadData();
     return () => {didCancel = true}
   }, []);
-
+  
   const renderQuizList = () => {
     if(quizzes.length > 0){
 
@@ -47,7 +47,7 @@ const StudyHome = (props: StudyHomeProps) => {
         return quizzes.map(quiz => {
           return (
             <div key={quiz._id}>
-              <ColouredButton buttonType={ButtonType.nav} text="start quiz" onClickAction={() => { return props.onQuizSelect(quiz._id)}} />
+              <ColouredButton buttonType={ButtonType.nav} text="start quiz" onClickAction={() => { return props.onQuizSelect(quiz)}} />
               <ViewQuizzesListItem id={quiz._id} name={quiz.name} description={quiz.description} cardIds={[]} />
               <Divider />
             </div>
