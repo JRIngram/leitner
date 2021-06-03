@@ -13,11 +13,10 @@ type StudyQuestionProps = {
   answer: string,
   currentQuestionNumber: number,
   totalQuestionCount: number,
-  onAnswerGiven: Function,
-  onQuestionFinished: Function,
+  onQuestionFinished: (givenAnswer: string, correct: boolean) => void,
 }
 
-const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCount}: StudyQuestionProps) => {
+const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCount, onQuestionFinished}: StudyQuestionProps) => {
   const [isReviewing, setIsReviewing] = useState(false);
   const [givenAnswer, setGivenAnswer] = useState('');
 
@@ -25,7 +24,8 @@ const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCoun
     if(!isReviewing){
       return (
         <div>
-          <input 
+          <input
+            data-testid='answer-input'
             type="text"
             value={givenAnswer}
             onChange={event => {setGivenAnswer(event.target.value)}}
@@ -49,12 +49,20 @@ const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCoun
           <ColouredButton 
               buttonType={ButtonType.add}
               text={'correct'}
-              onClickAction={() => {}}
+              onClickAction={() => { 
+                onQuestionFinished(givenAnswer, true);
+                setIsReviewing(false);
+                setGivenAnswer('');
+              }}
             />
-                        <ColouredButton 
+            <ColouredButton 
               buttonType={ButtonType.delete}
               text={'incorrect'}
-              onClickAction={() => {}}
+              onClickAction={() => { 
+                onQuestionFinished(givenAnswer, false);
+                setIsReviewing(false);
+                setGivenAnswer('');
+              }}
             />
         </div>
       );
@@ -62,8 +70,7 @@ const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCoun
   }
 
   return (
-    <div>
-      <h1>{prompt}</h1>
+    <div data-testid={'study-question'}>
       <h2>Question {currentQuestionNumber + 1} of {totalQuestionCount}</h2>
       <p>{prompt}</p>
       {renderQuestion()}
