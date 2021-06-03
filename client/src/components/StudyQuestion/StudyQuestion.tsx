@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton'
 
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
-
 type StudyQuestionProps = {
   prompt: string,
   answer: string,
