@@ -30,15 +30,14 @@ const styles = {
 }
 
 const loadCorrectIcon = (correct: boolean) => {
-  console.log(correct)
   return correct ? 
-    <FontAwesomeIcon icon={faCheckCircle} color="green" size="3x"/> : 
-    <FontAwesomeIcon icon={faTimesCircle} color="red" size="3x"/>
+    <FontAwesomeIcon icon={faCheckCircle} color="green" size="3x" title="icon for correct answer"/> : 
+    <FontAwesomeIcon icon={faTimesCircle} color="red" size="3x" title="icon for incorrect answer"/>
 }
 
 const StudyReviewListItem = ({reviewItem}: StudyReviewListItemProps) => {
   return (
-    <div style={styles.reviewContainer}>
+    <div style={styles.reviewContainer} data-testid="study-review-list-item-container">
       <div style={styles.iconContainer}>{loadCorrectIcon(reviewItem.correct)}</div>
       <div style={styles.textContainer}>
         <p>Prompt: {reviewItem.prompt}</p>

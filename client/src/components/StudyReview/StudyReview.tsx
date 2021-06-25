@@ -32,7 +32,7 @@ const calculateCorrectAnswers = (cardList: formattedCard[]) => {
 }
 
 const calculateCorrectPercentage = (cardList: formattedCard[]) => {
-  return calculateCorrectAnswers(cardList) / cardList.length;
+  return ((calculateCorrectAnswers(cardList) / cardList.length) * 100).toFixed(2);
 }
 
 const StudyReview = ({cardList, onFinishReview}: StudyReviewProps) => {
