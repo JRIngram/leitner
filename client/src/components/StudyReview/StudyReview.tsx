@@ -42,7 +42,7 @@ const StudyReview = ({cardList, onFinishReview}: StudyReviewProps) => {
       <h3>{calculateCorrectAnswers(cardList)} correct out of {cardList.length} - {calculateCorrectPercentage(cardList)}%</h3>
       {loadReviewList(cardList)}
       <ColouredButton 
-        text="Finish Review"
+        text="finish review"
         buttonType={ButtonType.nav}
         onClickAction={onFinishReview}
       />

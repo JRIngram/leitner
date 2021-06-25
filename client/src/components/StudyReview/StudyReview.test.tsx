@@ -15,7 +15,7 @@ describe('StudyReview', () =>{
     const callback = jest.fn();
     const { getByText } = render(<StudyReview cardList={[]} onFinishReview={callback}/>);
     expect(callback).toBeCalledTimes(0);
-    fireEvent.click(getByText("Finish Review"));
+    fireEvent.click(getByText("finish review"));
     expect(callback).toBeCalledTimes(1);
   })
 
