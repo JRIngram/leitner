@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton'
+import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 
 type StudyQuestionProps = {
   prompt: string,

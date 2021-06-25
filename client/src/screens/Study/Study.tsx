@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
+import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
+
 
 type quizType = { 
   _id: string,
@@ -90,7 +92,24 @@ const Study = () => {
       )
     }
     else if(quiz._id !== '' && cardCount === quiz.cards.length){
-      return <p>Quiz Review Page</p>
+      return (
+        <div>
+          <h1>{quiz.name}</h1>
+          <StudyReview 
+            cardList={quiz.cards}
+            onFinishReview={() => {
+              setQuiz({
+                _id: '',
+                name: '',
+                description: '',
+                cardObjectIds: [],
+                cards: []
+              });
+              setCardCount(0);
+            }}
+          />
+        </div>
+      );
     }
     else{
       return (
