@@ -2,8 +2,6 @@ import React from 'react';
 import StudyReviewListItem from '../StudyReviewListItem/StudyReviewListItem';
 import {ButtonType, ColouredButton} from '../ColouredButton/ColouredButton'
 import Divider from '../Divider/Divider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 type formattedCard = {
   _id: string,
@@ -18,38 +16,11 @@ type StudyReviewProps = {
   onFinishReview: Function
 }
 
-const styles = {
-  iconContainer: {
-    marginRight: '3%',
-    marginLeft: '1%'
-  },
-  reviewContainer: {
-    display: 'flex',
-    flexDirection: 'row' as 'row',
-    margin: 'auto',
-    alignItems: 'center'
-  },
-  textContainer: {
-  }
-}
-
-const loadCorrectIcon = (correct: boolean) => {
-  console.log(correct)
-  return correct ? 
-    <FontAwesomeIcon icon={faCheckCircle} color="green" size="3x"/> : 
-    <FontAwesomeIcon icon={faTimesCircle} color="red" size="3x"/>
-}
-
 const loadReviewList = (cardList: formattedCard[]) => {
   return cardList.map((card) => {
     return (
       <div>
-        <div style={styles.reviewContainer}>
-          <div style={styles.iconContainer}>{loadCorrectIcon(card.correct)}</div>
-          <div style={styles.textContainer}>
-            <StudyReviewListItem reviewItem={card}/>
-          </div>
-        </div>
+        <StudyReviewListItem reviewItem={card}/>
         <Divider />
       </div>
     )

@@ -22,7 +22,7 @@ describe('ScreenContainer', () => {
       expect(getByTestId('navbar-item-1')).toBeVisible();
     });
 
-    it('renders correctly after clicking Manage and then Quizzes', async () => {
+    it('renders correctly after clicking Manage and then Study', async () => {
       const { getByText, findByText, getByTestId } = render(<ScreenContainer />);
       fireEvent.click(getByText('Manage'));
       expect(await findByText('Manage your cards and quizzes')).toBeVisible();
