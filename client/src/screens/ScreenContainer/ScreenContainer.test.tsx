@@ -3,6 +3,8 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import ScreenContainer from './ScreenContainer';
 
+jest.mock('../../components/StudyReviewListItem/StudyReviewListItem');
+
 describe('ScreenContainer', () => {
   describe('navbar', () => {
     it('renders correctly on initial render', () => {
@@ -22,7 +24,7 @@ describe('ScreenContainer', () => {
       expect(getByTestId('navbar-item-1')).toBeVisible();
     });
 
-    it('renders correctly after clicking Manage and then Quizzes', async () => {
+    it('renders correctly after clicking Manage and then Study', async () => {
       const { getByText, findByText, getByTestId } = render(<ScreenContainer />);
       fireEvent.click(getByText('Manage'));
       expect(await findByText('Manage your cards and quizzes')).toBeVisible();

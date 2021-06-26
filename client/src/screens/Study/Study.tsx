@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
+import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
+
 
 type quizType = { 
   _id: string,
@@ -15,6 +17,7 @@ type formattedCard = {
   prompt: string,
   answer: string,
   givenAnswer: string,
+  correct: boolean
 }
 
 type quizUnderstudy = {
@@ -41,6 +44,7 @@ const Study = () => {
         return {
           ...card,
           givenAnswer: '',
+          correct: false,
         }
       });
       
@@ -55,17 +59,57 @@ const Study = () => {
   }
 
   const renderStudyPage = () => {
-    if(quiz._id !== ''){
+    if(quiz._id !== '' && cardCount < quiz.cards.length){
       return (
-        <StudyQuestion
-          prompt={quiz.cards[cardCount].prompt}
-          answer={quiz.cards[cardCount].answer}
-          currentQuestionNumber={cardCount}
-          totalQuestionCount={quiz.cards.length}
-          onAnswerGiven={() => {}}
-          onQuestionFinished={() => {}}
-        />
+        <div>
+          <h1>{quiz.name}</h1>
+          <StudyQuestion
+            prompt={quiz.cards[cardCount].prompt}
+            answer={quiz.cards[cardCount].answer}
+            currentQuestionNumber={cardCount}
+            totalQuestionCount={quiz.cards.length}
+            onQuestionFinished={(givenAnswer: string, correct: boolean) => {
+              const quizCardsClone = [...quiz.cards];
+              let currentCard = quizCardsClone[cardCount];
+
+              let updatedCard = {
+                ...currentCard,
+                givenAnswer,
+                correct,
+              }
+
+              quizCardsClone[cardCount] = updatedCard;
+
+              setQuiz({
+                ...quiz,
+                cards: quizCardsClone,
+              });
+              setCardCount(cardCount + 1);
+            }}
+          />
+        </div>
+        
       )
+    }
+    else if(quiz._id !== '' && cardCount === quiz.cards.length){
+      return (
+        <div>
+          <h1>{quiz.name}</h1>
+          <StudyReview 
+            cardList={quiz.cards}
+            onFinishReview={() => {
+              setQuiz({
+                _id: '',
+                name: '',
+                description: '',
+                cardObjectIds: [],
+                cards: []
+              });
+              setCardCount(0);
+            }}
+          />
+        </div>
+      );
     }
     else{
       return (

@@ -37,7 +37,7 @@ const styles = {
 
 const ScreenContainer = () => {
   const screens = ['Study', 'Manage'];
-  const [currentScreen, setCurrentScreen] = useState(screens[0]);
+  const [currentScreen, setCurrentScreen] = useState('');
 
 
   const renderScreen = () => {
@@ -48,7 +48,6 @@ const ScreenContainer = () => {
         return <Manage />
       default:
         return <Study />
-
     }
   }
 
