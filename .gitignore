@@ -1,5 +1,6 @@
 .env
 node_modules/
 server/**/*.js
+client/**/*.js
 testUtils/**/*.js
 coverage/
