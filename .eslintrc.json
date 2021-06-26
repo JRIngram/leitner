@@ -26,6 +26,9 @@
             "node": {
                 "extensions": [".js", ".ts", ".tsx"]
             }
+        },
+        "react": {
+            "version": "latest"
         }
     },
     "rules": {
