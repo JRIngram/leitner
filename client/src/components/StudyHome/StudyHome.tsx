@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { quizType } from '../../../../types';
+import { Quiz } from '../../../../types';
 import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../../components/ViewQuizzesListItem/ViewQuizzesListItem';
 import Divider from '../../components/Divider/Divider';
@@ -10,7 +10,7 @@ type StudyHomeProps = {
 }
 
 const StudyHome = (props: StudyHomeProps) => {
-  const [quizzes, setQuizzes] = useState<quizType[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {

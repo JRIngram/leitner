@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { cardType } from '../../../../types';
+import { Card } from '../../../../types';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards } from '../../utils/axios';
@@ -10,7 +10,7 @@ import Divider from '../Divider/Divider';
 
 const ManageCards = () => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);
-  const [cards, setCards] = useState<cardType[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const ManageCards = () => {
 
   const loadList = () => {
     if(cards.length > 0 && !isLoadingData){
-      return cards.map((card: cardType) => {
+      return cards.map((card: Card) => {
         return ( 
           <div key={card._id}>
             <CardListItem 

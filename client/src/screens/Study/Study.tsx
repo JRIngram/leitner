@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { quizType, FormattedCard } from '../../../../types';
+import { Quiz, FormattedCard } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
@@ -23,7 +23,7 @@ const Study = () => {
   })
   const [cardCount, setCardCount] = useState(0);
 
-  const constructQuiz = async (quiz: quizType) => {
+  const constructQuiz = async (quiz: Quiz) => {
     const cards = await getCardsByIds(quiz.cardObjectIds).then(response => {
       const formattedCards = response.data.map(card => {
         return {
@@ -100,7 +100,7 @@ const Study = () => {
       return (
         <StudyHome 
           onQuizSelect={
-            (quiz: quizType) => {
+            (quiz: Quiz) => {
               constructQuiz(quiz).then(constructedQuiz => {
                 setQuiz(constructedQuiz);
               });

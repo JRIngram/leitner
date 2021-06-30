@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { quizType } from '../../../../types';
+import { Quiz } from '../../../../types';
 import { getAllQuizzes } from '../../utils/axios';
 import {ColouredButton, ButtonType} from '../ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../ViewQuizzesListItem/ViewQuizzesListItem';
@@ -8,7 +8,7 @@ import { deleteQuiz } from '../../utils/axios';
 import EditQuiz from '../EditQuiz/EditQuiz';
 
 const AmendQuizzes = () => {
-  const [quizzes, setQuizzes] = useState<quizType[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [editQuizId, setEditQuizId] = useState('');
   const [isLoadingData, setIsLoadingData] = useState(true);
   
@@ -47,7 +47,7 @@ const AmendQuizzes = () => {
 
   const loadQuizzes = () => {
     if(quizzes.length > 0 && !isLoadingData){
-      return quizzes.map((quiz: quizType) => {
+      return quizzes.map((quiz: Quiz) => {
         return (
           <div data-testid={`ammend-quiz-${quiz._id}`} key={quiz._id}>
             <ColouredButton 

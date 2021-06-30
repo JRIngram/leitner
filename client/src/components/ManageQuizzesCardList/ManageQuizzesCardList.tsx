@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { cardType } from '../../../../types';
+import { Card } from '../../../../types';
 import { getAllCards } from '../../utils/axios';
 import ManageQuizzesCardListItem from '../ManageQuizzesCardListItem/ManageQuizzesCardListItem';
 import Divider from '../Divider/Divider';
@@ -11,7 +11,7 @@ type ManageQuizzesCardListProps = {
 }
 
 const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
-  const [cards, setCards] = useState<cardType[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
 
@@ -43,7 +43,7 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
 
   const loadList = () => {
     if(cards.length > 0 && !isLoadingData){
-      return cards.map((card: cardType, index:number) => {
+      return cards.map((card: Card, index:number) => {
         return ( 
           <div key={card._id} >
             <ManageQuizzesCardListItem 

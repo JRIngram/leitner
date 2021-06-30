@@ -1,4 +1,4 @@
-import { cardType, quizType } from '../../../types';
+import { Card, Quiz } from '../../../types';
 import axios from 'axios';
 require('dotenv').config();
 axios.defaults.baseURL = `http://localhost:3001/`;
@@ -15,7 +15,7 @@ const addCard = async (prompt: string, answer: string) => {
 }
 
 const getAllCards = async () => {
-  return await axios.get<cardType[]>('getAllCards');
+  return await axios.get<Card[]>('getAllCards');
 };
 
 const getCardsByIds = async (cardIds: string[]) => {
@@ -24,7 +24,7 @@ const getCardsByIds = async (cardIds: string[]) => {
     queryString = queryString + `id=${cardId}&`;
   });
   queryString = queryString.substr(0, queryString.length - 1);
-  return await axios.get<cardType[]>(`getCardsByIds?${queryString}`)
+  return await axios.get<Card[]>(`getCardsByIds?${queryString}`)
 };
 
 const updateCard = async (id: string, prompt: string, answer: string) => {
@@ -62,7 +62,7 @@ const addQuiz = async (quizName: string, quizDescription: string, cardIds: strin
 }
 
 const getAllQuizzes = async () => {
-  return await axios.get<quizType[]>('getAllQuizzes');
+  return await axios.get<Quiz[]>('getAllQuizzes');
 }
 
 const updateQuiz = async (

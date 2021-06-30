@@ -1,10 +1,10 @@
-export type cardType = {
+export type Card = {
   _id: string,
   prompt: string,
   answer: string
 }
 
-export type quizType = {
+export type Quiz = {
   _id: string,
   name: string,
   description: string,
