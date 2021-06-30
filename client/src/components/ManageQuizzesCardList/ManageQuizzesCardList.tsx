@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { cardType } from '../../../../types';
 import { getAllCards } from '../../utils/axios';
 import ManageQuizzesCardListItem from '../ManageQuizzesCardListItem/ManageQuizzesCardListItem';
 import Divider from '../Divider/Divider';
-
-type cardType = {
-  _id: string,
-  prompt: string,
-  answer: string,
-}
 
 type ManageQuizzesCardListProps = {
   handleCheckChange: Function

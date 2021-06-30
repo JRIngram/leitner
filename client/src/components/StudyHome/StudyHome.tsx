@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { quizType } from '../../../../types';
 import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../../components/ViewQuizzesListItem/ViewQuizzesListItem';
 import Divider from '../../components/Divider/Divider';
 import { getAllQuizzes } from '../../utils/axios';
 
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
-
 type StudyHomeProps = { 
   onQuizSelect: Function
 }
-
-
 
 const StudyHome = (props: StudyHomeProps) => {
   const [quizzes, setQuizzes] = useState<quizType[]>([]);

@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
+import { quizType } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
-
-
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
 
 type formattedCard = {
   _id: string,

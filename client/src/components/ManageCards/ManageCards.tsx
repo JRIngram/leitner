@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { cardType } from '../../../../types';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards } from '../../utils/axios';
@@ -6,11 +7,6 @@ import CardListItem from '../ManageCardsListItem/ManageCardsListItem';
 import Divider from '../Divider/Divider';
 
 
-type cardType = {
-  _id: string,
-  prompt: string,
-  answer: string,
-}
 
 const ManageCards = () => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);

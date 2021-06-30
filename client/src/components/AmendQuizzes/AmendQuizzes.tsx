@@ -1,17 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { quizType } from '../../../../types';
 import { getAllQuizzes } from '../../utils/axios';
 import {ColouredButton, ButtonType} from '../ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../ViewQuizzesListItem/ViewQuizzesListItem';
 import Divider from '../Divider/Divider';
 import { deleteQuiz } from '../../utils/axios';
 import EditQuiz from '../EditQuiz/EditQuiz';
-
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
 
 const AmendQuizzes = () => {
   const [quizzes, setQuizzes] = useState<quizType[]>([]);
