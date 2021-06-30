@@ -1,22 +1,15 @@
 import React from 'react';
+import { FormattedCard } from '../../../../types';
 import StudyReviewListItem from '../StudyReviewListItem/StudyReviewListItem';
 import {ButtonType, ColouredButton} from '../ColouredButton/ColouredButton'
 import Divider from '../Divider/Divider';
 
-type formattedCard = {
-  _id: string,
-  prompt: string,
-  answer: string,
-  givenAnswer: string,
-  correct: boolean
-}
-
 type StudyReviewProps = {
-  cardList: formattedCard[]
+  cardList: FormattedCard[]
   onFinishReview: Function
 }
 
-const loadReviewList = (cardList: formattedCard[]) => {
+const loadReviewList = (cardList: FormattedCard[]) => {
   return cardList.map((card) => {
     return (
       <div>
@@ -27,11 +20,11 @@ const loadReviewList = (cardList: formattedCard[]) => {
   });
 }
 
-const calculateCorrectAnswers = (cardList: formattedCard[]) => { 
+const calculateCorrectAnswers = (cardList: FormattedCard[]) => { 
   return cardList.filter((card) => card.correct).length; 
 }
 
-const calculateCorrectPercentage = (cardList: formattedCard[]) => {
+const calculateCorrectPercentage = (cardList: FormattedCard[]) => {
   return ((calculateCorrectAnswers(cardList) / cardList.length) * 100).toFixed(2);
 }
 

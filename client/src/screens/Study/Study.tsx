@@ -1,31 +1,16 @@
 import React, { useState } from 'react';
+import { Quiz, FormattedCard } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
-
-
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
-
-type formattedCard = {
-  _id: string,
-  prompt: string,
-  answer: string,
-  givenAnswer: string,
-  correct: boolean
-}
 
 type quizUnderstudy = {
   _id: string,
   name: string,
   description: string,
   cardObjectIds: string[]
-  cards: formattedCard[]
+  cards: FormattedCard[]
 }
 
 const Study = () => {
@@ -38,7 +23,7 @@ const Study = () => {
   })
   const [cardCount, setCardCount] = useState(0);
 
-  const constructQuiz = async (quiz: quizType) => {
+  const constructQuiz = async (quiz: Quiz) => {
     const cards = await getCardsByIds(quiz.cardObjectIds).then(response => {
       const formattedCards = response.data.map(card => {
         return {
@@ -115,7 +100,7 @@ const Study = () => {
       return (
         <StudyHome 
           onQuizSelect={
-            (quiz: quizType) => {
+            (quiz: Quiz) => {
               constructQuiz(quiz).then(constructedQuiz => {
                 setQuiz(constructedQuiz);
               });

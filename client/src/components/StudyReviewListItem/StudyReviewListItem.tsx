@@ -1,17 +1,10 @@
 import React from 'react';
+import { FormattedCard } from '../../../../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-type formattedCard = {
-  _id: string,
-  prompt: string,
-  answer: string,
-  givenAnswer: string,
-  correct: boolean
-}
-
 type StudyReviewListItemProps = {
-  reviewItem: formattedCard
+  reviewItem: FormattedCard
 }
 
 const styles = {

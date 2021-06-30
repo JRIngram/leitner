@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Card } from './../../../../types';
 import { getCardsByIds } from '../../utils/axios';
 
 type viewQuizzesListItemProps = {
@@ -8,14 +9,8 @@ type viewQuizzesListItemProps = {
   cardIds: string[]
 }
 
-type cardType = {
-  _id: string,
-  prompt: string,
-  answer: string,
-}
-
 const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
-  const [cards, setCards] = useState<cardType[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
 
   useEffect(() => {
     let didCancel = false;
@@ -35,7 +30,7 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
   const loadCards = () => {
     const renderCards =() => {
       if(cards.length > 0){
-        return cards.map((card: cardType) => {
+        return cards.map((card: Card) => {
           return (
             <li key={card._id}>{card.prompt}</li>
           )
