@@ -33,8 +33,6 @@ const styles = {
   }
 }
 
-
-
 const ScreenContainer = () => {
   const screens = ['Study', 'Manage'];
   const [currentScreen, setCurrentScreen] = useState('');

@@ -6,8 +6,6 @@ import { getAllCards } from '../../utils/axios';
 import CardListItem from '../ManageCardsListItem/ManageCardsListItem';
 import Divider from '../Divider/Divider';
 
-
-
 const ManageCards = () => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);
   const [cards, setCards] = useState<Card[]>([]);

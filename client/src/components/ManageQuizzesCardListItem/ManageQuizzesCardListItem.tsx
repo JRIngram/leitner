@@ -18,7 +18,6 @@ const styles = {
   }
 }
 
-
 const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
   const [isChecked, setIsChecked] = useState(props.checked);
   const testId = `manage-quiz-card-list-item-${props.id}`
