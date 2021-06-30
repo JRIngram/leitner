@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-import { quizType } from '../../../../types';
+import { quizType, FormattedCard } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
-
-type formattedCard = {
-  _id: string,
-  prompt: string,
-  answer: string,
-  givenAnswer: string,
-  correct: boolean
-}
 
 type quizUnderstudy = {
   _id: string,
   name: string,
   description: string,
   cardObjectIds: string[]
-  cards: formattedCard[]
+  cards: FormattedCard[]
 }
 
 const Study = () => {

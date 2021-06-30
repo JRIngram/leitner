@@ -4,9 +4,17 @@ export type cardType = {
   answer: string
 }
 
-export type quizType = { 
+export type quizType = {
   _id: string,
   name: string,
   description: string,
   cardObjectIds: string[]
+}
+
+export type FormattedCard = {
+  _id: string,
+  prompt: string,
+  answer: string,
+  givenAnswer: string,
+  correct: boolean
 }
