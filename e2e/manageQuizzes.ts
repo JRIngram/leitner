@@ -20,6 +20,7 @@ const selectors = {
   deleteQuizButton: Selector('#coloured-button-delete-quiz'),
 };
 
+// @ts-ignore
 const addCards = async (t) => {
   const {
     manageNavButton, addCardButton, addCardsButton,
@@ -37,6 +38,7 @@ const addCards = async (t) => {
     .click(addCardButton);
 };
 
+// @ts-ignore
 const addQuiz = async (t) => {
   const {
     manageQuizzesButton, quizNameInput, quizDescriptionInput,
