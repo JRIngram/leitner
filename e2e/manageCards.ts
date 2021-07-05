@@ -1,8 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
 import { dropAllTestCollections } from '../testUtils/testUtils';
-require('dotenv').config();
-
-const url = `${process.env.HOST}:3000`;
+import url from './constants';
 
 const selectors = {
   manageNavButton: Selector('p').withText('Manage'),
@@ -10,19 +9,19 @@ const selectors = {
   addCardButton: Selector('#coloured-button-add-card'),
   deleteCardButton: Selector('#coloured-button-delete'),
   promptInput: Selector('#prompt'),
-  answerInput: Selector('#answer')
-}
+  answerInput: Selector('#answer'),
+};
 
-fixture `manage cards`
-  .page `${url}`
+fixture`manage cards`
+  .page`${url}`
   .before(async () => {
-    await dropAllTestCollections()
-  })
+    await dropAllTestCollections();
+  });
 
-test('can add and then delete a card', async t => {
-  const { 
-    manageNavButton, addCardButton, addCardsButton, 
-    deleteCardButton, promptInput, answerInput 
+test('can add and then delete a card', async (t) => {
+  const {
+    manageNavButton, addCardButton, addCardsButton,
+    deleteCardButton, promptInput, answerInput,
   } = selectors;
   const savedPrompt = Selector('p').withText('Prompt: What is the latin name for the "Eastern Gray Squirrel"?');
   const savedAnswer = Selector('p').withText('Answer: Sciurus caroline');
@@ -40,12 +39,12 @@ test('can add and then delete a card', async t => {
     .expect(savedPrompt.exists)
     .notOk()
     .expect(savedAnswer.exists)
-    .notOk()
+    .notOk();
 });
 
-test('can cancel adding a card', async t => {
+test('can cancel adding a card', async (t) => {
   const {
-    manageNavButton, addCardsButton, promptInput, answerInput 
+    manageNavButton, addCardsButton, promptInput, answerInput,
   } = selectors;
   const cancelButton = Selector('#coloured-button-cancel');
   const savedPrompt = Selector('p').withText('Prompt: What is the latin name for the "Barn Owl"?');
@@ -62,13 +61,13 @@ test('can cancel adding a card', async t => {
     .notOk();
 });
 
-test('can create, update and delete a card', async t => {
-  const { 
-    manageNavButton, addCardButton, addCardsButton, 
-    deleteCardButton, promptInput, answerInput 
+test('can create, update and delete a card', async (t) => {
+  const {
+    manageNavButton, addCardButton, addCardsButton,
+    deleteCardButton, promptInput, answerInput,
   } = selectors;
   const editButton = Selector('#coloured-button-edit');
-  const editCardButton = Selector('#coloured-button-edit-card')
+  const editCardButton = Selector('#coloured-button-edit-card');
   const savedPrompt = Selector('p').withText('Prompt: What is the latin name for the "Barn Owl"?');
   const savedAnswer = Selector('p').withText('Answer: Tyto alba');
   await t
@@ -93,5 +92,5 @@ test('can create, update and delete a card', async t => {
     .expect(savedPrompt.exists)
     .notOk()
     .expect(savedAnswer.exists)
-    .notOk()
-})
+    .notOk();
+});

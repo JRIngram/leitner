@@ -47,7 +47,8 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
         return ( 
           <div key={card._id} >
             <ManageQuizzesCardListItem 
-              id={card._id} 
+              id={card._id}
+              index={index}
               prompt={card.prompt}
               answer={card.answer}
               handleCheckChange={props.handleCheckChange}
