@@ -17,13 +17,13 @@ const selectors = {
   addQuizButton: Selector('#coloured-button-confirm-add-quiz'),
   quizAddedText: Selector('p').withText('Quiz successfully added.'),
   amendQuizzesButton: Selector('#coloured-button-amend-quizzes'),
-  deleteQuizButton: Selector('#coloured-button-delete-quiz')
+  deleteQuizButton: Selector('#coloured-button-delete-quiz'),
 };
 
 const addCards = async (t) => {
   const {
     manageNavButton, addCardButton, addCardsButton,
-    promptInput, answerInput
+    promptInput, answerInput,
   } = selectors;
   await t
     .click(manageNavButton)
@@ -34,16 +34,16 @@ const addCards = async (t) => {
     .click(addCardsButton)
     .typeText(promptInput, 'What is the latin name for the "Barn Owl"?')
     .typeText(answerInput, 'Tyto alba')
-    .click(addCardButton)
-}
+    .click(addCardButton);
+};
 
 const addQuiz = async (t) => {
   const {
     manageQuizzesButton, quizNameInput, quizDescriptionInput,
-    addQuizButton, amendQuizzesButton
+    addQuizButton, amendQuizzesButton,
   } = selectors;
 
-  await addCards(t)
+  await addCards(t);
 
   await t
     .click(manageQuizzesButton)
@@ -52,21 +52,20 @@ const addQuiz = async (t) => {
     .click(Selector('#add-card-checkbox-0'))
     .click(Selector('#add-card-checkbox-1'))
     .click(addQuizButton)
-    .click(amendQuizzesButton)
-}
+    .click(amendQuizzesButton);
+};
 
 fixture`manage quizzes`
   .page`${url}`
-  .before(async (t) => {
+  .before(async () => {
     await dropAllTestCollections();
   });
 
 test
-  .before(async t => { await addCards(t) })
-  ('can add a quiz', async (t) => {
+  .before(async (t) => { await addCards(t); })('can add a quiz', async (t) => {
     const {
       manageQuizzesButton, quizNameInput, quizDescriptionInput, quizMustContainCards,
-      addQuizButton, quizAddedText, amendQuizzesButton
+      addQuizButton, quizAddedText, amendQuizzesButton,
     } = selectors;
     await t
       .click(manageQuizzesButton)
@@ -89,17 +88,16 @@ test
       .ok()
       .click(amendQuizzesButton)
       .expect(Selector('p').withText('Name: Latin animal names').exists)
-      .ok()
+      .ok();
   });
 
 test
-  .before(async t => { 
+  .before(async (t) => {
     await dropAllTestCollections();
-    await addQuiz(t) 
-  })
-  ('can delete quizzes', async (t) => {
+    await addQuiz(t);
+  })('can delete quizzes', async (t) => {
     const {
-      manageQuizzesButton, amendQuizzesButton, deleteQuizButton,
+      deleteQuizButton,
     } = selectors;
     await t
       .expect(Selector('p').withText('Name: Latin animal names').exists)
@@ -110,6 +108,5 @@ test
       .expect(Selector('p').withText('Name: Latin animal names').exists)
       .notOk()
       .expect(Selector('p').withText('No quizzes have been created.').exists)
-      .ok()
-  })
-
+      .ok();
+  });
