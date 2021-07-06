@@ -34,5 +34,5 @@
         "import/extensions": 0,
         "no-underscore-dangle": 0
     },
-    "ignorePatterns": ["server/**/*.js", "testUtils/**/*.js"]
+    "ignorePatterns": ["server/**/*.js", "testUtils/**/*.js", "e2e/**/*.js"]
 }
