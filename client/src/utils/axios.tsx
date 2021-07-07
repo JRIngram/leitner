@@ -1,6 +1,8 @@
 import { Card, Quiz } from '../../../types';
 import axios from 'axios';
+
 require('dotenv').config();
+
 axios.defaults.baseURL = `http://localhost:3001/`;
 
 const addCard = async (prompt: string, answer: string) => {

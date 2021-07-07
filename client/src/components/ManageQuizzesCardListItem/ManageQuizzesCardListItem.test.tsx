@@ -14,6 +14,7 @@ describe('ManageQuizzesCardListItem rendering', () => {
       const { getByTestId } = render(
         <ManageQuizzesCardListItem 
           id={id}
+          index={0}
           prompt={prompt}
           answer={answer}
           handleCheckChange={() => true}
@@ -31,6 +32,7 @@ describe('ManageQuizzesCardListItem rendering', () => {
       const { getByTestId } = render(
         <ManageQuizzesCardListItem 
           id={id}
+          index={0}
           prompt={prompt}
           answer={answer}
           handleCheckChange={() => true}
@@ -51,6 +53,7 @@ describe('ManageQuizzesCardListItem rendering', () => {
     const { getByTestId } = render(
       <ManageQuizzesCardListItem 
         id={id}
+        index={0}
         prompt={prompt}
         answer={answer}
         handleCheckChange={() => true}
@@ -68,6 +71,7 @@ describe('ManageQuizzesCardListItem rendering', () => {
     const { getByTestId } = render(
       <ManageQuizzesCardListItem 
         id={id}
+        index={0}
         prompt={prompt}
         answer={answer}
         handleCheckChange={() => true}
@@ -86,6 +90,7 @@ describe('ManageQuizzesCardListItem rendering', () => {
     const { getByTestId } = render(
       <ManageQuizzesCardListItem 
         id={id}
+        index={0}
         prompt={prompt}
         answer={answer}
         handleCheckChange={() => true}
@@ -104,13 +109,16 @@ describe('handleCheckChange callback', () => {
   it('handleCheckChange callback is triggered when checking checkbox', () => {
     const spyCallback = jest.fn();
     const uncheckedTestId = 'manage-quiz-card-list-item-123456789012-checkbox-false';
-    const { getByTestId } = render(<ManageQuizzesCardListItem 
-      id={'123456789012'}
-      prompt={'prompt'}
-      answer={'answer'}
-      handleCheckChange={() => spyCallback()}
-      checked={false}
-    />);
+    const { getByTestId } = render(
+      <ManageQuizzesCardListItem 
+        id={'123456789012'}
+        index={0}
+        prompt={'prompt'}
+        answer={'answer'}
+        handleCheckChange={() => spyCallback()}
+        checked={false}
+      />
+    );
     fireEvent.click(getByTestId(uncheckedTestId));
     expect(spyCallback).toHaveBeenCalled();
   });
@@ -119,13 +127,16 @@ describe('handleCheckChange callback', () => {
     const spyCallback = jest.fn();
     const uncheckedTestId = 'manage-quiz-card-list-item-123456789012-checkbox-false';
     const checkedTestId = 'manage-quiz-card-list-item-123456789012-checkbox-true';
-    const { getByTestId } = render(<ManageQuizzesCardListItem 
-      id={'123456789012'}
-      prompt={'prompt'}
-      answer={'answer'}
-      handleCheckChange={() => spyCallback()}
-      checked={false}
-    />);
+    const { getByTestId } = render(
+      <ManageQuizzesCardListItem 
+        id={'123456789012'}
+        index={0}
+        prompt={'prompt'}
+        answer={'answer'}
+        handleCheckChange={() => spyCallback()}
+        checked={false}
+      />
+    );
     fireEvent.click(getByTestId(uncheckedTestId));
     expect(spyCallback).toHaveBeenCalled();
     fireEvent.click(getByTestId(checkedTestId));

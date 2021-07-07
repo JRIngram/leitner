@@ -176,7 +176,8 @@ const ColouredButton = (props: ColouredButtonProps) => {
   }
 
   return(
-    <button 
+    <button
+      id={`coloured-button-${props.text.toLowerCase().replace(/\s/g, '-')}`}
       data-testid={`coloured-button-${props.text.toLowerCase().replace(/\s/g, '-')}`}
       style={renderButtonStyle(props.buttonType)} 
       onMouseLeave={() => {setActionStyle('default')}}
