@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
+import { CardInQuiz } from '../../types';
 
 require('dotenv').config();
 
@@ -72,15 +73,24 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
     const client = await MongoClient.connect(dbUrl);
     const db = client.db(dbName);
     const collection = db.collection(quizCollection);
-    const cardObjectIds = cardIds.map((cardId) => new ObjectId(cardId));
+
+    const cardObjects: CardInQuiz[] = cardIds.map((cardId) => {
+      const objectId = new ObjectId(cardId);
+      const cardInQuiz: CardInQuiz = {
+        _id: objectId,
+        box: 1,
+      };
+      return cardInQuiz;
+    });
+
     const quizData = {
       name: quizName,
       description: quizDescription,
-      cardObjectIds,
+      cardObjects,
     };
     await collection.insertOne(quizData);
     await client.close();
-    return `Created quiz with ${quizName}, ${quizDescription}, ${cardObjectIds}`;
+    return `Created quiz with ${quizName}, ${quizDescription}, ${[...cardIds]}`;
   } catch (err) {
     return `${err}`;
   }

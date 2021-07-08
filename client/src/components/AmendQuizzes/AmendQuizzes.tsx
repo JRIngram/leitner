@@ -17,6 +17,7 @@ const AmendQuizzes = () => {
         setQuizzes(response.data);
       }
       catch(err){
+        console.log(err);
         throw new Error(err);
       }
     }), []);
@@ -30,12 +31,13 @@ const AmendQuizzes = () => {
     if(editQuizId !== ''){
       const quizUnderEdit = quizzes.find(quiz => quiz._id === editQuizId);
       if(quizUnderEdit){
+        const cardIds = quizUnderEdit.cardObjectIds.map(card => card._id)
         return (
           <EditQuiz
             quizId={quizUnderEdit._id}
             quizName={quizUnderEdit.name}
             quizDescription={quizUnderEdit.description}
-            cardsInQuiz={quizUnderEdit.cardObjectIds}
+            cardsInQuiz={cardIds}
             onCancel={() => {setEditQuizId('')}}
             afterUpdate={() => {setEditQuizId('')}}
           />
@@ -48,6 +50,7 @@ const AmendQuizzes = () => {
   const loadQuizzes = () => {
     if(quizzes.length > 0 && !isLoadingData){
       return quizzes.map((quiz: Quiz) => {
+        const cardIds = quiz.cardObjectIds.map(card => card._id);
         return (
           <div data-testid={`ammend-quiz-${quiz._id}`} key={quiz._id}>
             <ColouredButton 
@@ -73,7 +76,7 @@ const AmendQuizzes = () => {
               id={quiz._id}
               name={quiz.name}
               description={quiz.description} 
-              cardIds={quiz.cardObjectIds}
+              cardIds={cardIds}
             />
             <Divider />
           </div>

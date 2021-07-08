@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Quiz, FormattedCard } from '../../../../types';
+import { Quiz, FormattedCard, CardInQuiz } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
@@ -9,7 +9,7 @@ type quizUnderstudy = {
   _id: string,
   name: string,
   description: string,
-  cardObjectIds: string[]
+  cardObjectIds: CardInQuiz[]
   cards: FormattedCard[]
 }
 
@@ -24,8 +24,9 @@ const Study = () => {
   const [cardCount, setCardCount] = useState(0);
 
   const constructQuiz = async (quiz: Quiz) => {
-    const cards = await getCardsByIds(quiz.cardObjectIds).then(response => {
-      const formattedCards = response.data.map(card => {
+    const cardIds = quiz.cardObjectIds.map(card => card._id);
+    const cards = await getCardsByIds(cardIds).then(response => {
+      const formattedCards: FormattedCard[] = response.data.map(card => {
         return {
           ...card,
           givenAnswer: '',
@@ -36,7 +37,7 @@ const Study = () => {
       return formattedCards;
     });
 
-    let quizUnderStudy = {
+    let quizUnderStudy: quizUnderstudy = {
       ...quiz,
       cards
     }

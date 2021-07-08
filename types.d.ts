@@ -4,11 +4,16 @@ export type Card = {
   answer: string
 }
 
+export type CardInQuiz = {
+  _id: string
+  box: number
+}
+
 export type Quiz = {
   _id: string,
   name: string,
   description: string,
-  cardObjectIds: string[]
+  cardObjectIds: CardInQuiz[]
 }
 
 export type FormattedCard = {
