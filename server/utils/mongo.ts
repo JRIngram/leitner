@@ -77,7 +77,7 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
     const cardObjects: CardInQuiz[] = cardIds.map((cardId) => {
       const objectId = new ObjectId(cardId);
       const cardInQuiz: CardInQuiz = {
-        _id: objectId,
+        _id: objectId.toHexString(),
         box: 1,
       };
       return cardInQuiz;

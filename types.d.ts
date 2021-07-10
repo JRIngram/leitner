@@ -13,7 +13,7 @@ export type Quiz = {
   _id: string,
   name: string,
   description: string,
-  cardObjectIds: CardInQuiz[]
+  cardObjects: CardInQuiz[]
 }
 
 export type FormattedCard = {

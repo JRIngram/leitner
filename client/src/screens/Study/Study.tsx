@@ -9,7 +9,7 @@ type quizUnderstudy = {
   _id: string,
   name: string,
   description: string,
-  cardObjectIds: CardInQuiz[]
+  cardObjects: CardInQuiz[]
   cards: FormattedCard[]
 }
 
@@ -18,13 +18,13 @@ const Study = () => {
     _id: '',
     name: '',
     description: '',
-    cardObjectIds: [],
+    cardObjects: [],
     cards: []
   })
   const [cardCount, setCardCount] = useState(0);
 
   const constructQuiz = async (quiz: Quiz) => {
-    const cardIds = quiz.cardObjectIds.map(card => card._id);
+    const cardIds = quiz.cardObjects.map(card => card._id);
     const cards = await getCardsByIds(cardIds).then(response => {
       const formattedCards: FormattedCard[] = response.data.map(card => {
         return {
@@ -41,6 +41,7 @@ const Study = () => {
       ...quiz,
       cards
     }
+    console.log(quizUnderStudy)
     return quizUnderStudy;
   }
 
@@ -88,7 +89,7 @@ const Study = () => {
                 _id: '',
                 name: '',
                 description: '',
-                cardObjectIds: [],
+                cardObjects: [],
                 cards: []
               });
               setCardCount(0);

@@ -5,3 +5,4 @@ client/**/*.js
 e2e/*.js
 testUtils/**/*.js
 coverage/
+.vscode/
