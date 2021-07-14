@@ -41,7 +41,6 @@ const Study = () => {
       ...quiz,
       cards
     }
-    console.log(quizUnderStudy)
     return quizUnderStudy;
   }
 

@@ -113,6 +113,7 @@ export const updateQuiz = async (
   const collection = db.collection(quizCollection);
   const _id = new ObjectId(quizId);
   const cardObjectIds = cardIds.map((cardId) => new ObjectId(cardId));
+  console.log("YOU MUST UPDATE THIS: QUIZZES ARE NOT HAVING CARDS ADDED ON UPDATING");
   const updatedFields = {
     _id,
     name: quizName,

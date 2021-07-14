@@ -40,7 +40,7 @@ const StudyHome = (props: StudyHomeProps) => {
           return (
             <div key={quiz._id}>
               <ColouredButton buttonType={ButtonType.nav} text="start quiz" onClickAction={() => { return props.onQuizSelect(quiz)}} />
-              <ViewQuizzesListItem id={quiz._id} name={quiz.name} description={quiz.description} cardIds={[]} />
+              <ViewQuizzesListItem id={quiz._id} name={quiz.name} description={quiz.description} cardObjects={[]} />
               <Divider />
             </div>
 
