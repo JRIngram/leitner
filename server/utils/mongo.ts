@@ -88,6 +88,7 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
       description: quizDescription,
       cardObjects,
     };
+
     await collection.insertOne(quizData);
     await client.close();
     return `Created quiz with ${quizName}, ${quizDescription}, ${[...cardIds]}`;
@@ -111,14 +112,21 @@ export const updateQuiz = async (
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
+
   const _id = new ObjectId(quizId);
-  const cardObjectIds = cardIds.map((cardId) => new ObjectId(cardId));
-  console.log("YOU MUST UPDATE THIS: QUIZZES ARE NOT HAVING CARDS ADDED ON UPDATING");
+  const cardObjects = cardIds.map((cardId) => {
+    const cardObject = {
+      _id: new ObjectId(cardId),
+      box: 1,
+    };
+    return cardObject;
+  });
+
   const updatedFields = {
     _id,
     name: quizName,
     description: quizDescription,
-    cardObjectIds,
+    cardObjects,
   };
   await collection.updateOne(
     { _id },

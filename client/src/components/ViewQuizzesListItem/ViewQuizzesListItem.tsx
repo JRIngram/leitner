@@ -20,7 +20,6 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
 
   useEffect(() => {
     let didCancel = false;
-
     const loadData = async () => {
       const cardIds = props.cardObjects.map(card => card._id)
       const returnedCards = await getCardsByIds(cardIds);

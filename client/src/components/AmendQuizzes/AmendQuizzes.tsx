@@ -50,9 +50,7 @@ const AmendQuizzes = () => {
   const loadQuizzes = () => {
     if(quizzes.length > 0 && !isLoadingData){
       return quizzes.map((quiz: Quiz) => {
-        console.log(quiz.cardObjects);
         const cardIds = quiz.cardObjects;
-
         return (
           <div data-testid={`ammend-quiz-${quiz._id}`} key={quiz._id}>
             <ColouredButton 

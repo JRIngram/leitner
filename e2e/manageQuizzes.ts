@@ -22,6 +22,8 @@ const selectors = {
   quizAddedText: Selector('p').withText('Quiz successfully added.'),
   amendQuizzesButton: Selector('#coloured-button-amend-quizzes'),
   deleteQuizButton: Selector('#coloured-button-delete-quiz'),
+  cardOnePrompt: Selector('li').withText('What is the latin name for the "Eastern Gray Squirrel"?'),
+  cardTwoPrompt: Selector('li').withText('What is the latin name for the "Barn Owl"?'),
 };
 
 // @ts-ignore
@@ -55,7 +57,7 @@ test
     const {
       manageNavButton, manageQuizzesButton, quizNameInput, quizDescriptionInput,
       quizMustContainCards, addQuizButton, quizAddedText, amendQuizzesButton, studyNavButton,
-      noQuizzesCreatedText,
+      noQuizzesCreatedText, cardOnePrompt, cardTwoPrompt,
     } = selectors;
 
     await t
@@ -78,11 +80,24 @@ test
       .click(Selector('#add-card-checkbox-1'))
       .expect(quizMustContainCards.exists)
       .notOk()
+      .click(Selector('#add-card-checkbox-1'))
       .click(addQuizButton)
       .expect(quizAddedText.exists)
       .ok()
       .click(amendQuizzesButton)
       .expect(Selector('p').withText('Name: Latin animal names').exists)
+      .ok()
+      .expect(Selector('p').withText('All things Latin and furry!').exists)
+      .ok()
+      .expect(Selector('li').withText('Box One:').exists)
+      .ok()
+      .expect(cardOnePrompt.exists)
+      .ok()
+      .expect(cardTwoPrompt.exists)
+      .notOk()
+      .expect(Selector('li').withText('Box Two:').exists)
+      .ok()
+      .expect(Selector('li').withText('Box Three:').exists)
       .ok()
       .click(studyNavButton)
       .expect(noQuizzesCreatedText.exists)
@@ -100,6 +115,7 @@ test('can edit quizzes', async (t) => {
   const {
     manageNavButton, studyNavButton, manageQuizzesButton, confirmEditQuizButton,
     amendQuizzesButton, editQuizButton, quizNameInput, quizDescriptionInput,
+    cardOnePrompt, cardTwoPrompt,
   } = selectors;
 
   await t
@@ -113,10 +129,15 @@ test('can edit quizzes', async (t) => {
     .click(quizDescriptionInput)
     .pressKey('ctrl+a delete')
     .typeText(quizDescriptionInput, 'Latina omnia et furry!')
+    .click(Selector('#add-card-checkbox-1'))
     .click(confirmEditQuizButton)
     .expect(Selector('p').withText('Name: Animalis nomina').exists)
     .ok()
     .expect(Selector('p').withText('Description: Latina omnia et furry!').exists)
+    .ok()
+    .expect(cardOnePrompt.exists)
+    .ok()
+    .expect(cardTwoPrompt.exists)
     .ok()
     .click(studyNavButton)
     .expect(Selector('p').withText('Name: Animalis nomina').exists)
