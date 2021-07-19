@@ -4,6 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { dropAllTestCollections } from '../../../../testUtils/testUtils';
 import ViewQuizzesListItem from './ViewQuizzesListItem';
 import { addCard, getAllCards } from '../../utils/axios';
+import { CardInQuiz } from '../../../../types';
 
 
 beforeAll(async () => { await dropAllTestCollections() });
@@ -15,7 +16,7 @@ describe('rendering', () => {
       id='012345'
       name='testName'
       description='testDescription'
-      cardIds={[]}
+      cardObjects={[]}
     />);
     expect(getByText('Name: testName')).toBeVisible();
     expect(getByText('Description: testDescription')).toBeVisible();
@@ -26,11 +27,15 @@ describe('rendering', () => {
     await addCard('testPrompt', 'testAnswer');
     const returnedCards = (await getAllCards()).data;
     const firstCard = returnedCards[0];
+    const firstCardObject: CardInQuiz = {
+      _id: firstCard._id,
+      box: 1,
+    }
     const { getByText, findByTestId, findByText } = render(<ViewQuizzesListItem
       id='012345'
       name='testName'
       description='testDescription'
-      cardIds={[firstCard._id]}
+      cardObjects={[firstCardObject]}
     />);
     expect(getByText('Name: testName')).toBeVisible();
     expect(getByText('Description: testDescription')).toBeVisible();
