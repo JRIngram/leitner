@@ -42,9 +42,9 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
           const boxIds = cardObjects.filter(cardObject => cardObject.box === box).map(cardObject => cardObject._id);
           const boxCardPrompts = boxIds.map(id => { 
             const matchedCard = cards.filter(card => card._id === id)[0];
-            if(matchedCard){
-              return <li key={matchedCard._id}>{matchedCard.prompt}</li>
-            }
+            return matchedCard ? 
+              <li key={matchedCard._id}>{matchedCard.prompt}</li> :
+              null;
           });
           return <ul>{boxCardPrompts}</ul>;
         }
