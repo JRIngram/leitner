@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
-import { Quiz, FormattedCard, CardInQuiz } from '../../../../types';
+import { Quiz, FormattedCard, QuizUnderstudy } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
 
-type quizUnderstudy = {
-  _id: string,
-  name: string,
-  description: string,
-  cardObjects: CardInQuiz[]
-  cards: FormattedCard[]
-}
-
 const Study = () => {
-  const [quiz, setQuiz] = useState<quizUnderstudy>({
+  const [quiz, setQuiz] = useState<QuizUnderstudy>({
     _id: '',
     name: '',
     description: '',
@@ -37,7 +29,7 @@ const Study = () => {
       return formattedCards;
     });
 
-    let quizUnderStudy: quizUnderstudy = {
+    let quizUnderStudy: QuizUnderstudy = {
       ...quiz,
       cards
     }
@@ -82,6 +74,7 @@ const Study = () => {
         <div>
           <h1>{quiz.name}</h1>
           <StudyReview 
+            quizId={quiz._id}
             cardList={quiz.cards}
             onFinishReview={() => {
               setQuiz({
