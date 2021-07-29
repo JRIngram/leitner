@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Quiz } from '../../../../types';
-import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
-import ViewQuizzesListItem from '../../components/ViewQuizzesListItem/ViewQuizzesListItem';
 import Divider from '../../components/Divider/Divider';
+import StudyHomeListItem from '../../components/StudyHomeListItem/StudyHomeListItem';
 import { getAllQuizzes } from '../../utils/axios';
 
 type StudyHomeProps = { 
@@ -38,12 +37,10 @@ const StudyHome = (props: StudyHomeProps) => {
       const renderedQuizItems = () => {
         return quizzes.map(quiz => {
           return (
-            <div key={quiz._id}>
-              <ColouredButton buttonType={ButtonType.nav} text="start quiz" onClickAction={() => { return props.onQuizSelect(quiz)}} />
-              <ViewQuizzesListItem id={quiz._id} name={quiz.name} description={quiz.description} cardObjects={[]} />
-              <Divider />
-            </div>
-
+            <StudyHomeListItem 
+              quiz={quiz} 
+              onQuizSelect={props.onQuizSelect}
+            />
           )
         })
       }

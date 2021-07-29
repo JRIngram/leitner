@@ -35,4 +35,5 @@ export type QuizUnderstudy = {
   description: string,
   cardObjects: CardInQuiz[]
   cards: FormattedCard[]
+  quizBoxLevel: number
 }

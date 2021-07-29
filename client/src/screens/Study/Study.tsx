@@ -11,7 +11,8 @@ const Study = () => {
     name: '',
     description: '',
     cardObjects: [],
-    cards: []
+    cards: [],
+    quizBoxLevel: 1
   })
   const [cardCount, setCardCount] = useState(0);
 
@@ -31,7 +32,8 @@ const Study = () => {
 
     let quizUnderStudy: QuizUnderstudy = {
       ...quiz,
-      cards
+      cards,
+      quizBoxLevel: 1
     }
     return quizUnderStudy;
   }
@@ -82,7 +84,8 @@ const Study = () => {
                 name: '',
                 description: '',
                 cardObjects: [],
-                cards: []
+                cards: [],
+                quizBoxLevel: 1
               });
               setCardCount(0);
             }}
