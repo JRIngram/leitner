@@ -16,7 +16,7 @@ const Study = () => {
   })
   const [cardCount, setCardCount] = useState(0);
 
-  const constructQuiz = async (quiz: Quiz) => {
+  const constructQuiz = async (quiz: Quiz, boxLevel: number) => {
     const cardIds = quiz.cardObjects.map(card => card._id);
     const cards = await getCardsByIds(cardIds).then(response => {
       const formattedCards: FormattedCard[] = response.data.map(card => {
@@ -33,7 +33,7 @@ const Study = () => {
     let quizUnderStudy: QuizUnderstudy = {
       ...quiz,
       cards,
-      quizBoxLevel: 1
+      quizBoxLevel: boxLevel,
     }
     return quizUnderStudy;
   }
@@ -97,8 +97,8 @@ const Study = () => {
       return (
         <StudyHome 
           onQuizSelect={
-            (quiz: Quiz) => {
-              constructQuiz(quiz).then(constructedQuiz => {
+            (quiz: Quiz, boxLevel: number) => {
+              constructQuiz(quiz, boxLevel).then(constructedQuiz => {
                 setQuiz(constructedQuiz);
               });
 

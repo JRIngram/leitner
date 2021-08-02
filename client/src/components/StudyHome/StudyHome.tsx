@@ -5,7 +5,7 @@ import StudyHomeListItem from '../../components/StudyHomeListItem/StudyHomeListI
 import { getAllQuizzes } from '../../utils/axios';
 
 type StudyHomeProps = { 
-  onQuizSelect: Function
+  onQuizSelect: (arg1: Quiz, arg2: number) => void
 }
 
 const StudyHome = (props: StudyHomeProps) => {
@@ -38,7 +38,8 @@ const StudyHome = (props: StudyHomeProps) => {
         return quizzes.map(quiz => {
           return (
             <StudyHomeListItem 
-              quiz={quiz} 
+              key={quiz._id}
+              quiz={quiz}
               onQuizSelect={props.onQuizSelect}
             />
           )
