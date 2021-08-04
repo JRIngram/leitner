@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import StudyReview from './StudyReview';
 
@@ -11,12 +11,12 @@ describe('StudyReview', () =>{
     expect(getByText('Quiz Review')).toBeVisible();
   });
 
-  it('calls the finish review quiz callback', () => {
+  it('calls the finish review quiz callback', async () => {
     const callback = jest.fn();
     const { getByText } = render(<StudyReview quizId={''} cardList={[]} onFinishReview={callback}/>);
     expect(callback).toBeCalledTimes(0);
     fireEvent.click(getByText("finish review"));
-    expect(callback).toBeCalledTimes(1);
+    await waitFor(() => { expect(callback).toBeCalledTimes(1)})
   })
 
   describe('percentage correct heading', () => {

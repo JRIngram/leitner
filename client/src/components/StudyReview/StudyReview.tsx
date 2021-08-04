@@ -14,7 +14,7 @@ type StudyReviewProps = {
 const loadReviewList = (cardList: FormattedCard[]) => {
   return cardList.map((card) => {
     return (
-      <div>
+      <div key={card._id}>
         <StudyReviewListItem reviewItem={card}/>
         <Divider />
       </div>
@@ -54,8 +54,8 @@ const StudyReview = ({quizId, cardList, onFinishReview}: StudyReviewProps) => {
       <ColouredButton 
         text="finish review"
         buttonType={ButtonType.nav}
-        onClickAction={() => {
-          updateQuizCardBoxes(quizId, cardList);
+        onClickAction={async () => {
+          await updateQuizCardBoxes(quizId, cardList);
           onFinishReview();
         }}
       />

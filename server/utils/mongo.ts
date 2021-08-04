@@ -167,18 +167,39 @@ export const updateQuizBoxes = async (
     return boxModifier;
   };
 
+  //  # HAPPENS:
+  //    UPDATECARDOBJECTS:
+  //      FOR EACH CARDOBJECT IN THE QUIZ FROM MONGO
+  //        GET EACH CARDOBJECT THAT MATCHES AN ID, IF NO MATCHES RETURN []
+  //        CALCULATE THE NEW BOX VALUE FOR RETURNED VALUE
+  //        ADD TO UPDATEDQUIZCARDOBJECTS[]
+  //        RETURN UPDATEDQUIZCARDOBJECTS[];
+  //    ADD UPDATEDQUIZCARDOBJECTS[] to QUIZ
+
+  //  # SHOULD HAPPEN:
+  //    UPDATECARDOBJECTS:
+  //      FOR EACH CARDOBJECT IN THE QUIZ FROM MONGO
+  //        GET EACH CARDOBJECT THAT MATCHES AN ID, IF NO MATCHES RETURN [];
+  //        IF MATCH !== []:
+  //          NEWBOX = CALCULATE THE NEW BOX VALUE FOR RETURNED VALUE;
+  //          ADD NEWBOX TO UPDATEDQUIZCARDOBJECTS[];
+  //        ELSE:
+  //          ADD CURRENT CARDOBJECT TO UPDATEDQUIZCARDOBJECTS[];
+  //        RETURN UPDATEDQUIZCARDOBJECTS[];
   const updatedQuizCardObjects = quizCardObjects.map((cardObject) => {
-    const cardIdAndCorrectness = cardIdsAndCorrectness.filter((card: CardIdsAndCorrectness) => {
+    const cardIdAndCorrectness = cardIdsAndCorrectness.find((card: CardIdsAndCorrectness) => {
       const { _id } = card;
       return _id === cardObject._id.toString();
     });
-
-    const newBoxValue = calculateBoxValue(cardObject.box, cardIdAndCorrectness[0].correct);
-    const updatedCardObject = {
-      _id: cardObject._id,
-      box: cardObject.box + newBoxValue,
-    };
-    return updatedCardObject;
+    if (cardIdAndCorrectness) {
+      const newBoxValue = calculateBoxValue(cardObject.box, cardIdAndCorrectness.correct);
+      const updatedCardObject = {
+        _id: cardObject._id,
+        box: cardObject.box + newBoxValue,
+      };
+      return updatedCardObject;
+    }
+    return cardObject;
   });
 
   const { _id, name, description } = quizToUpdate;

@@ -17,7 +17,6 @@ const AmendQuizzes = () => {
         setQuizzes(response.data);
       }
       catch(err){
-        console.log(err);
         throw new Error(err);
       }
     }), []);
