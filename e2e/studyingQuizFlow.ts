@@ -61,7 +61,7 @@ const addQuiz = async (t) => {
     .click(addQuizButton);
 };
 
-fixture`studying`
+fixture`studying quiz flow`
   .page`${url}`
   .before(async () => {
     await dropAllTestCollections();
