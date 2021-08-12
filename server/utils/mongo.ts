@@ -167,25 +167,6 @@ export const updateQuizBoxes = async (
     return boxModifier;
   };
 
-  //  # HAPPENS:
-  //    UPDATECARDOBJECTS:
-  //      FOR EACH CARDOBJECT IN THE QUIZ FROM MONGO
-  //        GET EACH CARDOBJECT THAT MATCHES AN ID, IF NO MATCHES RETURN []
-  //        CALCULATE THE NEW BOX VALUE FOR RETURNED VALUE
-  //        ADD TO UPDATEDQUIZCARDOBJECTS[]
-  //        RETURN UPDATEDQUIZCARDOBJECTS[];
-  //    ADD UPDATEDQUIZCARDOBJECTS[] to QUIZ
-
-  //  # SHOULD HAPPEN:
-  //    UPDATECARDOBJECTS:
-  //      FOR EACH CARDOBJECT IN THE QUIZ FROM MONGO
-  //        GET EACH CARDOBJECT THAT MATCHES AN ID, IF NO MATCHES RETURN [];
-  //        IF MATCH !== []:
-  //          NEWBOX = CALCULATE THE NEW BOX VALUE FOR RETURNED VALUE;
-  //          ADD NEWBOX TO UPDATEDQUIZCARDOBJECTS[];
-  //        ELSE:
-  //          ADD CURRENT CARDOBJECT TO UPDATEDQUIZCARDOBJECTS[];
-  //        RETURN UPDATEDQUIZCARDOBJECTS[];
   const updatedQuizCardObjects = quizCardObjects.map((cardObject) => {
     const cardIdAndCorrectness = cardIdsAndCorrectness.find((card: CardIdsAndCorrectness) => {
       const { _id } = card;
