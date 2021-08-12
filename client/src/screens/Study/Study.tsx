@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
-import { Quiz, FormattedCard } from '../../../../types';
+import { Quiz, FormattedCard, QuizUnderstudy } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
 
-type quizUnderstudy = {
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-  cards: FormattedCard[]
-}
-
 const Study = () => {
-  const [quiz, setQuiz] = useState<quizUnderstudy>({
+  const [quiz, setQuiz] = useState<QuizUnderstudy>({
     _id: '',
     name: '',
     description: '',
-    cardObjectIds: [],
-    cards: []
+    cardObjects: [],
+    cards: [],
+    quizBoxLevel: 1
   })
   const [cardCount, setCardCount] = useState(0);
 
-  const constructQuiz = async (quiz: Quiz) => {
-    const cards = await getCardsByIds(quiz.cardObjectIds).then(response => {
-      const formattedCards = response.data.map(card => {
+  const constructQuiz = async (quiz: Quiz, boxLevel: number) => {
+    const cardsEqualAndAboveBoxLevel = quiz.cardObjects.filter(cardObject => cardObject.box >= boxLevel);
+    const cardIds = cardsEqualAndAboveBoxLevel.map(card => card._id);
+    const cards = await getCardsByIds(cardIds).then(response => {
+      const formattedCards: FormattedCard[] = response.data.map(card => {
         return {
           ...card,
           givenAnswer: '',
@@ -36,9 +31,11 @@ const Study = () => {
       return formattedCards;
     });
 
-    let quizUnderStudy = {
+    let quizUnderStudy: QuizUnderstudy = {
       ...quiz,
-      cards
+      cardObjects: cardsEqualAndAboveBoxLevel,
+      cards,
+      quizBoxLevel: boxLevel,
     }
     return quizUnderStudy;
   }
@@ -81,14 +78,16 @@ const Study = () => {
         <div>
           <h1>{quiz.name}</h1>
           <StudyReview 
+            quizId={quiz._id}
             cardList={quiz.cards}
             onFinishReview={() => {
               setQuiz({
                 _id: '',
                 name: '',
                 description: '',
-                cardObjectIds: [],
-                cards: []
+                cardObjects: [],
+                cards: [],
+                quizBoxLevel: 1
               });
               setCardCount(0);
             }}
@@ -100,8 +99,8 @@ const Study = () => {
       return (
         <StudyHome 
           onQuizSelect={
-            (quiz: Quiz) => {
-              constructQuiz(quiz).then(constructedQuiz => {
+            (quiz: Quiz, boxLevel: number) => {
+              constructQuiz(quiz, boxLevel).then(constructedQuiz => {
                 setQuiz(constructedQuiz);
               });
 

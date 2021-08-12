@@ -18,6 +18,7 @@ const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCoun
       return (
         <div>
           <input
+            id='answer-input'
             data-testid='answer-input'
             type="text"
             value={givenAnswer}
@@ -65,7 +66,7 @@ const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCoun
   return (
     <div data-testid={'study-question'}>
       <h2>Question {currentQuestionNumber + 1} of {totalQuestionCount}</h2>
-      <p>{prompt}</p>
+      <p id="quizPrompt">{prompt}</p>
       {renderQuestion()}
     </div>
 

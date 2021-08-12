@@ -26,7 +26,7 @@
     "settings": {
         "import/resolver": {
             "node": {
-                "extensions": [".js", ".ts", ".tsx"]
+                "extensions": [".js", ".ts", ".tsx", ".d.ts"]
             }
         }
     },
@@ -34,5 +34,5 @@
         "import/extensions": 0,
         "no-underscore-dangle": 0
     },
-    "ignorePatterns": ["server/**/*.js", "testUtils/**/*.js", "e2e/**/*.js"]
+    "ignorePatterns": ["server/**/*.js", "testUtils/**/*.js", "e2e/**/*.js", "compiled/"]
 }

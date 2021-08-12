@@ -3,6 +3,7 @@ import {
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
 import { dropAllTestCollections } from '../../testUtils/testUtils';
+import { CardInQuiz } from '../../types';
 
 beforeAll(async () => {
   await dropAllTestCollections();
@@ -188,22 +189,33 @@ describe('quizzes', () => {
       const cardIds = addedCards.map((card) => card._id);
       await addQuiz(testQuizName, testQuizDescription, cardIds);
       let returnedQuizzes = await getAllQuizzes();
+
       const testQuiz = returnedQuizzes[0];
       const expectedName = `${testQuiz.name}-updated`;
       const expectedDescription = `${testQuiz.name}-updated`;
-      const expectedCardIds = [testQuiz.cardObjectIds[0]];
+      const cardObjectIds = testQuiz.cardObjects.map((cardObject: CardInQuiz) => cardObject._id);
+      const expectedCardObjects = JSON.stringify([
+        {
+          _id: cardObjectIds[0],
+          box: 1,
+        },
+        {
+          _id: cardObjectIds[1],
+          box: 1,
+        },
+      ]);
       await updateQuiz(
         testQuiz._id,
         expectedName,
         expectedDescription,
-        expectedCardIds,
+        cardObjectIds,
       );
       returnedQuizzes = await getAllQuizzes();
       const updatedTestQuiz = returnedQuizzes[0];
       expect(updatedTestQuiz._id).toEqual(testQuiz._id);
       expect(updatedTestQuiz.name).toEqual(expectedName);
       expect(updatedTestQuiz.description).toEqual(expectedDescription);
-      expect(updatedTestQuiz.cardObjectIds).toEqual(expectedCardIds);
+      expect(JSON.stringify(updatedTestQuiz.cardObjects)).toEqual(expectedCardObjects);
     });
 
     it('can update a quiz with only the name changing', async () => {
@@ -220,18 +232,20 @@ describe('quizzes', () => {
       let returnedQuizzes = await getAllQuizzes();
       const testQuiz = returnedQuizzes[0];
       const expectedName = `${testQuiz.name}-updated`;
+      const cardObjectIds = testQuiz.cardObjects.map((cardObject: CardInQuiz) => cardObject._id);
       await updateQuiz(
         testQuiz._id,
         expectedName,
         testQuiz.description,
-        testQuiz.cardObjectIds,
+        cardObjectIds,
       );
       returnedQuizzes = await getAllQuizzes();
       const updatedTestQuiz = returnedQuizzes[0];
       expect(updatedTestQuiz._id).toEqual(testQuiz._id);
       expect(updatedTestQuiz.name).toEqual(expectedName);
       expect(updatedTestQuiz.description).toEqual(testQuiz.description);
-      expect(updatedTestQuiz.cardObjectIds).toEqual(testQuiz.cardObjectIds);
+      expect(JSON.stringify(updatedTestQuiz.cardObjects))
+        .toEqual(JSON.stringify(testQuiz.cardObjects));
     });
 
     it('can update a quiz with only the description changing', async () => {
@@ -248,18 +262,20 @@ describe('quizzes', () => {
       let returnedQuizzes = await getAllQuizzes();
       const testQuiz = returnedQuizzes[0];
       const expectedDescription = `${testQuiz.description}-updated`;
+      const cardObjectIds = testQuiz.cardObjects.map((cardObject: CardInQuiz) => cardObject._id);
       await updateQuiz(
         testQuiz._id,
         testQuiz.name,
         expectedDescription,
-        testQuiz.cardObjectIds,
+        cardObjectIds,
       );
       returnedQuizzes = await getAllQuizzes();
       const updatedTestQuiz = returnedQuizzes[0];
       expect(updatedTestQuiz._id).toEqual(testQuiz._id);
       expect(updatedTestQuiz.name).toEqual(testQuiz.name);
       expect(updatedTestQuiz.description).toEqual(expectedDescription);
-      expect(updatedTestQuiz.cardObjectIds).toEqual(testQuiz.cardObjectIds);
+      expect(JSON.stringify(updatedTestQuiz.cardObjects))
+        .toEqual(JSON.stringify(testQuiz.cardObjects));
     });
 
     it('can update a quiz with only the cards changing', async () => {
@@ -275,19 +291,26 @@ describe('quizzes', () => {
       await addQuiz(testQuizName, testQuizDescription, cardIds);
       let returnedQuizzes = await getAllQuizzes();
       const testQuiz = returnedQuizzes[0];
-      const expectedCardIds = [testQuiz.cardObjectIds[0]];
+      const updatedCardId = testQuiz.cardObjects[0]._id;
+      const updatedCardObject = [
+        {
+          _id: updatedCardId,
+          box: 1,
+        },
+      ];
       await updateQuiz(
         testQuiz._id,
         testQuiz.name,
         testQuiz.description,
-        expectedCardIds,
+        [updatedCardId],
       );
       returnedQuizzes = await getAllQuizzes();
       const updatedTestQuiz = returnedQuizzes[0];
       expect(updatedTestQuiz._id).toEqual(testQuiz._id);
       expect(updatedTestQuiz.name).toEqual(testQuiz.name);
       expect(updatedTestQuiz.description).toEqual(testQuiz.description);
-      expect(updatedTestQuiz.cardObjectIds).toEqual(expectedCardIds);
+      expect(JSON.stringify(updatedCardObject[0]))
+        .toEqual(JSON.stringify(testQuiz.cardObjects[0]));
     });
   });
 });

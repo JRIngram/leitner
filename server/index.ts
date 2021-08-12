@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
+import { CardIdsAndCorrectness } from '../types';
 import {
   getAllCards, getCardsByIds, deleteCard, addCard, updateCard,
-  addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
+  addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes,
 } from './utils/mongo';
 
 const express = require('express');
@@ -142,6 +143,22 @@ app.post('/deleteQuiz', async (req: Request, res: Response) => {
   try {
     const { quizId } = req.body;
     const queryResponse = await deleteQuiz(quizId);
+    res.send(queryResponse);
+  } catch (err) {
+    error(err);
+    res.sendStatus(500);
+  }
+});
+
+type updateQuizBoxesQuery = {
+  quizId: string,
+  cardIdsAndCorrectness: CardIdsAndCorrectness[];
+}
+
+app.post('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}>, res: Response) => {
+  try {
+    const { quizId, cardIdsAndCorrectness } = req.body;
+    const queryResponse = await updateQuizBoxes(quizId, cardIdsAndCorrectness);
     res.send(queryResponse);
   } catch (err) {
     error(err);

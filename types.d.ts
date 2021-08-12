@@ -4,11 +4,9 @@ export type Card = {
   answer: string
 }
 
-export type Quiz = {
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
+export type CardInQuiz = {
+  _id: string
+  box: number
 }
 
 export type FormattedCard = {
@@ -17,4 +15,25 @@ export type FormattedCard = {
   answer: string,
   givenAnswer: string,
   correct: boolean
+}
+
+export type CardIdsAndCorrectness = {
+  _id: string,
+  correct: boolean,
+};
+
+export type Quiz = {
+  _id: string,
+  name: string,
+  description: string,
+  cardObjects: CardInQuiz[]
+}
+
+export type QuizUnderstudy = {
+  _id: string,
+  name: string,
+  description: string,
+  cardObjects: CardInQuiz[]
+  cards: FormattedCard[]
+  quizBoxLevel: number
 }

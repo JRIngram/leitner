@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import StudyReview from './StudyReview';
 
@@ -7,16 +7,16 @@ jest.mock('../StudyReviewListItem/StudyReviewListItem');
 
 describe('StudyReview', () =>{
   it('renders quiz review title', () => {
-    const { getByText } = render(<StudyReview cardList={[]} onFinishReview={() => {}}/>);
+    const { getByText } = render(<StudyReview quizId={''} cardList={[]} onFinishReview={() => {}}/>);
     expect(getByText('Quiz Review')).toBeVisible();
   });
 
-  it('calls the finish review quiz callback', () => {
+  it('calls the finish review quiz callback', async () => {
     const callback = jest.fn();
-    const { getByText } = render(<StudyReview cardList={[]} onFinishReview={callback}/>);
+    const { getByText } = render(<StudyReview quizId={''} cardList={[]} onFinishReview={callback}/>);
     expect(callback).toBeCalledTimes(0);
     fireEvent.click(getByText("finish review"));
-    expect(callback).toBeCalledTimes(1);
+    await waitFor(() => { expect(callback).toBeCalledTimes(1)})
   })
 
   describe('percentage correct heading', () => {
@@ -37,7 +37,7 @@ describe('StudyReview', () =>{
           correct: true
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
       expect(getByText('2 correct out of 2 - 100.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -60,7 +60,7 @@ describe('StudyReview', () =>{
           correct: false
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
       expect(getByText('0 correct out of 2 - 0.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -83,7 +83,7 @@ describe('StudyReview', () =>{
           correct: false
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
       expect(getByText('1 correct out of 2 - 50.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -113,7 +113,7 @@ describe('StudyReview', () =>{
           correct: false
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
       expect(getByText('1 correct out of 3 - 33.33%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(3);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();

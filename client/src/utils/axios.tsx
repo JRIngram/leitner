@@ -1,4 +1,4 @@
-import { Card, Quiz } from '../../../types';
+import { Card, CardIdsAndCorrectness, Quiz } from '../../../types';
 import axios from 'axios';
 
 require('dotenv').config();
@@ -92,4 +92,15 @@ const deleteQuiz = async (quizId: string) => {
   });
 }
 
-export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz}
+const updateQuizBoxes = async (quizId: string, cardIdsAndCorrectness: CardIdsAndCorrectness[]) => {
+  return await axios({
+    method: 'post',
+    url: 'updateQuizBoxes',
+    data: {
+      quizId,
+      cardIdsAndCorrectness,
+    }
+  })
+};
+
+export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes}
