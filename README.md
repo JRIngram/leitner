@@ -3,7 +3,7 @@ Leitner is a free and open source software which allows users to create flash ca
 
 ## Set-up
 1. Have a [MongoDB](https://www.mongodb.com/) instance set-up locally.
-2. Run `npm i && cd client && npm i`
+2. Run `npm i && cd client && npm i && cd ../`
 3. Create your `.env` file, based off of the `.env.example` file (more info below).
 4. You will also want to update the `.env` file in `client/`. Base this off of the `client/.env.example` and set the `REACT_APP_SERVER_HOST` and `REACT_APP_SERVER_PORT` variables to the same as `HOST` and `SERVER_PORT` in the `.env` file created in step 3.
 5. Run `npm run start:server`
