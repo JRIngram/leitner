@@ -3,7 +3,16 @@ import axios from 'axios';
 
 require('dotenv').config();
 
-axios.defaults.baseURL = `http://localhost:3001/`;
+const host = process.env.REACT_APP_SERVER_HOST;
+const port = process.env.REACT_APP_SERVER_PORT;
+if(host && port){
+  axios.defaults.baseURL = `http://${host}:${port}/`;
+} else {
+  // Default values if .env file not set correctly
+  // This allows the jest tests to run
+  // and should be patched in future.
+  axios.defaults.baseURL = `http://localhost:3001/`;
+}
 
 const addCard = async (prompt: string, answer: string) => {
   return await axios({
