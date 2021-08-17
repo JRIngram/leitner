@@ -1,30 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
 import { dropAllTestCollections } from '../testUtils/testUtils';
-import url from './constants';
-
-const selectors = {
-  manageNavButton: Selector('p').withText('Manage'),
-  studyNavButton: Selector('p').withText('Study'),
-  addCardsButton: Selector('#coloured-button-add-cards'),
-  addCardButton: Selector('#coloured-button-add-card'),
-  deleteCardButton: Selector('#coloured-button-delete'),
-  promptInput: Selector('#prompt'),
-  answerInput: Selector('#answer'),
-  manageQuizzesButton: Selector('#coloured-button-manage-quizzes'),
-  noQuizzesCreatedText: Selector('p').withText('No quizzes have been created. Please create quizzes in the Manage tab.'),
-  quizNameInput: Selector('#quizName'),
-  quizDescriptionInput: Selector('#quizDescription'),
-  quizMustContainCards: Selector('p').withText('A quiz must contain at least one card'),
-  addQuizButton: Selector('#coloured-button-confirm-add-quiz'),
-  editQuizButton: Selector('#coloured-button-edit-quiz'),
-  confirmEditQuizButton: Selector('#coloured-button-confirm-edit-quiz'),
-  quizAddedText: Selector('p').withText('Quiz successfully added.'),
-  amendQuizzesButton: Selector('#coloured-button-amend-quizzes'),
-  deleteQuizButton: Selector('#coloured-button-delete-quiz'),
-  cardOnePrompt: Selector('li').withText('What is the latin name for the "Eastern Gray Squirrel"?'),
-  cardTwoPrompt: Selector('li').withText('What is the latin name for the "Barn Owl"?'),
-};
+import { selectors, url } from './constants';
 
 // @ts-ignore
 const addCards = async (t) => {

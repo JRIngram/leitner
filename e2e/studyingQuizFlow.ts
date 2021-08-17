@@ -1,35 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
 import { dropAllTestCollections } from '../testUtils/testUtils';
-import url from './constants';
-
-const selectors = {
-  // Set up
-  manageNavButton: Selector('p').withText('Manage'),
-  addCardsButton: Selector('#coloured-button-add-cards'),
-  addCardButton: Selector('#coloured-button-add-card'),
-  promptInput: Selector('#prompt'),
-  answerInput: Selector('#answer'),
-  manageQuizzesButton: Selector('#coloured-button-manage-quizzes'),
-  quizNameInput: Selector('#quizName'),
-  quizDescriptionInput: Selector('#quizDescription'),
-  addQuizButton: Selector('#coloured-button-confirm-add-quiz'),
-  confirmEditQuizButton: Selector('#coloured-button-confirm-edit-quiz'),
-  cardOnePrompt: Selector('li').withText('What is the latin name for the "Eastern Gray Squirrel"?'),
-  cardTwoPrompt: Selector('li').withText('What is the latin name for the "Barn Owl"?'),
-  // Study Specific
-  quizTitle: Selector('h1').withText('Latin animal names'),
-  quizReviewHeader: Selector('h2').withText('Quiz Review'),
-  studyNavButton: Selector('p').withText('Study'),
-  startQuizButton: Selector('#coloured-button-start-quiz'),
-  quizAnswerInput: Selector('#answer-input'),
-  quizPrompt: Selector('#quizPrompt'),
-  submitAnswer: Selector('#coloured-button-submit-answer'),
-  correctAnswerButton: Selector('#coloured-button-correct'),
-  incorrectAnswerButton: Selector('#coloured-button-incorrect'),
-  quizScore: Selector('h3').withText('2 correct out of 3 - 66.67%'),
-  finishQuizButton: Selector('#coloured-button-finish-review'),
-};
+import { selectors, url } from './constants';
 
 // @ts-ignore
 const addQuiz = async (t) => {
