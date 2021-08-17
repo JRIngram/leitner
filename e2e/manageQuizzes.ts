@@ -1,25 +1,26 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
-import { dropAllTestCollections } from '../testUtils/testUtils';
+import { createEndToEndCards, dropAllTestCollections } from '../testUtils/testUtils';
 import { selectors, url } from './constants';
 
-// @ts-ignore
-const addCards = async (t) => {
-  const {
-    manageNavButton, addCardButton, addCardsButton,
-    promptInput, answerInput,
-  } = selectors;
-  await t
-    .click(manageNavButton)
-    .click(addCardsButton)
-    .typeText(promptInput, 'What is the latin name for the "Eastern Gray Squirrel"?')
-    .typeText(answerInput, 'Sciurus carolinensis')
-    .click(addCardButton)
-    .click(addCardsButton)
-    .typeText(promptInput, 'What is the latin name for the "Barn Owl"?')
-    .typeText(answerInput, 'Tyto alba')
-    .click(addCardButton);
-};
+const {
+  manageNavButton,
+  manageQuizzesButton,
+  quizNameInput,
+  quizDescriptionInput,
+  quizMustContainCards,
+  addQuizButton,
+  quizAddedText,
+  amendQuizzesButton,
+  studyNavButton,
+  noQuizzesCreatedText,
+  cardOnePrompt,
+  cardTwoPrompt,
+  confirmEditQuizButton,
+  editQuizButton,
+  deleteQuizButton,
+
+} = selectors;
 
 fixture`manage quizzes`
   .page`${url}`
@@ -27,74 +28,60 @@ fixture`manage quizzes`
     await dropAllTestCollections();
   });
 
-test
-  .before(async (t) => {
-    await addCards(t);
-  })('can add a quiz', async (t) => {
-    const {
-      manageNavButton, manageQuizzesButton, quizNameInput, quizDescriptionInput,
-      quizMustContainCards, addQuizButton, quizAddedText, amendQuizzesButton, studyNavButton,
-      noQuizzesCreatedText, cardOnePrompt, cardTwoPrompt,
-    } = selectors;
-
-    await t
-      .click(studyNavButton)
-      .expect(noQuizzesCreatedText.exists)
-      .ok()
-      .click(manageNavButton)
-      .click(manageQuizzesButton)
-      .typeText(quizNameInput, 'Latin animal names')
-      .typeText(quizDescriptionInput, 'All things Latin and furry!')
-      .expect(quizMustContainCards.exists)
-      .ok()
-      .expect(addQuizButton.exists)
-      .notOk()
-      .click(Selector('#add-card-checkbox-0'))
-      .expect(quizMustContainCards.exists)
-      .notOk()
-      .expect(addQuizButton.exists)
-      .ok()
-      .click(Selector('#add-card-checkbox-1'))
-      .expect(quizMustContainCards.exists)
-      .notOk()
-      .click(Selector('#add-card-checkbox-1'))
-      .click(addQuizButton)
-      .expect(quizAddedText.exists)
-      .ok()
-      .click(amendQuizzesButton)
-      .expect(Selector('p').withText('Name: Latin animal names').exists)
-      .ok()
-      .expect(Selector('p').withText('All things Latin and furry!').exists)
-      .ok()
-      .expect(Selector('li').withText('Box One:').exists)
-      .ok()
-      .expect(cardOnePrompt.exists)
-      .ok()
-      .expect(cardTwoPrompt.exists)
-      .notOk()
-      .expect(Selector('li').withText('Box Two:').exists)
-      .ok()
-      .expect(Selector('li').withText('Box Three:').exists)
-      .ok()
-      .click(studyNavButton)
-      .expect(noQuizzesCreatedText.exists)
-      .notOk()
-      .expect(Selector('p').withText('Name: Latin animal names').exists)
-      .ok();
-  }).after(async (t) => {
-    const { manageNavButton, manageQuizzesButton } = selectors;
-    await t
-      .click(manageNavButton)
-      .click(manageQuizzesButton);
-  });
+test.before(async () => {
+  await createEndToEndCards();
+})('can add a quiz', async (t) => {
+  await t
+    .click(studyNavButton)
+    .expect(noQuizzesCreatedText.exists)
+    .ok()
+    .click(manageNavButton)
+    .click(manageQuizzesButton)
+    .typeText(quizNameInput, 'Latin animal names')
+    .typeText(quizDescriptionInput, 'All things Latin and furry!')
+    .expect(quizMustContainCards.exists)
+    .ok()
+    .expect(addQuizButton.exists)
+    .notOk()
+    .click(Selector('#add-card-checkbox-0'))
+    .expect(quizMustContainCards.exists)
+    .notOk()
+    .expect(addQuizButton.exists)
+    .ok()
+    .click(Selector('#add-card-checkbox-1'))
+    .expect(quizMustContainCards.exists)
+    .notOk()
+    .click(Selector('#add-card-checkbox-1'))
+    .click(addQuizButton)
+    .expect(quizAddedText.exists)
+    .ok()
+    .click(amendQuizzesButton)
+    .expect(Selector('p').withText('Name: Latin animal names').exists)
+    .ok()
+    .expect(Selector('p').withText('All things Latin and furry!').exists)
+    .ok()
+    .expect(Selector('li').withText('Box One:').exists)
+    .ok()
+    .expect(cardOnePrompt.exists)
+    .ok()
+    .expect(cardTwoPrompt.exists)
+    .notOk()
+    .expect(Selector('li').withText('Box Two:').exists)
+    .ok()
+    .expect(Selector('li').withText('Box Three:').exists)
+    .ok()
+    .click(studyNavButton)
+    .expect(noQuizzesCreatedText.exists)
+    .notOk()
+    .expect(Selector('p').withText('Name: Latin animal names').exists)
+    .ok();
+}).after(async (t) => {
+  await t
+    .click(manageNavButton)
+    .click(manageQuizzesButton);
+});
 
 test('can edit quizzes', async (t) => {
-  const {
-    manageNavButton, studyNavButton, manageQuizzesButton, confirmEditQuizButton,
-    amendQuizzesButton, editQuizButton, quizNameInput, quizDescriptionInput,
-    cardOnePrompt, cardTwoPrompt,
-  } = selectors;
-
   await t
     .click(manageNavButton)
     .click(manageQuizzesButton)
@@ -124,11 +111,6 @@ test('can edit quizzes', async (t) => {
 });
 
 test('can delete quizzes', async (t) => {
-  const {
-    deleteQuizButton, studyNavButton, noQuizzesCreatedText, manageNavButton, manageQuizzesButton,
-    amendQuizzesButton,
-  } = selectors;
-
   await t
     .click(manageNavButton)
     .click(manageQuizzesButton)

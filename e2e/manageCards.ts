@@ -4,12 +4,12 @@ import { dropAllTestCollections } from '../testUtils/testUtils';
 import { selectors, url } from './constants';
 
 const {
-  manageNavButton,
   addCardButton,
   addCardsButton,
-  deleteCardButton,
-  promptInput,
   answerInput,
+  deleteCardButton,
+  manageNavButton,
+  promptInput,
 } = selectors;
 
 fixture`manage cards`

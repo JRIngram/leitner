@@ -1,53 +1,30 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
-import { dropAllTestCollections } from '../testUtils/testUtils';
+import { createEndToEndQuiz, dropAllTestCollections } from '../testUtils/testUtils';
 import { selectors, url } from './constants';
 
-// @ts-ignore
-const addQuiz = async (t) => {
-  const {
-    manageNavButton, addCardButton, addCardsButton,
-    promptInput, answerInput, manageQuizzesButton,
-    quizNameInput, quizDescriptionInput, addQuizButton,
-  } = selectors;
-  await t
-    .click(manageNavButton)
-    .click(addCardsButton)
-    .typeText(promptInput, 'What is the latin name for the "Eastern Gray Squirrel"?')
-    .typeText(answerInput, 'Sciurus carolinensis')
-    .click(addCardButton)
-    .click(addCardsButton)
-    .typeText(promptInput, 'What is the latin name for the "Barn Owl"?')
-    .typeText(answerInput, 'Tyto alba')
-    .click(addCardButton)
-    .click(addCardsButton)
-    .typeText(promptInput, 'What is the latin name for the "Eurasian otter"?')
-    .typeText(answerInput, 'Lutra lutra')
-    .click(addCardButton)
-    .click(manageQuizzesButton)
-    .typeText(quizNameInput, 'Latin animal names')
-    .typeText(quizDescriptionInput, 'All things Latin and furry!')
-    .click(Selector('#add-card-checkbox-0'))
-    .click(Selector('#add-card-checkbox-1'))
-    .click(Selector('#add-card-checkbox-2'))
-    .click(addQuizButton);
-};
+const {
+  correctAnswerButton,
+  finishQuizButton,
+  incorrectAnswerButton,
+  quizAnswerInput,
+  quizBoxDropdown,
+  quizBoxDropdownOnePlus,
+  quizBoxDropdownThree,
+  quizBoxDropdownTwoPlus,
+  startQuizButton,
+  studyNavButton,
+  submitAnswer,
+} = selectors;
 
 fixture`quiz boxes`
   .page`${url}`
   .before(async () => {
     await dropAllTestCollections();
+    await createEndToEndQuiz();
   });
 
-test.before(async (t) => {
-  await addQuiz(t);
-})('when studying a quiz, the cards move boxes when marked as correct or incorrect', async (t) => {
-  const {
-    studyNavButton, startQuizButton, quizAnswerInput, submitAnswer,
-    correctAnswerButton, incorrectAnswerButton,
-    finishQuizButton, quizBoxDropdown, quizBoxDropdownOnePlus,
-    quizBoxDropdownTwoPlus, quizBoxDropdownThree,
-  } = selectors;
+test('when studying a quiz, the cards move boxes when marked as correct or incorrect', async (t) => {
   await t
     // Box 1+ Initial
     .click(studyNavButton)
