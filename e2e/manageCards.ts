@@ -1,16 +1,16 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
 import { dropAllTestCollections } from '../testUtils/testUtils';
-import url from './constants';
+import { selectors, url } from './constants';
 
-const selectors = {
-  manageNavButton: Selector('p').withText('Manage'),
-  addCardsButton: Selector('#coloured-button-add-cards'),
-  addCardButton: Selector('#coloured-button-add-card'),
-  deleteCardButton: Selector('#coloured-button-delete'),
-  promptInput: Selector('#prompt'),
-  answerInput: Selector('#answer'),
-};
+const {
+  addCardButton,
+  addCardsButton,
+  answerInput,
+  deleteCardButton,
+  manageNavButton,
+  promptInput,
+} = selectors;
 
 fixture`manage cards`
   .page`${url}`
@@ -19,10 +19,6 @@ fixture`manage cards`
   });
 
 test('can add and then delete a card', async (t) => {
-  const {
-    manageNavButton, addCardButton, addCardsButton,
-    deleteCardButton, promptInput, answerInput,
-  } = selectors;
   const savedPrompt = Selector('p').withText('Prompt: What is the latin name for the "Eastern Gray Squirrel"?');
   const savedAnswer = Selector('p').withText('Answer: Sciurus caroline');
   await t
@@ -43,9 +39,6 @@ test('can add and then delete a card', async (t) => {
 });
 
 test('can cancel adding a card', async (t) => {
-  const {
-    manageNavButton, addCardsButton, promptInput, answerInput,
-  } = selectors;
   const cancelButton = Selector('#coloured-button-cancel');
   const savedPrompt = Selector('p').withText('Prompt: What is the latin name for the "Barn Owl"?');
   const savedAnswer = Selector('p').withText('Answer: Tyto alba');
@@ -62,10 +55,6 @@ test('can cancel adding a card', async (t) => {
 });
 
 test('can create, update and delete a card', async (t) => {
-  const {
-    manageNavButton, addCardButton, addCardsButton,
-    deleteCardButton, promptInput, answerInput,
-  } = selectors;
   const editButton = Selector('#coloured-button-edit');
   const editCardButton = Selector('#coloured-button-edit-card');
   const savedPrompt = Selector('p').withText('Prompt: What is the latin name for the "Barn Owl"?');
