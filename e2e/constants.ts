@@ -1,5 +1,5 @@
 require('dotenv').config();
 
-const url = `${process.env.HOST}:3000`;
+const url = `${process.env.CLIENT_HOST}:${process.env.CLIENT_PORT}`;
 
 export default url;
