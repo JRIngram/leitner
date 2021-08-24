@@ -25,6 +25,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
   next();
 });
 
@@ -65,7 +66,7 @@ app.get('/getCardsByIds', async (req: Request, res: Response) => {
   }
 });
 
-app.post('/updateCard', async (req: Request, res: Response) => {
+app.put('/updateCard', async (req: Request, res: Response) => {
   try {
     const cardId = <string> req.body.id;
     const updatedPrompt = <string> req.body.prompt;
@@ -78,7 +79,7 @@ app.post('/updateCard', async (req: Request, res: Response) => {
   }
 });
 
-app.post('/deleteCard', async (req: Request, res: Response) => {
+app.delete('/deleteCard', async (req: Request, res: Response) => {
   try {
     const cardId = <string> req.body.id;
     const queryResponse = await deleteCard(cardId);
@@ -125,7 +126,7 @@ type updateQuizQuery = {
   cardIds: string[]
 }
 
-app.post('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
+app.put('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
   try {
     const { quizId } = req.body;
     const { quizName } = req.body;
@@ -139,7 +140,7 @@ app.post('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: R
   }
 });
 
-app.post('/deleteQuiz', async (req: Request, res: Response) => {
+app.delete('/deleteQuiz', async (req: Request, res: Response) => {
   try {
     const { quizId } = req.body;
     const queryResponse = await deleteQuiz(quizId);
@@ -155,7 +156,7 @@ type updateQuizBoxesQuery = {
   cardIdsAndCorrectness: CardIdsAndCorrectness[];
 }
 
-app.post('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}>, res: Response) => {
+app.put('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}>, res: Response) => {
   try {
     const { quizId, cardIdsAndCorrectness } = req.body;
     const queryResponse = await updateQuizBoxes(quizId, cardIdsAndCorrectness);
