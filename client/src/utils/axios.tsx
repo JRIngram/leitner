@@ -40,7 +40,7 @@ const getCardsByIds = async (cardIds: string[]) => {
 
 const updateCard = async (id: string, prompt: string, answer: string) => {
   return await axios({
-    method: 'post',
+    method: 'put',
     url: 'updateCard',
     data: {
       id,
@@ -52,7 +52,7 @@ const updateCard = async (id: string, prompt: string, answer: string) => {
 
 const deleteCard = async (id: string) => {
   return await axios({
-    method: 'post',
+    method: 'delete',
     url: 'deleteCard',
     data: {
       id,
@@ -80,7 +80,7 @@ const updateQuiz = async (
   quizId: string, quizName: string, quizDescription: string, cardIds: string[],
 ) => {
   return await axios({
-    method: 'post',
+    method: 'put',
     url:'updateQuiz',
     data: {
       quizId,
@@ -93,7 +93,7 @@ const updateQuiz = async (
 
 const deleteQuiz = async (quizId: string) => {
   return await axios({
-    method: 'post',
+    method: 'delete',
     url: 'deleteQuiz',
     data: {
       quizId
@@ -103,7 +103,7 @@ const deleteQuiz = async (quizId: string) => {
 
 const updateQuizBoxes = async (quizId: string, cardIdsAndCorrectness: CardIdsAndCorrectness[]) => {
   return await axios({
-    method: 'post',
+    method: 'put',
     url: 'updateQuizBoxes',
     data: {
       quizId,
