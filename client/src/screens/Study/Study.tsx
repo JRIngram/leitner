@@ -17,8 +17,8 @@ const Study = () => {
   const [cardCount, setCardCount] = useState(0);
 
   const constructQuiz = async (quiz: Quiz, boxLevel: number) => {
-    const cardsEqualAndAboveBoxLevel = quiz.cardObjects.filter(cardObject => cardObject.box >= boxLevel);
-    const cardIds = cardsEqualAndAboveBoxLevel.map(card => card._id);
+    const cardsEqualToBoxLevel = quiz.cardObjects.filter(cardObject => cardObject.box.toString() === boxLevel.toString());
+    const cardIds = cardsEqualToBoxLevel.map(card => card._id);
     const cards = await getCardsByIds(cardIds).then(response => {
       const formattedCards: FormattedCard[] = response.data.map(card => {
         return {
@@ -33,7 +33,7 @@ const Study = () => {
 
     let quizUnderStudy: QuizUnderstudy = {
       ...quiz,
-      cardObjects: cardsEqualAndAboveBoxLevel,
+      cardObjects: cardsEqualToBoxLevel,
       cards,
       quizBoxLevel: boxLevel,
     }
