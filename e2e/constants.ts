@@ -32,8 +32,8 @@ export const selectors = {
   // Study Homepage
   noQuizzesCreatedText: Selector('p').withText('No quizzes have been created. Please create quizzes in the Manage tab.'),
   quizBoxDropdown: Selector('#quizBoxes'),
-  quizBoxDropdownOnePlus: Selector('#quizBoxes-1'),
-  quizBoxDropdownTwoPlus: Selector('#quizBoxes-2'),
+  quizBoxDropdownOne: Selector('#quizBoxes-1'),
+  quizBoxDropdownTwo: Selector('#quizBoxes-2'),
   quizBoxDropdownThree: Selector('#quizBoxes-3'),
 
   // Studying

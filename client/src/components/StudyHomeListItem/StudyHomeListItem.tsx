@@ -33,8 +33,8 @@ const StudyHomeListItem = (props: StudyHomeListItemProps) => {
             defaultValue={"1"}
             onChange={handleChange}
           >
-            <option id="quizBoxes-1" value="1">Boxes 1+</option>
-            <option id="quizBoxes-2" value="2">Boxes 2+</option>
+            <option id="quizBoxes-1" value="1">Box 1</option>
+            <option id="quizBoxes-2" value="2">Box 2</option>
             <option id="quizBoxes-3" value="3">Box 3</option>
           </select>
         </div>
