@@ -1,5 +1,5 @@
 # Leitner
-Leitner is a free and open source piece of software which allows users to create flash cards and create quizes from these flashcards, and then study those quizzes. It is based on the [Leitner studying system of spaced repetition](https://en.wikipedia.org/wiki/Leitner_system).
+Leitner is a free and open source piece of software which allows users to create flashcards and create quizes from these flashcards, and then study those quizzes. It is based on the [Leitner studying system of spaced repetition](https://en.wikipedia.org/wiki/Leitner_system).
 
 Leitner is built using Typescript, MongoDB, React, Express and Node.
 

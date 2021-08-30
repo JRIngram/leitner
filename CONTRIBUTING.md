@@ -6,7 +6,7 @@ Thank you for taking interest in this project, and thank you for considering mak
 Contributions are certainly welcome here!
 
 ## Starting your contribution
-When contributing to this repository, please first discuss the change you wish to make by creating an issue on the GitHub page:
+When contributing to this repository, please either drop a comment on an open issue to say you want to work on that issue OR first discuss the change you wish to make by creating an issue on the GitHub page:
 * For bug reports [use this template](https://github.com/JRIngram/leitner/issues/new?assignees=JRIngram&labels=bug&template=bug_report.md&title=).
 * For feature requests [use this template](https://github.com/JRIngram/leitner/issues/new?assignees=JRIngram&labels=enhancement&template=feature_request.md&title=).
 * For questions [no template is required](https://github.com/JRIngram/leitner/issues/new?assignees=JRIngram&labels=question), but please be as informative as possible.
