@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const { log, error } = console;
 const app = express();
+const host = process.env.SERVER_HOST;
 const port = process.env.SERVER_PORT;
 
 app.use(express.json());
@@ -168,6 +169,6 @@ app.put('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}
 });
 
 app.listen(port, () => {
-  log(`Listening at http://localhost:${port}.`);
+  log(`Listening at http://${host}:${port}.`);
   log(`Ensure a MongoDB data is running @ ${process.env.DB_URL}:${process.env.DB_PORT} with the project '${process.env.DB_NAME}'`);
 });
