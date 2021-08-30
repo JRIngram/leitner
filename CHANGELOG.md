@@ -1,3 +1,4 @@
+[1.0.0]: https://github.com/JRIngram/leitner/releases/tag/v1.0.0
 # Changelog
 
 All notable changes to this project will be documented in this file.
