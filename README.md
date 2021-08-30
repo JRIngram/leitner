@@ -1,10 +1,18 @@
 # Leitner
-Leitner is a free and open source software which allows users to create flash cards and create quizes from these flashcards.
+Leitner is a free and open source piece of software which allows users to create flashcards and create quizes from these flashcards, and then study those quizzes. It is based on the [Leitner studying system of spaced repetition](https://en.wikipedia.org/wiki/Leitner_system).
+
+Leitner is built using Typescript, MongoDB, React, Express and Node.
+
+For the licence, please see [LICENCE.md](LICENCE.md).
+
+For version history and the changelog, please see [CHANGELOG.md](CHANGELOG.md)
+
+For information on contributing to this project, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Set-up
 1. Have a [MongoDB](https://www.mongodb.com/) instance set-up locally.
 2. Run `npm i && cd client && npm i && cd ../`
-3. Create your `.env` file, based off of the `.env.example` file (more info below).
+3. Create your `.env` files, based off of the `.env.example` file (more info below).
 4. You will also want to update the `.env` file in `client/`. Base this off of the `client/.env.example` and set the `REACT_APP_SERVER_HOST` and `REACT_APP_SERVER_PORT` variables to the same as `HOST` and `SERVER_PORT` in the `.env` file created in step 3.
 5. Run `npm run start:server`
 6. Run `npm run start:client`
@@ -30,8 +38,10 @@ Your `.env` file should have the following structure:
 DB_URL=mongodb://<IP-ADDRESS>
 DB_PORT=
 DB_NAME=
+SERVER_HOST=
 SERVER_PORT=
-HOST=
+CLIENT_HOST=
+CLIENT_PORT=
 TEST_ENV=
 ```
 
@@ -45,12 +55,12 @@ REACT_APP_SERVER_PORT=
 Field|Meaning|Example
 ----|--------|------|
 `DB_URL`|The URL of the mongo instance|`mongodb://127.0.0.1`
-`DB_PORT`|The port ot connect ot the mongo instance|`27017`
+`DB_PORT`|The port to connect to the mongo instance|`27017`
 `DB_NAME`|The name of the mongo database which stores leiter data|`leitner`
 `SERVER_HOST`|The host of the server part of the software (started usign `npm run start:server`). For testing you will want this set to `localhost`|`localhost`
-`SERVER_PORT`|The port of the server part of the software (started usign `npm run start:server`). For testing you will want this set to `3001`|`3001`
+`SERVER_PORT`|The port of the server part of the software (started using `npm run start:server`). For testing you will want this set to `3001`|`3001`
 `CLIENT_HOST`|The host domain for the client / front-end|`localhost` if running locally|
-`CLIENT_PORT`|The port the client runs on (only used for E2E tests)|`3002`
+`CLIENT_PORT`|The port the client runs on (only used for E2E tests)|`3000`
 `TEST_ENV`|Whether this is running on a test environment|Set to `false` if running in production, set to `true` if running on tests|
 
 ## Running tests
