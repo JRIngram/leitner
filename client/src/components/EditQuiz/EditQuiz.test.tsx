@@ -4,10 +4,10 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect';
 import EditQuiz from './EditQuiz';
 import { addCard, getAllCards, addQuiz, getAllQuizzes } from '../../utils/axios';
-import dropCollections from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../../testUtils/testUtils';
 
-beforeAll(async () => { await dropCollections() });
-afterEach(async () => { await dropCollections() });
+beforeAll(async () => { await dropAllTestCollections() });
+afterEach(async () => { await dropAllTestCollections() });
 
 const createQuiz = async () => {
   await addCard('testPrompt', 'testAnswer');

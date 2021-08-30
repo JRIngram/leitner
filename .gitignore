@@ -1,5 +1,9 @@
 .env
 node_modules/
 server/**/*.js
+client/**/*.js
+e2e/*.js
 testUtils/**/*.js
 coverage/
+.vscode/
+compiled/

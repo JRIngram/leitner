@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import ManageCards from '../components/ManageCards/ManageCards';
-import Divider from '../components/Divider/Divider';
-import { ColouredButton, ButtonType } from '../components/ColouredButton/ColouredButton';
-import ManageQuizzes from '../components/ManageQuizzes/ManageQuizzes';
+import ManageCards from '../../components/ManageCards/ManageCards';
+import Divider from '../../components/Divider/Divider';
+import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
+import ManageQuizzes from '../../components/ManageQuizzes/ManageQuizzes';
 
 enum ManageModes{
   'cards',
   'quizzes'
 }
+
 
 const Manage = () => {
   const [manageMode, setManageMode] = useState<ManageModes>(ManageModes.cards);

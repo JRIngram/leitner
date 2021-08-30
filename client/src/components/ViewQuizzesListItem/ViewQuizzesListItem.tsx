@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { Card, CardInQuiz } from './../../../../types';
 import { getCardsByIds } from '../../utils/axios';
 
 type viewQuizzesListItemProps = {
   id: string
   name: string
   description: string
-  cardIds: string[]
+  cardObjects: CardInQuiz[]
 }
 
-type cardType = {
-  _id: string,
-  prompt: string,
-  answer: string,
+const styles = {
+  orderedListStyle: {
+    listStyleType: 'none',
+  }
 }
 
 const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
-  const [cards, setCards] = useState<cardType[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
 
   useEffect(() => {
     let didCancel = false;
-
     const loadData = async () => {
-      const returnedCards = await getCardsByIds(props.cardIds);
+      const cardIds = props.cardObjects.map(card => card._id)
+      const returnedCards = await getCardsByIds(cardIds);
       if(!didCancel){
         setCards(returnedCards.data);
       }
@@ -30,25 +31,56 @@ const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
     loadData();
 
     return () => { didCancel = true }
-  }, [props.cardIds]);
+  }, [props.cardObjects]);
 
   const loadCards = () => {
-    if(cards.length > 0){
-      return cards.map((card: cardType) => {
+    const renderCards =() => {
+      if(cards.length > 0){
+        const { cardObjects } = props
+
+        const displayBoxedCardPrompts = (box: number) => {
+          const boxIds = cardObjects.filter(cardObject => cardObject.box === box).map(cardObject => cardObject._id);
+          const boxCardPrompts = boxIds.map(id => { 
+            const matchedCard = cards.filter(card => card._id === id)[0];
+            return matchedCard ? 
+              <li key={matchedCard._id}>{matchedCard.prompt}</li> :
+              null;
+          });
+          return <ul>{boxCardPrompts}</ul>;
+        }
+
         return (
-          <li key={card._id}>{card.prompt}</li>
+          <ol style={styles.orderedListStyle}>
+            <li>
+              Box One:
+              {displayBoxedCardPrompts(1)}
+            </li>
+            <li>
+              Box Two:
+              {displayBoxedCardPrompts(2)}
+            </li>
+            <li>
+              Box Three:
+              {displayBoxedCardPrompts(3)}
+            </li>
+          </ol>
         )
-      })
+      }
+    }
+    if(cards.length > 0){
+      return (
+        <ul data-testid={`view-quizzes-list-item-${props.id}-card-list`}>
+          {renderCards()}
+        </ul>
+      );
     }
   }
 
   return (
-    <div data-testid={`view-quizzes-list-item-${props.id}`}>
+    <div data-testid={`view-quizzes-list-item-${props.id}`} key={`${props.id}`}>
       <p>Name: {props.name}</p>
       <p>Description: {props.description}</p>
-      <ul data-testid={`view-quizzes-list-item-${props.id}-card-list`}>
-        {loadCards()}
-      </ul>
+      {loadCards()}
     </div>
   )
 }

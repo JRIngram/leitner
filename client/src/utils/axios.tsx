@@ -1,19 +1,19 @@
+import { Card, CardIdsAndCorrectness, Quiz } from '../../../types';
 import axios from 'axios';
+
 require('dotenv').config();
-axios.defaults.baseURL = `http://localhost:3001/`;
 
-type cardType = {
-  _id: string,
-  prompt: string,
-  answer: string
+const host = process.env.REACT_APP_SERVER_HOST;
+const port = process.env.REACT_APP_SERVER_PORT;
+if(host && port){
+  axios.defaults.baseURL = `http://${host}:${port}/`;
+} else {
+  // Default values if .env file not set correctly
+  // This allows the jest tests to run
+  // and should be patched in future.
+  axios.defaults.baseURL = `http://localhost:3001/`;
 }
 
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
 const addCard = async (prompt: string, answer: string) => {
   return await axios({
     method: 'post',
@@ -26,7 +26,7 @@ const addCard = async (prompt: string, answer: string) => {
 }
 
 const getAllCards = async () => {
-  return await axios.get<cardType[]>('getAllCards');
+  return await axios.get<Card[]>('getAllCards');
 };
 
 const getCardsByIds = async (cardIds: string[]) => {
@@ -35,12 +35,12 @@ const getCardsByIds = async (cardIds: string[]) => {
     queryString = queryString + `id=${cardId}&`;
   });
   queryString = queryString.substr(0, queryString.length - 1);
-  return await axios.get<cardType[]>(`getCardsByIds?${queryString}`)
+  return await axios.get<Card[]>(`getCardsByIds?${queryString}`)
 };
 
 const updateCard = async (id: string, prompt: string, answer: string) => {
   return await axios({
-    method: 'post',
+    method: 'put',
     url: 'updateCard',
     data: {
       id,
@@ -52,7 +52,7 @@ const updateCard = async (id: string, prompt: string, answer: string) => {
 
 const deleteCard = async (id: string) => {
   return await axios({
-    method: 'post',
+    method: 'delete',
     url: 'deleteCard',
     data: {
       id,
@@ -73,14 +73,14 @@ const addQuiz = async (quizName: string, quizDescription: string, cardIds: strin
 }
 
 const getAllQuizzes = async () => {
-  return await axios.get<quizType[]>('getAllQuizzes');
+  return await axios.get<Quiz[]>('getAllQuizzes');
 }
 
 const updateQuiz = async (
   quizId: string, quizName: string, quizDescription: string, cardIds: string[],
 ) => {
   return await axios({
-    method: 'post',
+    method: 'put',
     url:'updateQuiz',
     data: {
       quizId,
@@ -93,7 +93,7 @@ const updateQuiz = async (
 
 const deleteQuiz = async (quizId: string) => {
   return await axios({
-    method: 'post',
+    method: 'delete',
     url: 'deleteQuiz',
     data: {
       quizId
@@ -101,4 +101,15 @@ const deleteQuiz = async (quizId: string) => {
   });
 }
 
-export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz}
+const updateQuizBoxes = async (quizId: string, cardIdsAndCorrectness: CardIdsAndCorrectness[]) => {
+  return await axios({
+    method: 'put',
+    url: 'updateQuizBoxes',
+    data: {
+      quizId,
+      cardIdsAndCorrectness,
+    }
+  })
+};
+
+export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes}

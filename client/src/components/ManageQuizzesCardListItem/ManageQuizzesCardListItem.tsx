@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 type  ManageQuizzesCardListItemProps = {
   id: string,
+  index: number,
   prompt: string,
   answer: string,
   handleCheckChange: Function,
@@ -17,7 +18,6 @@ const styles = {
     marginLeft: '20px'
   }
 }
-
 
 const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
   const [isChecked, setIsChecked] = useState(props.checked);
@@ -35,7 +35,7 @@ const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
         <input 
           data-testid={`${testId}-checkbox-${isChecked}`}
           type="checkbox"
-          id={`add card ${props.id}`}
+          id={`add-card-checkbox-${props.index}`}
           checked={isChecked}
           onChange={
             (e) => {

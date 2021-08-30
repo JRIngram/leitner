@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Quiz } from '../../../../types';
 import { getAllQuizzes } from '../../utils/axios';
 import {ColouredButton, ButtonType} from '../ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../ViewQuizzesListItem/ViewQuizzesListItem';
@@ -6,15 +7,8 @@ import Divider from '../Divider/Divider';
 import { deleteQuiz } from '../../utils/axios';
 import EditQuiz from '../EditQuiz/EditQuiz';
 
-type quizType = { 
-  _id: string,
-  name: string,
-  description: string,
-  cardObjectIds: string[]
-}
-
 const AmendQuizzes = () => {
-  const [quizzes, setQuizzes] = useState<quizType[]>([]);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [editQuizId, setEditQuizId] = useState('');
   const [isLoadingData, setIsLoadingData] = useState(true);
   
@@ -25,7 +19,7 @@ const AmendQuizzes = () => {
       catch(err){
         throw new Error(err);
       }
-    }), [])
+    }), []);
 
   useEffect(() => {
     loadData();
@@ -36,12 +30,13 @@ const AmendQuizzes = () => {
     if(editQuizId !== ''){
       const quizUnderEdit = quizzes.find(quiz => quiz._id === editQuizId);
       if(quizUnderEdit){
+        const cardIds = quizUnderEdit.cardObjects.map(card => card._id)
         return (
           <EditQuiz
             quizId={quizUnderEdit._id}
             quizName={quizUnderEdit.name}
             quizDescription={quizUnderEdit.description}
-            cardsInQuiz={quizUnderEdit.cardObjectIds}
+            cardsInQuiz={cardIds}
             onCancel={() => {setEditQuizId('')}}
             afterUpdate={() => {setEditQuizId('')}}
           />
@@ -53,7 +48,8 @@ const AmendQuizzes = () => {
 
   const loadQuizzes = () => {
     if(quizzes.length > 0 && !isLoadingData){
-      return quizzes.map((quiz: quizType) => {
+      return quizzes.map((quiz: Quiz) => {
+        const cardIds = quiz.cardObjects;
         return (
           <div data-testid={`ammend-quiz-${quiz._id}`} key={quiz._id}>
             <ColouredButton 
@@ -79,11 +75,11 @@ const AmendQuizzes = () => {
               id={quiz._id}
               name={quiz.name}
               description={quiz.description} 
-              cardIds={quiz.cardObjectIds}
+              cardObjects={cardIds}
             />
             <Divider />
           </div>
-        )
+      )
       });
     }
     else if(!isLoadingData){

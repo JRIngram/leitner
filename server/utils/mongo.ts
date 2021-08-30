@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
+import { CardIdsAndCorrectness, CardInQuiz, Quiz } from '../../types';
 
 require('dotenv').config();
 
@@ -72,15 +73,25 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
     const client = await MongoClient.connect(dbUrl);
     const db = client.db(dbName);
     const collection = db.collection(quizCollection);
-    const cardObjectIds = cardIds.map((cardId) => new ObjectId(cardId));
+
+    const cardObjects: CardInQuiz[] = cardIds.map((cardId) => {
+      const objectId = new ObjectId(cardId);
+      const cardInQuiz: CardInQuiz = {
+        _id: objectId.toHexString(),
+        box: 1,
+      };
+      return cardInQuiz;
+    });
+
     const quizData = {
       name: quizName,
       description: quizDescription,
-      cardObjectIds,
+      cardObjects,
     };
+
     await collection.insertOne(quizData);
     await client.close();
-    return `Created quiz with ${quizName}, ${quizDescription}, ${cardObjectIds}`;
+    return `Created quiz with ${quizName}, ${quizDescription}, ${[...cardIds]}`;
   } catch (err) {
     return `${err}`;
   }
@@ -101,13 +112,21 @@ export const updateQuiz = async (
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
+
   const _id = new ObjectId(quizId);
-  const cardObjectIds = cardIds.map((cardId) => new ObjectId(cardId));
+  const cardObjects = cardIds.map((cardId) => {
+    const cardObject = {
+      _id: new ObjectId(cardId),
+      box: 1,
+    };
+    return cardObject;
+  });
+
   const updatedFields = {
     _id,
     name: quizName,
     description: quizDescription,
-    cardObjectIds,
+    cardObjects,
   };
   await collection.updateOne(
     { _id },
@@ -125,4 +144,57 @@ export const deleteQuiz = async (quizId: string) => {
   await collection.deleteOne({ _id: idToDelete });
   await client.close();
   return `Deleted card ${quizId}.`;
+};
+
+export const updateQuizBoxes = async (
+  quizId: string,
+  cardIdsAndCorrectness: CardIdsAndCorrectness[],
+) => {
+  const client = await MongoClient.connect(dbUrl);
+  const db = client.db(dbName);
+  const collection = db.collection(quizCollection);
+  const quizArray: Quiz[] = await collection.find({ _id: new ObjectId(quizId) }).toArray();
+  const quizToUpdate = quizArray[0];
+  const quizCardObjects = quizToUpdate.cardObjects;
+
+  const calculateBoxValue = (currentBoxValue: number, correct: boolean) => {
+    let boxModifier = 0;
+    if (currentBoxValue < 3 && correct) {
+      boxModifier = 1;
+    } else if (currentBoxValue > 1 && !correct) {
+      boxModifier = -1;
+    }
+    return boxModifier;
+  };
+
+  const updatedQuizCardObjects = quizCardObjects.map((cardObject) => {
+    const cardIdAndCorrectness = cardIdsAndCorrectness.find((card: CardIdsAndCorrectness) => {
+      const { _id } = card;
+      return _id === cardObject._id.toString();
+    });
+    if (cardIdAndCorrectness) {
+      const newBoxValue = calculateBoxValue(cardObject.box, cardIdAndCorrectness.correct);
+      const updatedCardObject = {
+        _id: cardObject._id,
+        box: cardObject.box + newBoxValue,
+      };
+      return updatedCardObject;
+    }
+    return cardObject;
+  });
+
+  const { _id, name, description } = quizToUpdate;
+  const updatedQuiz = {
+    name,
+    description,
+    cardObjects: updatedQuizCardObjects,
+  };
+
+  await collection.updateOne(
+    { _id },
+    { $set: updatedQuiz },
+  );
+  await client.close();
+
+  return `Updated cards in ${_id}`;
 };
