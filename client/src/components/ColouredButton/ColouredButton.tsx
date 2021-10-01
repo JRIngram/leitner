@@ -122,9 +122,7 @@ const styles ={
 }
 
 const ColouredButton = (props: ColouredButtonProps) => {
-  const [actionStyle, setActionStyle] = useState('default');
-  const [debounceActive, setDebounceActive] = useState(false);
-  const DEBOUCNCE_TIMEOUT_MS = 400;
+  const [actionStyle, setActionStyle] = useState('default')
 
   const renderButtonStyle = (buttonStyle: ButtonType) => {
     switch(buttonStyle){
@@ -182,19 +180,11 @@ const ColouredButton = (props: ColouredButtonProps) => {
       id={`coloured-button-${props.text.toLowerCase().replace(/\s/g, '-')}`}
       data-testid={`coloured-button-${props.text.toLowerCase().replace(/\s/g, '-')}`}
       style={renderButtonStyle(props.buttonType)} 
-      onMouseLeave={() => {setActionStyle('default');}}
+      onMouseLeave={() => {setActionStyle('default')}}
       onMouseUp={() => {setActionStyle('hover')}}
       onMouseOver={() =>{setActionStyle('hover')}}
       onMouseDown={() => {setActionStyle('click')}}
-      onClick={() => {
-        if(!debounceActive){
-          setDebounceActive(true);
-          setTimeout(() => {
-            setDebounceActive(false);
-          }, DEBOUCNCE_TIMEOUT_MS)
-          return props.onClickAction();
-        }
-      }}
+      onClick={() => { return props.onClickAction() }}
     >
       {props.text}
     </button>
