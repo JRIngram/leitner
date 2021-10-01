@@ -7,8 +7,8 @@ export const url = `${process.env.CLIENT_HOST}:${process.env.CLIENT_PORT}`;
 
 export const selectors = {
   // nav buttons
-  manageNavButton: Selector('p').withText('Manage'),
-  studyNavButton: Selector('p').withText('Study'),
+  manageNavButton: Selector('button').withText('Manage'),
+  studyNavButton: Selector('button').withText('Study'),
   manageQuizzesButton: Selector('#coloured-button-manage-quizzes'),
 
   // Card management
