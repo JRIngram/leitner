@@ -21,7 +21,7 @@
 ## Checklists
 ### Checklist for developer of feature
 - [ ] I have performed a code review on my own code
-- [ ] I have written unit tests to test my code
+- [ ] I have written unit tests to test my code, either with jest or react testing library
 - [ ] I have linked to the appropriate issue on GitHub
 - [ ] I have written an appropriate description for this PR.
 - [ ] I have written how to test this PR.
