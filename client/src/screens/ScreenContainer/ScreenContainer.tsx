@@ -1,64 +1,67 @@
-import React, { useState } from 'react';
-import Manage from '../Manage/Manage';
-import Study from '../Study/Study';
+import React, { useState } from "react";
+import Manage from "../Manage/Manage";
+import Study from "../Study/Study";
+import About from "../AboutUs/About";
 
 const styles = {
   container: {
-    marginLeft: '1%',
-    marginRight: '1%',
+    marginLeft: "1%",
+    marginRight: "1%",
   },
   navBarStyle: {
     height: "50px",
-    backgroundColor: '#094d9b',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: "centre"
+    backgroundColor: "#094d9b",
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "centre",
   },
   titleStyle: {
-    display: 'inline',
-    color: '#FFF',
+    display: "inline",
+    color: "#FFF",
     fontSize: 30,
     margin: "auto",
     paddingLeft: "1%",
-    paddingRight: "5%"
+    paddingRight: "5%",
   },
   itemContainer: {
     width: "100%",
-    display: 'flex',
+    display: "flex",
     // justifyContent: 'space-evenly',
   },
   navBarItem: {
     height: "30px",
-    display: 'inline',
-    color: '#FFF',
-    background: '#094d9b',
-    textDecoration: 'none',
+    display: "inline",
+    color: "#FFF",
+    background: "#094d9b",
+    textDecoration: "none",
     padding: "20px",
     margin: "0% 5%",
-    cursor: 'pointer',
-    font: "14px \"Century Gothic\", Futura, sans-serif",
+    cursor: "pointer",
+    font: '14px "Century Gothic", Futura, sans-serif',
     border: "none",
   },
   activeNavBarItem: {
-    textDecoration: 'underline',
-  }
-}
+    textDecoration: "underline",
+  },
+};
 
 const ScreenContainer = () => {
-  const screens = ['Study', 'Manage'];
+  const screens = ["Study", "Manage", "About Us"];
   const [currentScreen, setCurrentScreen] = useState(screens[0]);
-
 
   const renderScreen = () => {
     switch (currentScreen) {
       case screens[0]:
-        return <Study />
+        return <Study />;
       case screens[1]:
-        return <Manage />
+        return <Manage />;
+
+      case screens[2]:
+        return <About />;
       default:
-        return <Study />
+        return <Study />;
     }
-  }
+  };
 
   const renderNavButton = (screenName: string, index: number) => {
     let navBarButtonStyle = styles.navBarItem;
@@ -66,23 +69,21 @@ const ScreenContainer = () => {
       navBarButtonStyle = {
         ...navBarButtonStyle,
         ...styles.activeNavBarItem,
-      }
+      };
     }
     return (
       <button
-        style={
-          navBarButtonStyle
-        }
+        style={navBarButtonStyle}
         key={index}
         data-testid={`navbar-item-${index}`}
-        onClick={
-          () => { setCurrentScreen(screenName) }
-        }
+        onClick={() => {
+          setCurrentScreen(screenName);
+        }}
       >
         {screenName}
       </button>
     );
-  }
+  };
 
   return (
     <div>
@@ -92,12 +93,9 @@ const ScreenContainer = () => {
           {screens.map((screen, index) => renderNavButton(screen, index))}
         </div>
       </nav>
-      <div style={styles.container}>
-        {renderScreen()}
-      </div>
+      <div style={styles.container}>{renderScreen()}</div>
     </div>
-
-  )
-}
+  );
+};
 
 export default ScreenContainer;
