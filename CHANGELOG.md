@@ -24,3 +24,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Cards get moved into different boxes depending on if the student got them correct or not when studying a quiz.
 * Creation of CHANGELOG, LICENCE, README and Contributing
 * Unit and E2E tests
+* Added About Page
