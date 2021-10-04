@@ -1,29 +1,25 @@
 {
     "env": {
-        "browser": true,
-        "es2021": true,
-        "jest/globals": true
+        "jest": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "plugin:testcafe/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest/recommended"
+    ],
+    "plugins": [
+        "@typescript-eslint",
+        "jest"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
+        "ecmaFeatures": { "tsx": true },
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "jest",
-        "testcafe"
-    ],
     "settings": {
+        "react" : {
+            "version": "detect"
+        },
         "import/resolver": {
             "node": {
                 "extensions": [".js", ".ts", ".tsx", ".d.ts"]
