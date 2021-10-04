@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 type ColouredButtonProps = {
   text: string
   buttonType: ButtonType
-  onClickAction: Function
+  onClickAction: () => void
 }
 
 enum ButtonType {

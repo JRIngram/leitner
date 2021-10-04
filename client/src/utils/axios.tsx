@@ -1,6 +1,7 @@
 import { Card, CardIdsAndCorrectness, Quiz } from '../../../types';
 import axios from 'axios';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 const host = process.env.REACT_APP_SERVER_HOST;

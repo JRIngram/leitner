@@ -14,7 +14,7 @@ const styles = {
   },
   reviewContainer: {
     display: 'flex',
-    flexDirection: 'row' as 'row',
+    flexDirection: 'row' as const,
     margin: 'auto',
     alignItems: 'center'
   },

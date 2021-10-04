@@ -9,8 +9,8 @@ enum CardFormType{
 }
 
 type CardFormProps = {
-  afterGreenButtonClick: Function
-  onCancel: Function
+  afterGreenButtonClick: () => void
+  onCancel: () => void
   formType: CardFormType
   cardId?: string
   cardPrompt?: string
