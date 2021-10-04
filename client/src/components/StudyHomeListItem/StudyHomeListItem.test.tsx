@@ -15,7 +15,7 @@ describe('StudyHomeListItem', () => {
     const { getByText, getByTestId } = render(
         <StudyHomeListItem 
           quiz={quiz}
-          onQuizSelect={() => {}}
+          onQuizSelect={() => true}
         />
       );
     expect(getByText('Quiz Boxes:')).toBeVisible();

@@ -11,20 +11,20 @@ describe('Study', () => {
   
   describe('Rendering', () => {
     it('Renders the title correctly', () => {
-      const { getByText } = render(<StudyHome onQuizSelect={() => {}} />);
+      const { getByText } = render(<StudyHome onQuizSelect={() => true} />);
       expect(getByText('Study')).toBeVisible();
       expect(getByText('Study using your created flashcards and quizzes.')).toBeVisible();
     });
 
     it('Renders correctly if no quiz has been added', async () => {
-      const { getByText, findByText } = render(<StudyHome onQuizSelect={() => {}} />);
+      const { getByText, findByText } = render(<StudyHome onQuizSelect={() => true} />);
       expect(getByText('Quizzes')).toBeVisible();
       expect(await findByText('No quizzes have been created. Please create quizzes in the Manage tab.')).toBeVisible();
     });
 
     it('Renders correctly if a quiz has been added', async () => {
       await createQuiz('testQuiz', 'testDescription');
-      const { getByText, findByText } = render(<StudyHome onQuizSelect={() => {}} />);
+      const { getByText, findByText } = render(<StudyHome onQuizSelect={() => true} />);
       expect(getByText('Quizzes')).toBeVisible();
       expect(await findByText('start quiz')).toBeVisible();
       expect(await findByText('Name: testQuiz')).toBeVisible();
