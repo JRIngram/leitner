@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 type ColouredButtonProps = {
   text: string
@@ -121,7 +121,7 @@ const styles = {
   }
 }
 
-const ColouredButton = (props: ColouredButtonProps) => {
+const ColouredButton = (props: ColouredButtonProps): ReactElement => {
   const [actionStyle, setActionStyle] = useState('default');
   const [debounceActive, setDebounceActive] = useState(false);
   const DEBOUCNCE_TIMEOUT_MS = 400;

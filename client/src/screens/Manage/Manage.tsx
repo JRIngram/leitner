@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import ManageCards from '../../components/ManageCards/ManageCards';
 import Divider from '../../components/Divider/Divider';
 import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
@@ -10,7 +10,7 @@ enum ManageModes{
 }
 
 
-const Manage = () => {
+const Manage = (): ReactElement => {
   const [manageMode, setManageMode] = useState<ManageModes>(ManageModes.cards);
 
   const renderNavButtons = () => {
