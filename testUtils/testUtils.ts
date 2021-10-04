@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 import { addCard, getAllCards, addQuiz } from '../client/src/utils/axios';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 const dbName = process.env.DB_NAME;

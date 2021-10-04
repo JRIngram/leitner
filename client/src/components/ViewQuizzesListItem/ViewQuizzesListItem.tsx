@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Card, CardInQuiz } from './../../../../types';
 import { getCardsByIds } from '../../utils/axios';
 
@@ -15,7 +15,7 @@ const styles = {
   }
 }
 
-const ViewQuizzesListItem = (props: viewQuizzesListItemProps) => {
+const ViewQuizzesListItem = (props: viewQuizzesListItemProps): ReactElement => {
   const [cards, setCards] = useState<Card[]>([]);
 
   useEffect(() => {

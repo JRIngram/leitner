@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import Divider from '../Divider/Divider';
 import { addCard, updateCard } from '../../utils/axios';
@@ -30,7 +30,7 @@ const styles = {
   }
 }
 
-const CardForm = (props: CardFormProps) => {
+const CardForm = (props: CardFormProps): ReactElement => {
   const [prompt, setPrompt] =  useState('');
   const [answer, setAnswer] = useState('');
   const [loadedExistingValues, setLoadedExistingValues] = useState(false);
