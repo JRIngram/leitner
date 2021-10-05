@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Quiz } from '../../../../types';
 import Divider from '../../components/Divider/Divider';
 import StudyHomeListItem from '../../components/StudyHomeListItem/StudyHomeListItem';
@@ -8,7 +8,7 @@ type StudyHomeProps = {
   onQuizSelect: (arg1: Quiz, arg2: number) => void
 }
 
-const StudyHome = (props: StudyHomeProps) => {
+const StudyHome = (props: StudyHomeProps): ReactElement => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
@@ -23,7 +23,7 @@ const StudyHome = (props: StudyHomeProps) => {
         }
       }
       catch(err){
-        throw new Error(err);
+        throw err;
       }
     });
 

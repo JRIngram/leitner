@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { deleteCard } from '../../utils/axios';
@@ -7,11 +7,11 @@ type ManageCardsListItemProps = {
   id: string,
   prompt: string,
   answer: string,
-  onEdit: Function,
-  onDelete: Function
+  onEdit: () => void,
+  onDelete: () => void
 }
 
-const ManageCardsListItem = (props: ManageCardsListItemProps) => {
+const ManageCardsListItem = (props: ManageCardsListItemProps): ReactElement => {
   const [editMode, setEditMode] = useState(false);
   const id = props.id;
   const prompt = props.prompt;

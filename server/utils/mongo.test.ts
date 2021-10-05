@@ -86,7 +86,7 @@ describe('cards', () => {
   });
 
   describe('delete card', () => {
-    it('can delete card after adding card ', async () => {
+    it('can delete card after adding card', async () => {
       const testPrompt = 'testPrompt';
       const testAnswer = 'testAnswer';
       await addCard(testPrompt, testAnswer);

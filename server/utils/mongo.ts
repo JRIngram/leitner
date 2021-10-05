@@ -1,6 +1,7 @@
 import { MongoClient, ObjectId } from 'mongodb';
-import { CardIdsAndCorrectness, CardInQuiz, Quiz } from '../../types';
+import { Card, CardIdsAndCorrectness, CardInQuiz, Quiz } from '../../types';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 const dbName = typeof process.env.DB_NAME !== 'undefined' ? process.env.DB_NAME : '';
@@ -12,7 +13,7 @@ if (dbName === '' && dbUrl === '') {
   throw Error('process.env.DB_NAME or process.env.DB_URL is undefined');
 }
 
-export const addCard = async (prompt: string, answer: string) => {
+export const addCard = async (prompt: string, answer: string): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -22,26 +23,26 @@ export const addCard = async (prompt: string, answer: string) => {
   return `Added card with prompt:${prompt} & answer:${answer}`;
 };
 
-export const getAllCards = async () => {
+export const getAllCards = async (): Promise<Card[]> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
-  const queryResults = await collection.find({}).toArray();
+  const queryResults: Card[] = await collection.find({}).toArray();
   await client.close();
   return queryResults;
 };
 
-export const getCardsByIds = async (ids: string[]) => {
+export const getCardsByIds = async (ids: string[]): Promise<Card[]> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
   const objectIds = ids.map((id) => new ObjectId(id));
-  const queryResults = await collection.find({ _id: { $in: objectIds } }).toArray();
+  const queryResults: Card[] = await collection.find({ _id: { $in: objectIds } }).toArray();
   await client.close();
   return queryResults;
 };
 
-export const updateCard = async (cardId: string, prompt: string, answer: string) => {
+export const updateCard = async (cardId: string, prompt: string, answer: string): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -58,7 +59,7 @@ export const updateCard = async (cardId: string, prompt: string, answer: string)
   return `Card ${cardId} updated with ${JSON.stringify(updatedFields)}.`;
 };
 
-export const deleteCard = async (cardId: string) => {
+export const deleteCard = async (cardId: string): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -68,7 +69,7 @@ export const deleteCard = async (cardId: string) => {
   return `Deleted card ${idToDelete}.`;
 };
 
-export const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]) => {
+export const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]): Promise<string> => {
   try {
     const client = await MongoClient.connect(dbUrl);
     const db = client.db(dbName);
@@ -97,18 +98,18 @@ export const addQuiz = async (quizName: string, quizDescription: string, cardIds
   }
 };
 
-export const getAllQuizzes = async () => {
+export const getAllQuizzes = async (): Promise<Quiz[]> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
-  const queryResults = await collection.find({}).toArray();
+  const queryResults: Quiz[] = await collection.find({}).toArray();
   await client.close();
   return queryResults;
 };
 
 export const updateQuiz = async (
   quizId: string, quizName: string, quizDescription: string, cardIds: string[],
-) => {
+): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
@@ -136,7 +137,7 @@ export const updateQuiz = async (
   return `Quiz ${quizId} updated with ${JSON.stringify(updatedFields)}.`;
 };
 
-export const deleteQuiz = async (quizId: string) => {
+export const deleteQuiz = async (quizId: string): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
@@ -149,7 +150,7 @@ export const deleteQuiz = async (quizId: string) => {
 export const updateQuizBoxes = async (
   quizId: string,
   cardIdsAndCorrectness: CardIdsAndCorrectness[],
-) => {
+): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);

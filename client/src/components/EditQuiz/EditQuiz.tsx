@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
 import { updateQuiz } from '../../utils/axios'
@@ -21,11 +21,11 @@ type EditQuizProps = {
   quizDescription: string,
   quizId: string,
   cardsInQuiz: string[],
-  onCancel: Function,
-  afterUpdate: Function,
+  onCancel: () => void,
+  afterUpdate: () => void,
 }
 
-const EditQuiz = (props: EditQuizProps) => {
+const EditQuiz = (props: EditQuizProps): ReactElement => {
   const [quizName, setQuizName] = useState(props.quizName);
   const [quizDescription, setQuizDescription] = useState(props.quizDescription);
   const [checkedCards, setCheckedCards] = useState<string[]>(props.cardsInQuiz);

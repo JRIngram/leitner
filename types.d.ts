@@ -4,6 +4,11 @@ export type Card = {
   answer: string
 }
 
+export type CardWithoutId = {
+  prompt: string,
+  answer: string
+}
+
 export type CardInQuiz = {
   _id: string
   box: number
@@ -24,6 +29,12 @@ export type CardIdsAndCorrectness = {
 
 export type Quiz = {
   _id: string,
+  name: string,
+  description: string,
+  cardObjects: CardInQuiz[]
+}
+
+export type QuizWithoutId = {
   name: string,
   description: string,
   cardObjects: CardInQuiz[]

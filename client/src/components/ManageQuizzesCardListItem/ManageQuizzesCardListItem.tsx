@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 type  ManageQuizzesCardListItemProps = {
   id: string,
   index: number,
   prompt: string,
   answer: string,
-  handleCheckChange: Function,
+  handleCheckChange: (checked: boolean, id: string) => void,
   checked: boolean
 }
 
@@ -19,7 +19,7 @@ const styles = {
   }
 }
 
-const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
+const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps): ReactElement => {
   const [isChecked, setIsChecked] = useState(props.checked);
   const testId = `manage-quiz-card-list-item-${props.id}`
 

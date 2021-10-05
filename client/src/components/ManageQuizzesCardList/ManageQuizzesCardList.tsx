@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Card } from '../../../../types';
 import { getAllCards } from '../../utils/axios';
 import ManageQuizzesCardListItem from '../ManageQuizzesCardListItem/ManageQuizzesCardListItem';
 import Divider from '../Divider/Divider';
 
 type ManageQuizzesCardListProps = {
-  handleCheckChange: Function
+  handleCheckChange: (itemChecked: boolean, changedCardId: string) => void
   selectedCardIds: string[]
   testId: string
 }
 
-const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
+const ManageQuizzesCardList = (props: ManageQuizzesCardListProps): ReactElement => {
   const [cards, setCards] = useState<Card[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 

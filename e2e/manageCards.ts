@@ -1,4 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable jest/no-done-callback */
+/* eslint-disable jest/expect-expect */
 import { Selector } from 'testcafe';
 import { dropAllTestCollections } from '../testUtils/testUtils';
 import { selectors, url } from './constants';
