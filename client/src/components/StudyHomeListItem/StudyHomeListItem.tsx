@@ -13,9 +13,10 @@ const StudyHomeListItem = (props: StudyHomeListItemProps): ReactElement => {
   const { quiz, onQuizSelect } = props;
   const [boxLevel, setBoxLevel] = useState(1);
 
-  const handleChange = (event: any) => {
-    setBoxLevel(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setBoxLevel(parseInt(event.target.value));
   }
+
   return (
     <div key={quiz._id}>
       <ColouredButton 
