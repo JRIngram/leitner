@@ -10,10 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Debounce to buttons so button actions can't be triggered for 400ms after their initial triggering.
 ### Changed
-* Change items in NavBar from <p> to <button> to improve accessibility.
+* Change items in NavBar from `<p>` to `<button>` to improve accessibility.
 ### Deprecated
 ### Removed
 ### Fixed
+* Fixed eslint config and now is able to perform lint.
+* Fixed linting errors associated with the above.
 ### Security
 
 

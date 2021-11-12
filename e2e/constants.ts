@@ -1,6 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 export const url = `${process.env.CLIENT_HOST}:${process.env.CLIENT_PORT}`;

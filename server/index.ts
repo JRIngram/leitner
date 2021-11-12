@@ -5,7 +5,9 @@ import {
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes,
 } from './utils/mongo';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 const { log, error } = console;
@@ -97,7 +99,7 @@ type addQuizQuery = {
   cardIds: string[]
 }
 
-app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Response) => {
+app.post('/addQuiz', async (req: Request<unknown, unknown, addQuizQuery, unknown>, res: Response) => {
   try {
     const { quizName } = req.body;
     const { quizDescription } = req.body;
@@ -127,7 +129,7 @@ type updateQuizQuery = {
   cardIds: string[]
 }
 
-app.put('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
+app.put('/updateQuiz', async (req: Request<unknown, unknown, updateQuizQuery, unknown>, res: Response) => {
   try {
     const { quizId } = req.body;
     const { quizName } = req.body;
@@ -157,7 +159,7 @@ type updateQuizBoxesQuery = {
   cardIdsAndCorrectness: CardIdsAndCorrectness[];
 }
 
-app.put('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}>, res: Response) => {
+app.put('/updateQuizBoxes', async (req: Request<unknown, unknown, updateQuizBoxesQuery, unknown>, res: Response) => {
   try {
     const { quizId, cardIdsAndCorrectness } = req.body;
     const queryResponse = await updateQuizBoxes(quizId, cardIdsAndCorrectness);

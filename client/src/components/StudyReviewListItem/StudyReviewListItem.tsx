@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FormattedCard } from '../../../../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -14,7 +14,7 @@ const styles = {
   },
   reviewContainer: {
     display: 'flex',
-    flexDirection: 'row' as 'row',
+    flexDirection: 'row' as const,
     margin: 'auto',
     alignItems: 'center'
   },
@@ -28,7 +28,7 @@ const loadCorrectIcon = (correct: boolean) => {
     <FontAwesomeIcon icon={faTimesCircle} color="red" size="3x" title="icon for incorrect answer"/>
 }
 
-const StudyReviewListItem = ({reviewItem}: StudyReviewListItemProps) => {
+const StudyReviewListItem = ({reviewItem}: StudyReviewListItemProps): ReactElement => {
   return (
     <div style={styles.reviewContainer} data-testid="study-review-list-item-container">
       <div style={styles.iconContainer}>{loadCorrectIcon(reviewItem.correct)}</div>

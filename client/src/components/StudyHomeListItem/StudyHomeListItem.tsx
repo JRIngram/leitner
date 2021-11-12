@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { ReactElement, useState }from 'react';
 import { Quiz } from '../../../../types';
 import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../../components/ViewQuizzesListItem/ViewQuizzesListItem';
@@ -9,13 +9,14 @@ type StudyHomeListItemProps = {
   onQuizSelect: (arg1: Quiz, arg2: number) => void
 }
 
-const StudyHomeListItem = (props: StudyHomeListItemProps) => {
+const StudyHomeListItem = (props: StudyHomeListItemProps): ReactElement => {
   const { quiz, onQuizSelect } = props;
   const [boxLevel, setBoxLevel] = useState(1);
 
-  const handleChange = (event: any) => {
-    setBoxLevel(event.target.value);
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setBoxLevel(parseInt(event.target.value));
   }
+
   return (
     <div key={quiz._id}>
       <ColouredButton 

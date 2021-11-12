@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-const StudyReviewListItem = () => {
+const StudyReviewListItem = (): ReactElement => {
   return (
     <div data-testid="study-review-list-item-container"></div>
   )

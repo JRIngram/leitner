@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { CardIdsAndCorrectness, FormattedCard } from '../../../../types';
 import StudyReviewListItem from '../StudyReviewListItem/StudyReviewListItem';
 import {ButtonType, ColouredButton} from '../ColouredButton/ColouredButton'
@@ -8,7 +8,7 @@ import { updateQuizBoxes } from '../../utils/axios';
 type StudyReviewProps = {
   quizId: string
   cardList: FormattedCard[]
-  onFinishReview: Function
+  onFinishReview: () => void
 }
 
 const loadReviewList = (cardList: FormattedCard[]) => {
@@ -45,7 +45,7 @@ const calculateCorrectPercentage = (cardList: FormattedCard[]) => {
   return ((calculateCorrectAnswers(cardList) / cardList.length) * 100).toFixed(2);
 }
 
-const StudyReview = ({quizId, cardList, onFinishReview}: StudyReviewProps) => {
+const StudyReview = ({quizId, cardList, onFinishReview}: StudyReviewProps): ReactElement => {
   return (
     <div>
       <h2>Quiz Review</h2>

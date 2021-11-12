@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Quiz, FormattedCard, QuizUnderstudy } from '../../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
+import { Card } from '../../../../types';
 
-const Study = () => {
+const Study = (): ReactElement => {
   const [quiz, setQuiz] = useState<QuizUnderstudy>({
     _id: '',
     name: '',
@@ -20,7 +21,7 @@ const Study = () => {
     const cardsEqualToBoxLevel = quiz.cardObjects.filter(cardObject => cardObject.box.toString() === boxLevel.toString());
     const cardIds = cardsEqualToBoxLevel.map(card => card._id);
     const cards = await getCardsByIds(cardIds).then(response => {
-      const formattedCards: FormattedCard[] = response.data.map(card => {
+      const formattedCards: FormattedCard[] = response.data.map((card: Card) => {
         return {
           ...card,
           givenAnswer: '',
@@ -31,7 +32,7 @@ const Study = () => {
       return formattedCards;
     });
 
-    let quizUnderStudy: QuizUnderstudy = {
+    const quizUnderStudy: QuizUnderstudy = {
       ...quiz,
       cardObjects: cardsEqualToBoxLevel,
       cards,
@@ -52,9 +53,9 @@ const Study = () => {
             totalQuestionCount={quiz.cards.length}
             onQuestionFinished={(givenAnswer: string, correct: boolean) => {
               const quizCardsClone = [...quiz.cards];
-              let currentCard = quizCardsClone[cardCount];
+              const currentCard = quizCardsClone[cardCount];
 
-              let updatedCard = {
+              const updatedCard = {
                 ...currentCard,
                 givenAnswer,
                 correct,

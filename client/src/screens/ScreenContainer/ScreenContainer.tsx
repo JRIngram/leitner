@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Manage from '../Manage/Manage';
 import Study from '../Study/Study';
 
@@ -44,7 +44,7 @@ const styles = {
   }
 }
 
-const ScreenContainer = () => {
+const ScreenContainer = (): ReactElement => {
   const screens = ['Study', 'Manage'];
   const [currentScreen, setCurrentScreen] = useState(screens[0]);
 
