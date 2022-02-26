@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 * Debounce to buttons so button actions can't be triggered for 400ms after their initial triggering.
+* Donation link
 ### Changed
 * Change items in NavBar from `<p>` to `<button>` to improve accessibility.
 ### Deprecated
