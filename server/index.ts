@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { CardIdsAndCorrectness } from '../types';
+import { ObjectId } from 'mongodb';
+import { CardIdsAndCorrectness } from './types';
 import {
   getAllCards, getCardsByIds, deleteCard, addCard, updateCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes,
@@ -58,7 +59,8 @@ app.get('/getAllCards', async (req: Request, res: Response) => {
 
 app.get('/getCardsByIds', async (req: Request, res: Response) => {
   try {
-    const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
+    const requestCardId = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
+    const cardIds = requestCardId.map((id) => new ObjectId(id));
     const queryResponse = await getCardsByIds(cardIds);
     res.send(queryResponse);
   } catch (err) {
@@ -69,7 +71,7 @@ app.get('/getCardsByIds', async (req: Request, res: Response) => {
 
 app.put('/updateCard', async (req: Request, res: Response) => {
   try {
-    const cardId = <string> req.body.id;
+    const cardId = new ObjectId(req.body.id);
     const updatedPrompt = <string> req.body.prompt;
     const updatedAnswer = <string> req.body.answer;
     const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
@@ -82,7 +84,8 @@ app.put('/updateCard', async (req: Request, res: Response) => {
 
 app.delete('/deleteCard', async (req: Request, res: Response) => {
   try {
-    const cardId = <string> req.body.id;
+    const parameterId = <string> req.body.id;
+    const cardId = new ObjectId(parameterId);
     const queryResponse = await deleteCard(cardId);
     res.send(queryResponse);
   } catch (err) {
@@ -101,8 +104,9 @@ app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Respons
   try {
     const { quizName } = req.body;
     const { quizDescription } = req.body;
-    const { cardIds } = req.body;
-    const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
+    const requestCardId = req.body.cardIds;
+    const objectCardIds = requestCardId.map((id) => new ObjectId(id));
+    const queryResponse = await addQuiz(quizName, quizDescription, objectCardIds);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -129,7 +133,7 @@ type updateQuizQuery = {
 
 app.put('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
   try {
-    const { quizId } = req.body;
+    const quizId = new ObjectId(req.body.quizId);
     const { quizName } = req.body;
     const { quizDescription } = req.body;
     const { cardIds } = req.body;

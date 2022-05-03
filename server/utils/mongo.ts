@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from 'mongodb';
-import { CardIdsAndCorrectness, CardInQuiz, Quiz } from '../../types';
+import { CardIdsAndCorrectness, CardInQuiz } from '../types';
 
 require('dotenv').config();
 
@@ -31,7 +31,7 @@ export const getAllCards = async () => {
   return queryResults;
 };
 
-export const getCardsByIds = async (ids: string[]) => {
+export const getCardsByIds = async (ids: ObjectId[]) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -41,7 +41,7 @@ export const getCardsByIds = async (ids: string[]) => {
   return queryResults;
 };
 
-export const updateCard = async (cardId: string, prompt: string, answer: string) => {
+export const updateCard = async (cardId: ObjectId, prompt: string, answer: string) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -58,7 +58,7 @@ export const updateCard = async (cardId: string, prompt: string, answer: string)
   return `Card ${cardId} updated with ${JSON.stringify(updatedFields)}.`;
 };
 
-export const deleteCard = async (cardId: string) => {
+export const deleteCard = async (cardId: ObjectId) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -68,7 +68,7 @@ export const deleteCard = async (cardId: string) => {
   return `Deleted card ${idToDelete}.`;
 };
 
-export const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]) => {
+export const addQuiz = async (quizName: string, quizDescription: string, cardIds: ObjectId[]) => {
   try {
     const client = await MongoClient.connect(dbUrl);
     const db = client.db(dbName);
@@ -107,7 +107,7 @@ export const getAllQuizzes = async () => {
 };
 
 export const updateQuiz = async (
-  quizId: string, quizName: string, quizDescription: string, cardIds: string[],
+  quizId: ObjectId, quizName: string, quizDescription: string, cardIds: string[],
 ) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
@@ -136,7 +136,7 @@ export const updateQuiz = async (
   return `Quiz ${quizId} updated with ${JSON.stringify(updatedFields)}.`;
 };
 
-export const deleteQuiz = async (quizId: string) => {
+export const deleteQuiz = async (quizId: ObjectId) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
@@ -153,7 +153,7 @@ export const updateQuizBoxes = async (
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
-  const quizArray: Quiz[] = await collection.find({ _id: new ObjectId(quizId) }).toArray();
+  const quizArray = await collection.find({ _id: new ObjectId(quizId) }).toArray();
   const quizToUpdate = quizArray[0];
   const quizCardObjects = quizToUpdate.cardObjects;
 
@@ -167,7 +167,7 @@ export const updateQuizBoxes = async (
     return boxModifier;
   };
 
-  const updatedQuizCardObjects = quizCardObjects.map((cardObject) => {
+  const updatedQuizCardObjects = quizCardObjects.map((cardObject: any) => {
     const cardIdAndCorrectness = cardIdsAndCorrectness.find((card: CardIdsAndCorrectness) => {
       const { _id } = card;
       return _id === cardObject._id.toString();

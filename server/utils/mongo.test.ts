@@ -3,7 +3,7 @@ import {
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
 import { dropAllTestCollections } from '../../testUtils/testUtils';
-import { CardInQuiz } from '../../types';
+import { CardInQuiz } from '../types';
 
 beforeAll(async () => {
   await dropAllTestCollections();
