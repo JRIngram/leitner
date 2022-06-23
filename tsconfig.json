@@ -1,17 +1,27 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "preserveConstEnums": true,
-    "lib": ["ES2020", "DOM"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "outDir": "./compiled/"
   },
-  "include": ["**/*"],
-  "exclude": ["node_modules", "**/*.test.ts", "client/src"],
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.test.ts"],
 }

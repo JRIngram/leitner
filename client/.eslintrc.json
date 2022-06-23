@@ -1,0 +1,38 @@
+{
+    "env": {
+        "jest": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest/recommended"
+    ],
+    "plugins": [
+        "@typescript-eslint",
+        "jest"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": { "tsx": true },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "settings": {
+        "react" : {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".ts", ".tsx", ".d.ts"]
+            }
+        }
+    },
+    "rules": {
+        "import/extensions": 0,
+        "no-underscore-dangle": 0,
+        // below added only for demonolith. Should be fixed as part of that work.
+        "@typescript-eslint/no-empty-function": 1,
+        "@typescript-eslint/no-var-requires": 1,
+        "@typescript-eslint/ban-types": 1
+    },
+    "ignorePatterns": ["server/**/*.js", "testUtils/**/*.js", "e2e/**/*.js", "compiled/"]
+}
