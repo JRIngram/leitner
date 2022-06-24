@@ -107,7 +107,10 @@ export const getAllQuizzes = async () => {
 };
 
 export const updateQuiz = async (
-  quizId: ObjectId, quizName: string, quizDescription: string, cardIds: string[],
+  quizId: ObjectId,
+  quizName: string,
+  quizDescription: string,
+  cardIds: string[],
 ) => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);

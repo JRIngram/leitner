@@ -1,8 +1,9 @@
+// eslint-disable-next-line import/no-relative-packages
+import { dropAllTestCollections } from '../../testUtils/testUtils';
 import {
   addCard, getAllCards, getCardsByIds, updateCard, deleteCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
-import { dropAllTestCollections } from '../../testUtils/testUtils';
 import { CardInQuiz } from '../types';
 
 beforeAll(async () => {
@@ -86,7 +87,7 @@ describe('cards', () => {
   });
 
   describe('delete card', () => {
-    it('can delete card after adding card ', async () => {
+    it('can delete card after adding card', async () => {
       const testPrompt = 'testPrompt';
       const testAnswer = 'testAnswer';
       await addCard(testPrompt, testAnswer);
