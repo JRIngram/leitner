@@ -21,8 +21,8 @@ type EditQuizProps = {
   quizDescription: string,
   quizId: string,
   cardsInQuiz: string[],
-  onCancel: Function,
-  afterUpdate: Function,
+  onCancel: () => void,
+  afterUpdate: () => void,
 }
 
 const EditQuiz = (props: EditQuizProps) => {
@@ -30,8 +30,8 @@ const EditQuiz = (props: EditQuizProps) => {
   const [quizDescription, setQuizDescription] = useState(props.quizDescription);
   const [checkedCards, setCheckedCards] = useState<string[]>(props.cardsInQuiz);
 
-  const handleCheckChange = (itemChecked: boolean, changedCardId: string) => {
-    if(itemChecked){
+  const handleCheckChange = (isItemChecked: boolean, changedCardId: string) => {
+    if(isItemChecked){
       setCheckedCards([...checkedCards, changedCardId]);
     }
     else{

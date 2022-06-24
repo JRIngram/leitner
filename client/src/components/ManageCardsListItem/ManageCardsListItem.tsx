@@ -4,11 +4,11 @@ import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { deleteCard } from '../../utils/axios';
 
 type ManageCardsListItemProps = {
-  id: string,
-  prompt: string,
-  answer: string,
-  onEdit: Function,
-  onDelete: Function
+  id: string
+  prompt: string
+  answer: string
+  onEdit: () => void
+  onDelete: () => void
 }
 
 const ManageCardsListItem = (props: ManageCardsListItemProps) => {

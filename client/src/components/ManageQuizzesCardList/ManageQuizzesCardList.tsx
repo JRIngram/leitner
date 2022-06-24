@@ -5,7 +5,7 @@ import ManageQuizzesCardListItem from '../ManageQuizzesCardListItem/ManageQuizze
 import Divider from '../Divider/Divider';
 
 type ManageQuizzesCardListProps = {
-  handleCheckChange: Function
+  handleCheckChange: (isItemChecked: boolean, changedCardId: string) => void
   selectedCardIds: string[]
   testId: string
 }

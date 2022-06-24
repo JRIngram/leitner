@@ -5,7 +5,7 @@ type  ManageQuizzesCardListItemProps = {
   index: number,
   prompt: string,
   answer: string,
-  handleCheckChange: Function,
+  handleCheckChange: (isItemChecked: boolean, changedCardId: string) => void,
   checked: boolean
 }
 

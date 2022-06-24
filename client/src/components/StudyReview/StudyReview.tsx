@@ -8,7 +8,7 @@ import { updateQuizBoxes } from '../../utils/axios';
 type StudyReviewProps = {
   quizId: string
   cardList: FormattedCard[]
-  onFinishReview: Function
+  onFinishReview: () => void
 }
 
 const loadReviewList = (cardList: FormattedCard[]) => {
