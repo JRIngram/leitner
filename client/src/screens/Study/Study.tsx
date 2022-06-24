@@ -31,7 +31,7 @@ const Study = () => {
       return formattedCards;
     });
 
-    let quizUnderStudy: QuizUnderstudy = {
+    const quizUnderStudy: QuizUnderstudy = {
       ...quiz,
       cardObjects: cardsEqualToBoxLevel,
       cards,
@@ -52,9 +52,9 @@ const Study = () => {
             totalQuestionCount={quiz.cards.length}
             onQuestionFinished={(givenAnswer: string, correct: boolean) => {
               const quizCardsClone = [...quiz.cards];
-              let currentCard = quizCardsClone[cardCount];
+              const currentCard = quizCardsClone[cardCount];
 
-              let updatedCard = {
+              const updatedCard = {
                 ...currentCard,
                 givenAnswer,
                 correct,

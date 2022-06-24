@@ -16,7 +16,7 @@ describe('StudyQuestion', () => {
       answer='testAnswer'
       currentQuestionNumber={0}
       totalQuestionCount={10}
-      onQuestionFinished={() => {}}
+      onQuestionFinished={() => true}
     />);
 
     expect(getByTestId('study-question')).toBeVisible();
@@ -32,7 +32,7 @@ describe('StudyQuestion', () => {
       answer='testAnswer'
       currentQuestionNumber={0}
       totalQuestionCount={10}
-      onQuestionFinished={() => {}}
+      onQuestionFinished={() => true}
     />);
     userEvent.type(getByTestId('answer-input'), 'testUserAnswer');
     fireEvent.click(getByTestId('coloured-button-submit-answer'));

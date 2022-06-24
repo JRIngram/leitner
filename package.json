@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest -i",
+    "test": "npx jest -i src/",
     "test:e2e:firefox": "npx testcafe firefox e2e/**/*.ts",
     "test:e2e:chrome": "npx testcafe chrome e2e/**/*.ts",
     "tsc": "npx tsc",

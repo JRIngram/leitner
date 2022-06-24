@@ -28,11 +28,7 @@
     },
     "rules": {
         "import/extensions": 0,
-        "no-underscore-dangle": 0,
-        // below added only for demonolith. Should be fixed as part of that work.
-        "@typescript-eslint/no-empty-function": 1,
-        "@typescript-eslint/no-var-requires": 1,
-        "@typescript-eslint/ban-types": 1
+        "no-underscore-dangle": 0
     },
     "ignorePatterns": ["server/**/*.js", "testUtils/**/*.js", "e2e/**/*.js", "compiled/"]
 }
