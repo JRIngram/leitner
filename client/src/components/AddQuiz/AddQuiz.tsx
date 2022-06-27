@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addQuiz } from '../../utils/axios';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
-import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
+import { ManageQuizzesCardList } from '../ManageQuizzesCardList/ManageQuizzesCardList';
 
 const styles = { 
   labelStyle: {

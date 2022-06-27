@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
-import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
+import { ManageQuizzesCardList } from '../ManageQuizzesCardList/ManageQuizzesCardList';
 import { updateQuiz } from '../../utils/axios'
 
 const styles = { 

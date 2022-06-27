@@ -22,6 +22,7 @@ describe('rendering', () => {
     const returnedCards = await getAllCards().then(response => response.data);
     const firstCardId = returnedCards[0]._id;
     const { getByText, getByTestId, findByText } = render(<ManageCards />);
+
     expect(getByTestId('manage-cards')).toBeVisible();
     expect(getByText('add cards')).toBeVisible();
     expect(await findByText('Prompt: testPrompt')).toBeVisible();
@@ -33,15 +34,26 @@ describe('rendering', () => {
 describe('adding card', () => {
   it('user can add a card', async() => {
     const { getByText, getByTestId, queryByText, findByText } = render(<ManageCards />);
+    const prompt = "i am a prompt";
+    const answer = "i am an answer";
+    const deleteButtonText = 'delete';
+    const editButtonText = 'edit';
+
     fireEvent.click(getByText('add cards'));
-    expect(queryByText('testPrompt')).toBeNull();
-    expect(queryByText('testAnswer')).toBeNull();
-    userEvent.type(getByTestId('card-form-prompt-input'), 'testPrompt');
-    userEvent.type(getByTestId('card-form-answer-input'), 'testAnswer');
+    expect(queryByText(prompt)).toBeNull();
+    expect(queryByText(answer)).toBeNull();
+
+
+    userEvent.type(getByTestId('card-form-prompt-input'), prompt);
+    userEvent.type(getByTestId('card-form-answer-input'), answer);
     fireEvent.click(getByText('add card'));
-    expect(await findByText('Prompt: testPrompt')).toBeVisible();
-    expect(await findByText('Answer: testAnswer')).toBeVisible();
+
+    expect(await findByText(`Prompt: ${prompt}`)).toBeVisible();
+    expect(await findByText(`Answer: ${answer}`)).toBeVisible();
+    expect(getByTestId(`coloured-button-delete`)).toHaveTextContent(deleteButtonText);
+    expect(getByTestId(`coloured-button-edit`)).toHaveTextContent(editButtonText);
   });
+
 
   it('user can cancel adding a card', () => {
     const { getByText, getByTestId, queryByTestId } = render(<ManageCards />);
