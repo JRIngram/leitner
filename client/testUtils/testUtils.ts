@@ -1,6 +1,8 @@
 import { MongoClient } from 'mongodb';
-import { addCard, getAllCards, addQuiz } from '../client/src/utils/axios';
+import { addCard, getAllCards, addQuiz } from '../src/utils/axios';
+import { Card } from '../types'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 const dbName = process.env.DB_NAME;
@@ -53,6 +55,6 @@ export const createEndToEndQuiz = async () => {
   await addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
   await addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
   const returnedCards = await getAllCards();
-  const cardIds = returnedCards.data.map((card) => card._id);
+  const cardIds = returnedCards.data.map((card: Card) => card._id);
   await addQuiz('Latin animal names', 'All things Latin and furry!', cardIds);
 };

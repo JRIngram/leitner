@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '../../../../types';
+import { Card } from '../../../types';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards, deleteCard } from '../../utils/axios';

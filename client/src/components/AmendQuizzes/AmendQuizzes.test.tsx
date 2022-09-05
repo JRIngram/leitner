@@ -3,7 +3,7 @@ import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import AmendQuizzes from './AmendQuizzes';
 import { addCard, getAllCards, addQuiz, getAllQuizzes } from '../../utils/axios';
-import { dropAllTestCollections } from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../testUtils/testUtils';
 
 beforeAll(async () => { await dropAllTestCollections() });
 afterEach(async () => { await dropAllTestCollections() });

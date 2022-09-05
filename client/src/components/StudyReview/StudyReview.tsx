@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardIdsAndCorrectness, FormattedCard } from '../../../../types';
+import { CardIdsAndCorrectness, FormattedCard } from '../../../types';
 import {ButtonType, ColouredButton} from '../ColouredButton/ColouredButton'
 import Divider from '../Divider/Divider';
 import { updateQuizBoxes } from '../../utils/axios';

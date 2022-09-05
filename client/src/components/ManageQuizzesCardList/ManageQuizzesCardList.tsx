@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card } from '../../../../types';
+import { Card } from '../../../types';
 import { getAllCards } from '../../utils/axios';
 import Divider from '../Divider/Divider';
 

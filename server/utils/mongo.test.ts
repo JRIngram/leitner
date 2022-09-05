@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-relative-packages
-import { dropAllTestCollections } from '../../testUtils/testUtils';
+import dropAllTestCollections from '../testUtils/testUtils';
 import {
   addCard, getAllCards, getCardsByIds, updateCard, deleteCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,

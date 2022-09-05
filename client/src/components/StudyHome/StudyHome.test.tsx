@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import StudyHome from '../StudyHome/StudyHome';
-import { dropAllTestCollections, createQuiz } from '../../../../testUtils/testUtils';
+import { dropAllTestCollections, createQuiz } from '../../../testUtils/testUtils';
 
 describe('Study', () => {
   beforeAll(async () => await dropAllTestCollections());

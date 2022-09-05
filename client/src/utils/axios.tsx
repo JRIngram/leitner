@@ -1,4 +1,4 @@
-import { Card, CardIdsAndCorrectness, Quiz } from '../../../types';
+import { Card, CardIdsAndCorrectness, Quiz } from '../../types';
 import axios from 'axios';
 require('dotenv').config(); // eslint-disable-line @typescript-eslint/no-var-requires
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Quiz } from '../../../../types';
+import { Quiz } from '../../../types';
 import Divider from '../../components/Divider/Divider';
 import { getAllQuizzes } from '../../utils/axios';
 import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
@@ -25,7 +25,7 @@ const StudyHome = (props: StudyHomeProps) => {
         }
       }
       catch(err){
-        throw new Error(err);
+        console.error({ err })
       }
     });
 
