@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { addCard, getAllCards, addQuiz } from '../src/utils/axios';
-import { Card } from '../types'
+import { Card } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();

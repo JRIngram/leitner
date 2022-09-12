@@ -1,10 +1,12 @@
 .env
+.vscode/
 **/*.env
+client/**/*.js
+compiled/
+coverage/
+e2e/*.js
+e2e/cypress/screenshots
+e2e/cypress/videos
 node_modules/
 server/**/*.js
-client/**/*.js
-e2e/*.js
 testUtils/**/*.js
-coverage/
-.vscode/
-compiled/
