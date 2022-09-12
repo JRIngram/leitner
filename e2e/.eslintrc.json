@@ -22,5 +22,6 @@
         "cypress"
     ],
     "rules": {
+        "import/extensions": 0
     }
 }

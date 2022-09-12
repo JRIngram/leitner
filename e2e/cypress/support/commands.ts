@@ -1,4 +1,7 @@
 /// <reference types="cypress" />
+import { selectors } from '../support/selectors'
+
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -31,7 +34,20 @@
 //       login(email: string, password: string): Chainable<void>
 //       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
 //       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
 //     }
 //   }
 // }
+
+export const addCard = (promptText: string, answerText: string) => {
+  cy.get(selectors.manageNavButton).click();
+  cy.get(selectors.addCardsButton).click();
+  cy.get(selectors.promptInput).type(promptText);
+  cy.get(selectors.answerInput).type(answerText);
+  cy.get(selectors.addCardButton).click();
+};
+
+export const createEndToEndCards = () => {
+  addCard('What is the latin name for the "Eastern Gray Squirrel"?', 'Sciurus carolinensis');
+  addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
+  addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
+};

@@ -14,4 +14,5 @@ export const selectors = {
   answerInput: '#answer',
   savedPrompt: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > p:nth-child(1)',
   savedAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > p:nth-child(2)',
+  noCardsCreatedMessage: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > p:nth-child(1)',
 };

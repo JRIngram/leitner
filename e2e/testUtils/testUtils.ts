@@ -39,15 +39,6 @@ export const createQuiz = async (quizName: string, quizDescription: string) => {
 };
 
 /**
- * Adds cards for usage in the end to end tests
- */
-export const createEndToEndCards = async () => {
-  await addCard('What is the latin name for the "Eastern Gray Squirrel"?', 'Sciurus carolinensis');
-  await addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
-  await addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
-};
-
-/**
  * Creates a quiz for usage in the end to end tests
  */
 export const createEndToEndQuiz = async () => {
