@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Selector } from 'testcafe';
-import { createEndToEndCards, dropAllTestCollections } from '../testUtils/testUtils';
+import { createEndToEndCards, dropAllTestCollections } from './testUtils/testUtils';
 import { selectors, url } from './constants';
 
 const {

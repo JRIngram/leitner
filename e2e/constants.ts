@@ -49,5 +49,4 @@ export const selectors = {
   incorrectAnswerButton: Selector('#coloured-button-incorrect'),
   quizScore: Selector('h3').withText('2 correct out of 3 - 66.67%'),
   finishQuizButton: Selector('#coloured-button-finish-review'),
-
 };
