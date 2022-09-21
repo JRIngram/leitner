@@ -42,6 +42,7 @@ describe('manage cards', () => {
   });
 
   it('can edit quizzes', () => {
+    // double check this is doing what is expected
     const updatedQuizName = 'Latin animal names';
     const updatedQuizDescription = 'All things Latin and furry!';
 
@@ -57,6 +58,13 @@ describe('manage cards', () => {
     cy.get(selectors.firstQuizDescription).contains(updatedQuizDescription);
   });
 
-  it('can delete quiz', () => {});
+  it('can delete quiz', () => {
+    cy.get(selectors.manageNavButton).click();
+    cy.get(selectors.manageQuizzesButton).click();
+    cy.get(selectors.ammendQuizzesButton).click();
+    cy.get(selectors.deleteQuizButton).click();
+    cy.get(selectors.deleteQuizButton).should('not.exist');
+    cy.get(selectors.studyNavButton).click();
+  });
 
 });
