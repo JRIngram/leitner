@@ -1,4 +1,4 @@
-import { selectors } from '../support/selectors';
+import selectors from '../support/selectors';
 import { addCard } from '../support/commands'
 
 describe('manage cards', () => {

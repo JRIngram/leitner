@@ -1,6 +1,6 @@
-export const selectors = {
+const selectors = {
   manageNavButton: '#root > div:nth-child(1) > nav:nth-child(1) > p:nth-child(3)',
-  // studyNavButton: Selector('p').withText('Study'),
+  studyNavButton: '#root > div:nth-child(1) > nav:nth-child(1) > p:nth-child(2)',
   // manageQuizzesButton: Selector('#coloured-button-manage-quizzes'),
 
   // Card management
@@ -15,4 +15,31 @@ export const selectors = {
   savedPrompt: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > p:nth-child(1)',
   savedAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > p:nth-child(2)',
   noCardsCreatedMessage: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > p:nth-child(1)',
+
+  // manage quizzes
+  noQuizzesCreatedMessage: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > p:nth-child(2)',
+  manageQuizzesButton: '#coloured-button-manage-quizzes',
+  quizNameInput: '#quizName',
+  quizDescriptionInput: '#quizDescription',
+  quizMustContainCardsMessage: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > p:nth-child(3)',
+  confirmAddQuizButton: '#coloured-button-confirm-add-quiz',
+  addCardCheckBox: '#add-card-checkbox-',
+  quizSuccessfullyAdded: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > p:nth-child(3)',
+  ammendQuizzesButton: '#coloured-button-amend-quizzes',
+  boxOne: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > ul:nth-child(3) > ol:nth-child(1) > li:nth-child(1)',
+  amendQuizzesPromptOneBoxOne: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > ul:nth-child(3) > ol:nth-child(1) > li:nth-child(1) > ul:nth-child(1) > li:nth-child(1)',
+  amendQuizzesPromptTwoBoxTwo: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > ul:nth-child(3) > ol:nth-child(1) > li:nth-child(1) > ul:nth-child(1) > li:nth-child(2)',
+  amendQuizzesPromptThreeBoxThree: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > ul:nth-child(3) > ol:nth-child(1) > li:nth-child(1) > ul:nth-child(1) > li:nth-child(3)',
+  boxTwo: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > ul:nth-child(3) > ol:nth-child(1) > li:nth-child(2)',
+  boxThree: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > ul:nth-child(3) > ol:nth-child(1) > li:nth-child(3)',
+  editQuizButton: '#coloured-button-edit-quiz',
+  deleteQuizButton: '#coloured-button-delete-quiz',
+  confirmEditQuizButton: '#coloured-button-confirm-edit-quiz',
+
+  // study page
+  firstQuizName: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > p:nth-child(1)',
+  firstQuizDescription: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > p:nth-child(1)',
+  firstQuizBox: '#quizBoxes',
 };
+
+export default selectors;

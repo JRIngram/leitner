@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
-import { selectors } from '../support/selectors'
-
+import selectors from './selectors'
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -51,3 +50,18 @@ export const createEndToEndCards = () => {
   addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
   addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
 };
+
+export const createEndToEndQuiz = () => {
+  const quizName = 'Latin animal names';
+  const quizDescription = 'All things Latin and furry!';
+
+  cy.get(selectors.studyNavButton).click();
+  cy.get(selectors.manageNavButton).click();
+  cy.get(selectors.manageQuizzesButton).click();
+  cy.get(selectors.quizNameInput).type(quizName);
+  cy.get(selectors.quizDescriptionInput).type(quizDescription);
+  cy.get(`${selectors.addCardCheckBox}0`).click();
+  cy.get(`${selectors.addCardCheckBox}1`).click();
+  cy.get(`${selectors.addCardCheckBox}2`).click();
+  cy.get(selectors.confirmAddQuiz).click();
+}
