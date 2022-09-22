@@ -1,5 +1,5 @@
 import selectors from '../support/selectors';
-import { createEndToEndCards, createEndToEndQuiz } from '../support/commands'
+import { createEndToEndCards, deleteEndToEndCards } from '../support/commands'
 
 describe('manage cards', () => {
   before(() => {
@@ -9,6 +9,7 @@ describe('manage cards', () => {
 
   after(() => {
     // clean up created quizzes
+    deleteEndToEndCards();
   });
 
   it('can add a quiz', () => {
@@ -35,16 +36,15 @@ describe('manage cards', () => {
     cy.get(selectors.boxTwo).should('exist');
     cy.get(selectors.boxThree).should('exist');
     cy.get(selectors.studyNavButton).click();
-    cy.get(selectors.firstQuizName).contains(quizName);
-    cy.get(selectors.firstQuizDescription).contains(quizDescription);
+    cy.contains(selectors.firstQuizName, quizName);
+    cy.contains(selectors.firstQuizDescription, quizDescription);
     cy.get(selectors.firstQuizBox).should('exist');
     cy.get(selectors.noQuizzesCreatedMessage).should('not.exist');
   });
 
   it('can edit quizzes', () => {
-    // double check this is doing what is expected
-    const updatedQuizName = 'Latin animal names';
-    const updatedQuizDescription = 'All things Latin and furry!';
+    const updatedQuizName = 'Animal latin names';
+    const updatedQuizDescription = 'Latina omnia et furry!';
 
     cy.get(selectors.manageNavButton).click();
     cy.get(selectors.manageQuizzesButton).click();
@@ -54,8 +54,8 @@ describe('manage cards', () => {
     cy.get(selectors.quizDescriptionInput).clear().type(updatedQuizDescription);
     cy.get(selectors.confirmEditQuizButton).click();
     cy.get(selectors.studyNavButton).click();
-    cy.get(selectors.firstQuizName).contains(updatedQuizName);
-    cy.get(selectors.firstQuizDescription).contains(updatedQuizDescription);
+    cy.contains(selectors.firstQuizName, updatedQuizName);
+    cy.contains(selectors.firstQuizDescription, updatedQuizDescription);
   });
 
   it('can delete quiz', () => {
@@ -66,5 +66,4 @@ describe('manage cards', () => {
     cy.get(selectors.deleteQuizButton).should('not.exist');
     cy.get(selectors.studyNavButton).click();
   });
-
 });

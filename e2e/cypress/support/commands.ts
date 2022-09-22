@@ -51,6 +51,13 @@ export const createEndToEndCards = () => {
   addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
 };
 
+export const deleteEndToEndCards = () => {
+  cy.get(selectors.manageNavButton).click();
+  cy.get(selectors.deleteCardButton).click();
+  cy.get(selectors.deleteCardButton).click();
+  cy.get(selectors.deleteCardButton).click();
+}
+
 export const createEndToEndQuiz = () => {
   const quizName = 'Latin animal names';
   const quizDescription = 'All things Latin and furry!';
