@@ -1,3 +1,10 @@
+import { correctAnswer, incorrectAnswer } from '../support/constants';
+import {
+  createEndToEndCards,
+  createEndToEndQuiz,
+  deleteEndToEndCards,
+  deleteEndToEndQuiz,
+} from '../support/commands';
 import {
   correctAnswerButton,
   finishReviewButton,
@@ -10,9 +17,6 @@ import {
   studyNavButton,
   submitAnswerButton,
 } from '../support/selectors';
-import {
-  createEndToEndCards, createEndToEndQuiz, deleteEndToEndCards, deleteEndToEndQuiz,
-} from '../support/commands';
 
 describe('quizBoxes', () => {
   before(() => {
@@ -25,10 +29,8 @@ describe('quizBoxes', () => {
     deleteEndToEndCards();
     deleteEndToEndQuiz();
   });
-  it('when studying a quiz, the cards move boxes when marked as correct or incorrect', () => {
-    const correctAnswer = 'I am a correct answer';
-    const incorrectAnswer = 'I am an incorrect answer';
 
+  it('when studying a quiz, the cards move boxes when marked as correct or incorrect', () => {
     cy.get(studyNavButton).click();
     cy.get(quizBoxDropdown).should('exist');
     cy.get(quizBoxDropdown).select(0);

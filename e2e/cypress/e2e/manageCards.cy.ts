@@ -1,3 +1,12 @@
+import { addCard } from '../support/commands';
+import {
+  cardOnePromptText,
+  cardOneAnswerText,
+  cardTwoPromptText,
+  cardTwoAnswerText,
+  updatedCardTwoPromptText,
+  updatedCardTwoAnswerText,
+} from '../support/constants';
 import {
   addCardsButton,
   answerInput,
@@ -11,7 +20,6 @@ import {
   savedAnswer,
   savedPrompt,
 } from '../support/selectors';
-import { addCard } from '../support/commands';
 
 describe('manage cards', () => {
   before(() => {
@@ -19,12 +27,9 @@ describe('manage cards', () => {
   });
 
   it('can add and then delete a card', () => {
-    const promptText = 'What is the latin name for the "Eastern Gray Squirrel"?';
-    const answerText = 'Sciurus carolinensis';
-
-    addCard(promptText, answerText);
-    cy.get(savedPrompt).contains(promptText).should('be.visible');
-    cy.get(savedAnswer).contains(answerText).should('be.visible');
+    addCard(cardOnePromptText, cardOneAnswerText);
+    cy.get(savedPrompt).contains(cardOnePromptText).should('be.visible');
+    cy.get(savedAnswer).contains(cardOneAnswerText).should('be.visible');
     cy.get(deleteCardButton).click();
     cy.get(savedPrompt).should('not.exist');
     cy.get(savedAnswer).should('not.exist');
@@ -43,18 +48,15 @@ describe('manage cards', () => {
   });
 
   it('can create, update and delete a card', () => {
-    const promptText = 'Prompt: What is the latin name for the "Tawny Owl"?';
-    const answerText = 'Sciurus carolinensis';
-
-    addCard(promptText, answerText);
+    addCard(cardTwoPromptText, cardTwoAnswerText);
     cy.get(editCardButton).click();
     cy.get(promptInput).clear();
-    cy.get(promptInput).type(promptText);
+    cy.get(promptInput).type(updatedCardTwoPromptText);
     cy.get(answerInput).clear();
-    cy.get(answerInput).type(answerText);
+    cy.get(answerInput).type(updatedCardTwoAnswerText);
     cy.get(greenEditCardButton).click();
-    cy.get(savedPrompt).contains(promptText).should('be.visible');
-    cy.get(savedAnswer).contains(answerText).should('be.visible');
+    cy.get(savedPrompt).contains(updatedCardTwoPromptText).should('be.visible');
+    cy.get(savedAnswer).contains(updatedCardTwoAnswerText).should('be.visible');
     cy.get(deleteCardButton).click();
     cy.get(savedPrompt).should('not.exist');
     cy.get(savedAnswer).should('not.exist');

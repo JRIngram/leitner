@@ -15,6 +15,16 @@ import {
   quizNameInput,
   studyNavButton,
 } from './selectors';
+import {
+  quizName,
+  quizDescription,
+  cardOnePromptText,
+  cardOneAnswerText,
+  cardTwoPromptText,
+  cardTwoAnswerText,
+  cardThreePromptText,
+  cardThreeAnswerText,
+} from './constants';
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -61,9 +71,9 @@ export const addCard = (promptText: string, answerText: string) => {
 };
 
 export const createEndToEndCards = () => {
-  addCard('What is the latin name for the "Eastern Gray Squirrel"?', 'Sciurus carolinensis');
-  addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
-  addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
+  addCard(cardOnePromptText, cardOneAnswerText);
+  addCard(cardTwoPromptText, cardTwoAnswerText);
+  addCard(cardThreePromptText, cardThreeAnswerText);
 };
 
 export const deleteEndToEndCards = () => {
@@ -82,8 +92,6 @@ export const deleteEndToEndQuiz = () => {
 };
 
 export const createEndToEndQuiz = () => {
-  const quizName = 'Latin animal names';
-  const quizDescription = 'All things Latin and furry!';
   cy.get(studyNavButton).click();
   cy.get(manageNavButton).click();
   cy.get(manageQuizzesButton).click();

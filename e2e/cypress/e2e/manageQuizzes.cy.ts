@@ -1,3 +1,10 @@
+import { createEndToEndCards, deleteEndToEndCards } from '../support/commands';
+import {
+  quizName,
+  quizDescription,
+  updatedQuizName,
+  updatedQuizDescription,
+} from '../support/constants';
 import {
   addCardCheckBox,
   amendQuizzesPromptOneBoxOne,
@@ -22,7 +29,6 @@ import {
   quizSuccessfullyAdded,
   studyNavButton,
 } from '../support/selectors';
-import { createEndToEndCards, deleteEndToEndCards } from '../support/commands';
 
 describe('manage cards', () => {
   before(() => {
@@ -35,9 +41,6 @@ describe('manage cards', () => {
   });
 
   it('can add a quiz', () => {
-    const quizName = 'Latin animal names';
-    const quizDescription = 'All things Latin and furry!';
-
     cy.get(studyNavButton).click();
     cy.get(noQuizzesCreatedMessage).should('exist');
     cy.get(manageNavButton).click();
@@ -65,9 +68,6 @@ describe('manage cards', () => {
   });
 
   it('can edit quizzes', () => {
-    const updatedQuizName = 'Animal latin names';
-    const updatedQuizDescription = 'Latina omnia et furry!';
-
     cy.get(manageNavButton).click();
     cy.get(manageQuizzesButton).click();
     cy.get(ammendQuizzesButton).click();
