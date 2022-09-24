@@ -41,11 +41,11 @@ const selectors = {
   firstQuizDescription: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > p:nth-child(2)',
   firstQuizBox: '#quizBoxes',
   startQuizButton: '#coloured-button-start-quiz',
+  quizBoxDropdown: '#quizBoxes',
 
   // quiz page
   quizTitle: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h1:nth-child(1)',
   quizQuestionCount: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > h2:nth-child(1)',
-  quizQuestion: '#quizPrompt',
   quizAnswerInput: '#answer-input',
   submitAnswerButton: '#coloured-button-submit-answer',
   youSaidText: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > p:nth-child(1)',
@@ -60,7 +60,7 @@ const selectors = {
   finishReviewButton: '#coloured-button-finish-review',
   firstQuestionReviewPrompt: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(1)',
   firstQuestionReviewGivenAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(2)',
-  firstQuestionReviewActualAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(3)'
+  firstQuestionReviewActualAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(3)',
 };
 
 export default selectors;

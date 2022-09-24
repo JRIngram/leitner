@@ -5,7 +5,6 @@
         "cypress/globals": true
     },
     "extends": [
-        "typescript-eslint/recommended",
         "plugin:react/recommended",
         "airbnb"
     ],
@@ -13,7 +12,7 @@
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true,
-            "tsx": true,
+            "tsx": true
         },
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -31,6 +30,6 @@
         }
     },
     "rules": {
-        "import/extensions": 0,
+        "import/extensions": 0
     }
 }

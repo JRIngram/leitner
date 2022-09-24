@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import selectors from "./selectors";
+import selectors from './selectors';
 
 // ***********************************************
 // This example commands.ts shows you how to

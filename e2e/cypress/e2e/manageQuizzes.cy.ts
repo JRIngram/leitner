@@ -1,5 +1,5 @@
 import selectors from '../support/selectors';
-import { createEndToEndCards, deleteEndToEndCards } from '../support/commands';
+import { createEndToEndCards, deleteEndToEndCards, deleteEndToEndQuiz } from '../support/commands';
 
 describe('manage cards', () => {
   before(() => {
@@ -8,7 +8,6 @@ describe('manage cards', () => {
   });
 
   after(() => {
-    // clean up created quizzes
     deleteEndToEndCards();
   });
 

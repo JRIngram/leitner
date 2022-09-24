@@ -10,3 +10,6 @@ cd ../server
 npm run lint
 npm run tsc
 npm run test
+
+cd ../e2e/
+npm run lint
