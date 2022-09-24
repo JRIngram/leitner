@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import selectors from './selectors'
+import selectors from "./selectors";
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -56,12 +56,19 @@ export const deleteEndToEndCards = () => {
   cy.get(selectors.deleteCardButton).click();
   cy.get(selectors.deleteCardButton).click();
   cy.get(selectors.deleteCardButton).click();
-}
+};
+
+export const deleteEndToEndQuiz = () => {
+  cy.get(selectors.manageNavButton).click();
+  cy.get(selectors.manageQuizzesButton).click();
+  cy.get(selectors.ammendQuizzesButton).click();
+  cy.get(selectors.deleteQuizButton).click();
+  cy.get(selectors.studyNavButton).click();
+};
 
 export const createEndToEndQuiz = () => {
   const quizName = 'Latin animal names';
   const quizDescription = 'All things Latin and furry!';
-
   cy.get(selectors.studyNavButton).click();
   cy.get(selectors.manageNavButton).click();
   cy.get(selectors.manageQuizzesButton).click();
@@ -70,5 +77,5 @@ export const createEndToEndQuiz = () => {
   cy.get(`${selectors.addCardCheckBox}0`).click();
   cy.get(`${selectors.addCardCheckBox}1`).click();
   cy.get(`${selectors.addCardCheckBox}2`).click();
-  cy.get(selectors.confirmAddQuiz).click();
-}
+  cy.get(selectors.confirmAddQuizButton).click();
+};

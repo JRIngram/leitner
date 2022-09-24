@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cypress:open": "npx cypress open",
+    "cypress:run": "npx cypress run",
     "lint": "npx eslint . --ext .js,.ts,.tsx --fix"
   },
   "author": "",

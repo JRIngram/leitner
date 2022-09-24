@@ -40,6 +40,27 @@ const selectors = {
   firstQuizName: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > p:nth-child(1)',
   firstQuizDescription: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) > p:nth-child(2)',
   firstQuizBox: '#quizBoxes',
+  startQuizButton: '#coloured-button-start-quiz',
+
+  // quiz page
+  quizTitle: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h1:nth-child(1)',
+  quizQuestionCount: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > h2:nth-child(1)',
+  quizQuestion: '#quizPrompt',
+  quizAnswerInput: '#answer-input',
+  submitAnswerButton: '#coloured-button-submit-answer',
+  youSaidText: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > p:nth-child(1)',
+  actualAnswerText: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > p:nth-child(2)',
+  didYouGetCorrectText: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > p:nth-child(3)',
+  correctAnswerButton: '#coloured-button-correct',
+  incorrectAnswerButton: '#coloured-button-incorrect',
+
+  // quiz review
+  quizReviewTitle: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > h2:nth-child(1)',
+  quizAnswerPercentage: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > h3:nth-child(2)',
+  finishReviewButton: '#coloured-button-finish-review',
+  firstQuestionReviewPrompt: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(1)',
+  firstQuestionReviewGivenAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(2)',
+  firstQuestionReviewActualAnswer: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(2) > p:nth-child(3)'
 };
 
 export default selectors;
