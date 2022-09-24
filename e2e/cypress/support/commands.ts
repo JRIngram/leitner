@@ -1,5 +1,20 @@
 /// <reference types="cypress" />
-import selectors from './selectors';
+import {
+  addCardButton,
+  addCardCheckBox,
+  addCardsButton,
+  ammendQuizzesButton,
+  answerInput,
+  confirmAddQuizButton,
+  deleteCardButton,
+  deleteQuizButton,
+  manageNavButton,
+  manageQuizzesButton,
+  promptInput,
+  quizDescriptionInput,
+  quizNameInput,
+  studyNavButton,
+} from './selectors';
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -38,11 +53,11 @@ import selectors from './selectors';
 // }
 
 export const addCard = (promptText: string, answerText: string) => {
-  cy.get(selectors.manageNavButton).click();
-  cy.get(selectors.addCardsButton).click();
-  cy.get(selectors.promptInput).type(promptText);
-  cy.get(selectors.answerInput).type(answerText);
-  cy.get(selectors.addCardButton).click();
+  cy.get(manageNavButton).click();
+  cy.get(addCardsButton).click();
+  cy.get(promptInput).type(promptText);
+  cy.get(answerInput).type(answerText);
+  cy.get(addCardButton).click();
 };
 
 export const createEndToEndCards = () => {
@@ -52,30 +67,30 @@ export const createEndToEndCards = () => {
 };
 
 export const deleteEndToEndCards = () => {
-  cy.get(selectors.manageNavButton).click();
-  cy.get(selectors.deleteCardButton).click();
-  cy.get(selectors.deleteCardButton).click();
-  cy.get(selectors.deleteCardButton).click();
+  cy.get(manageNavButton).click();
+  cy.get(deleteCardButton).click();
+  cy.get(deleteCardButton).click();
+  cy.get(deleteCardButton).click();
 };
 
 export const deleteEndToEndQuiz = () => {
-  cy.get(selectors.manageNavButton).click();
-  cy.get(selectors.manageQuizzesButton).click();
-  cy.get(selectors.ammendQuizzesButton).click();
-  cy.get(selectors.deleteQuizButton).click();
-  cy.get(selectors.studyNavButton).click();
+  cy.get(manageNavButton).click();
+  cy.get(manageQuizzesButton).click();
+  cy.get(ammendQuizzesButton).click();
+  cy.get(deleteQuizButton).click();
+  cy.get(studyNavButton).click();
 };
 
 export const createEndToEndQuiz = () => {
   const quizName = 'Latin animal names';
   const quizDescription = 'All things Latin and furry!';
-  cy.get(selectors.studyNavButton).click();
-  cy.get(selectors.manageNavButton).click();
-  cy.get(selectors.manageQuizzesButton).click();
-  cy.get(selectors.quizNameInput).type(quizName);
-  cy.get(selectors.quizDescriptionInput).type(quizDescription);
-  cy.get(`${selectors.addCardCheckBox}0`).click();
-  cy.get(`${selectors.addCardCheckBox}1`).click();
-  cy.get(`${selectors.addCardCheckBox}2`).click();
-  cy.get(selectors.confirmAddQuizButton).click();
+  cy.get(studyNavButton).click();
+  cy.get(manageNavButton).click();
+  cy.get(manageQuizzesButton).click();
+  cy.get(quizNameInput).type(quizName);
+  cy.get(quizDescriptionInput).type(quizDescription);
+  cy.get(`${addCardCheckBox}0`).click();
+  cy.get(`${addCardCheckBox}1`).click();
+  cy.get(`${addCardCheckBox}2`).click();
+  cy.get(confirmAddQuizButton).click();
 };

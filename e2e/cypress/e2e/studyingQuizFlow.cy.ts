@@ -1,4 +1,20 @@
-import selectors from '../support/selectors';
+import {
+  correctAnswerButton,
+  finishReviewButton,
+  firstQuestionReviewActualAnswer,
+  firstQuestionReviewGivenAnswer,
+  firstQuestionReviewPrompt,
+  incorrectAnswerButton,
+  quizAnswerInput,
+  quizAnswerPercentage,
+  quizQuestion,
+  quizQuestionCount,
+  quizReviewTitle,
+  quizTitle,
+  startQuizButton,
+  studyNavButton,
+  submitAnswerButton,
+} from '../support/selectors';
 import {
   createEndToEndCards, createEndToEndQuiz, deleteEndToEndCards, deleteEndToEndQuiz,
 } from '../support/commands';
@@ -21,30 +37,30 @@ describe('studying quiz flow', () => {
     const firstAnswer = 'Sciurus carolinensis';
     const testAnswer = 'I am a test answer';
 
-    cy.get(selectors.studyNavButton).click();
-    cy.get(selectors.startQuizButton).click();
-    cy.contains(selectors.quizTitle, quizName);
-    cy.contains(selectors.quizQuestionCount, 'Question 1 of 3');
-    cy.contains(selectors.quizQuestion, firstQuestion);
-    cy.get(selectors.quizAnswerInput).type(`${testAnswer} 1`);
-    cy.get(selectors.submitAnswerButton).click();
-    cy.get(selectors.incorrectAnswerButton).should('exist');
-    cy.get(selectors.correctAnswerButton).click();
-    cy.get(selectors.quizAnswerInput).type(`${testAnswer} 2`);
-    cy.get(selectors.submitAnswerButton).click();
-    cy.get(selectors.correctAnswerButton).should('exist');
-    cy.get(selectors.incorrectAnswerButton).click();
-    cy.get(selectors.quizAnswerInput).type(`${testAnswer} 3`);
-    cy.get(selectors.submitAnswerButton).click();
-    cy.get(selectors.correctAnswerButton).should('exist');
-    cy.get(selectors.incorrectAnswerButton).click();
+    cy.get(studyNavButton).click();
+    cy.get(startQuizButton).click();
+    cy.contains(quizTitle, quizName);
+    cy.contains(quizQuestionCount, 'Question 1 of 3');
+    cy.contains(quizQuestion, firstQuestion);
+    cy.get(quizAnswerInput).type(`${testAnswer} 1`);
+    cy.get(submitAnswerButton).click();
+    cy.get(incorrectAnswerButton).should('exist');
+    cy.get(correctAnswerButton).click();
+    cy.get(quizAnswerInput).type(`${testAnswer} 2`);
+    cy.get(submitAnswerButton).click();
+    cy.get(correctAnswerButton).should('exist');
+    cy.get(incorrectAnswerButton).click();
+    cy.get(quizAnswerInput).type(`${testAnswer} 3`);
+    cy.get(submitAnswerButton).click();
+    cy.get(correctAnswerButton).should('exist');
+    cy.get(incorrectAnswerButton).click();
 
-    cy.contains(selectors.quizReviewTitle, 'Quiz Review');
-    cy.contains(selectors.quizAnswerPercentage, '1 correct out of 3 - 33.33%');
-    cy.contains(selectors.firstQuestionReviewPrompt, 'Prompt: What is the latin name for the "Eastern Gray Squirrel"?');
-    cy.contains(selectors.firstQuestionReviewGivenAnswer, `Your Answer: ${testAnswer} 1`);
-    cy.contains(selectors.firstQuestionReviewActualAnswer, `Actual Answer: ${firstAnswer}`);
-    cy.get(selectors.finishReviewButton).click();
-    cy.get(selectors.startQuizButton).should('exist');
+    cy.contains(quizReviewTitle, 'Quiz Review');
+    cy.contains(quizAnswerPercentage, '1 correct out of 3 - 33.33%');
+    cy.contains(firstQuestionReviewPrompt, 'Prompt: What is the latin name for the "Eastern Gray Squirrel"?');
+    cy.contains(firstQuestionReviewGivenAnswer, `Your Answer: ${testAnswer} 1`);
+    cy.contains(firstQuestionReviewActualAnswer, `Actual Answer: ${firstAnswer}`);
+    cy.get(finishReviewButton).click();
+    cy.get(startQuizButton).should('exist');
   });
 });
