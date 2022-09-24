@@ -47,6 +47,7 @@ const selectors = {
   quizTitle: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > h1:nth-child(1)',
   quizQuestionCount: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > h2:nth-child(1)',
   quizAnswerInput: '#answer-input',
+  quizQuestion: '#quizPrompt',
   submitAnswerButton: '#coloured-button-submit-answer',
   youSaidText: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > p:nth-child(1)',
   actualAnswerText: '#root > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) > p:nth-child(2)',
