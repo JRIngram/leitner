@@ -61,13 +61,10 @@ describe('StudyReview', () =>{
         },
       ];
       const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
-<<<<<<< HEAD
 
       expect(getByText('Prompt: p1')).toBeVisible();
       expect(getByText('Your Answer: g1')).toBeVisible();
       expect(getByText('Actual Answer: a1')).toBeVisible();
-=======
->>>>>>> develop
       expect(getByText('0 correct out of 2 - 0.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -91,12 +88,9 @@ describe('StudyReview', () =>{
         },
       ];
       const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
-<<<<<<< HEAD
       expect(getByText('Prompt: p1')).toBeVisible();
       expect(getByText('Your Answer: g1')).toBeVisible();
       expect(getByText('Actual Answer: a1')).toBeVisible();
-=======
->>>>>>> develop
       expect(getByText('1 correct out of 2 - 50.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -127,12 +121,9 @@ describe('StudyReview', () =>{
         },
       ];
       const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
-<<<<<<< HEAD
       expect(getByText('Prompt: p1')).toBeVisible();
       expect(getByText('Your Answer: g1')).toBeVisible();
       expect(getByText('Actual Answer: a1')).toBeVisible();
-=======
->>>>>>> develop
       expect(getByText('1 correct out of 3 - 33.33%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(3);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();

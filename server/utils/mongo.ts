@@ -120,7 +120,12 @@ export const getAllQuizzes = async (): Promise<Quiz[]> => {
   return queryResults;
 };
 
-export const updateQuiz = async (quizId: string, quizName: string, quizDescription: string, cardIds: string[]): Promise<string> => {
+export const updateQuiz = async (
+  quizId: string,
+  quizName: string,
+  quizDescription: string,
+  cardIds: string[],
+): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
