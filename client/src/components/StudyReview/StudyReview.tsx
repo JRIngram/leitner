@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { CardIdsAndCorrectness, FormattedCard } from '../../../types';
 import {ButtonType, ColouredButton} from '../ColouredButton/ColouredButton'
 import Divider from '../Divider/Divider';
@@ -82,7 +82,7 @@ type StudyReviewProps = {
   onFinishReview: () => void
 }
 
-const StudyReview = ({quizId, cardList, onFinishReview}: StudyReviewProps) => {
+const StudyReview = ({quizId, cardList, onFinishReview}: StudyReviewProps): ReactElement => {
   return (
     <div>
       <h2>Quiz Review</h2>

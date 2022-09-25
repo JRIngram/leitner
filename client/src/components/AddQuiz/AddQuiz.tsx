@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { addQuiz } from '../../utils/axios';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { ManageQuizzesCardList } from '../ManageQuizzesCardList/ManageQuizzesCardList';
@@ -16,7 +16,7 @@ const styles = {
   }
 }
 
-const AddQuiz = () => {
+const AddQuiz = (): ReactElement => {
   const [quizName, setQuizName] = useState('');
   const [quizDescription, setQuizDescription] = useState('');
   const [checkedCards, setCheckedCards] = useState<string[]>([]);

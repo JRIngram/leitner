@@ -75,3 +75,5 @@ To run the tests:
 
 The above tests run automatically on pushing and on commits.
 
+## Support
+* Donations to support this project - or even just to say thanks - are welcome here. Please donate via my [Kofi page](https://ko-fi.com/jringram).

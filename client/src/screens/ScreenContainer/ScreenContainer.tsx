@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Manage from '../Manage/Manage';
 import Study from '../Study/Study';
 
@@ -8,38 +8,49 @@ const styles = {
     marginRight: '1%',
   },
   navBarStyle: {
+    height: "50px",
     backgroundColor: '#094d9b',
-    display: 'block',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: "centre"
   },
   titleStyle: {
     display: 'inline',
     color: '#FFF',
     fontSize: 30,
-    margin: '1%'
+    margin: "auto",
+    paddingLeft: "1%",
+    paddingRight: "5%"
   },
-  itemStyle: {
+  itemContainer: {
+    width: "100%",
+    display: 'flex',
+    // justifyContent: 'space-evenly',
+  },
+  navBarItem: {
+    height: "30px",
     display: 'inline',
     color: '#FFF',
+    background: '#094d9b',
     textDecoration: 'none',
-    padding: 30,
-    cursor: 'pointer'
-  },
-  activeItemStyle:{
-    display: 'inline',
-    color: '#FFF',
-    textDecoration: 'underline',
-    padding: 30,
+    padding: "20px",
+    margin: "0% 5%",
     cursor: 'pointer',
+    font: "14px \"Century Gothic\", Futura, sans-serif",
+    border: "none",
+  },
+  activeNavBarItem: {
+    textDecoration: 'underline',
   }
 }
 
-const ScreenContainer = () => {
+const ScreenContainer = (): ReactElement => {
   const screens = ['Study', 'Manage'];
-  const [currentScreen, setCurrentScreen] = useState('');
+  const [currentScreen, setCurrentScreen] = useState(screens[0]);
 
 
   const renderScreen = () => {
-    switch (currentScreen){
+    switch (currentScreen) {
       case screens[0]:
         return <Study />
       case screens[1]:
@@ -49,27 +60,40 @@ const ScreenContainer = () => {
     }
   }
 
+  const renderNavButton = (screenName: string, index: number) => {
+    let navBarButtonStyle = styles.navBarItem;
+    if (screenName === currentScreen) {
+      navBarButtonStyle = {
+        ...navBarButtonStyle,
+        ...styles.activeNavBarItem,
+      }
+    }
+    return (
+      <button
+        style={
+          navBarButtonStyle
+        }
+        key={index}
+        data-testid={`navbar-item-${index}`}
+        onClick={
+          () => { setCurrentScreen(screenName) }
+        }
+      >
+        {screenName}
+      </button>
+    );
+  }
+
   return (
     <div>
       <nav style={styles.navBarStyle}>
         <p style={styles.titleStyle}>Leitner</p>
-        {screens.map((screen, index) => {
-          return (
-            <p
-              style={screen === currentScreen ? styles.activeItemStyle : styles.itemStyle}
-              key={index}
-              data-testid={`navbar-item-${index}`}
-              onClick={
-                ()=>{ setCurrentScreen(screen) }
-              }
-            >
-              {screen}
-            </p>
-          )
-        })}
+        <div style={styles.itemContainer}>
+          {screens.map((screen, index) => renderNavButton(screen, index))}
+        </div>
       </nav>
       <div style={styles.container}>
-        { renderScreen() }
+        {renderScreen()}
       </div>
     </div>
 

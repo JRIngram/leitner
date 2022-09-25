@@ -26,6 +26,7 @@ const StudyHome = (props: StudyHomeProps) => {
       }
       catch(err){
         console.error({ err })
+        throw err;
       }
     });
 

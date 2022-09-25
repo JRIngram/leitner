@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Card } from '../../../types';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import { CardForm, CardFormType } from '../CardForm/CardForm';
 import { getAllCards, deleteCard } from '../../utils/axios';
 import Divider from '../Divider/Divider';
 
-
-const ManageCards = () => {
+const ManageCards = (): ReactElement => {
   const [addCardVisisble, setAddCardVisisble] = useState(false);
   const [cards, setCards] = useState<Card[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);

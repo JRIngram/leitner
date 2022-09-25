@@ -1,6 +1,6 @@
 // nav
-export const manageNavButton = '#root > div:nth-child(1) > nav:nth-child(1) > p:nth-child(3)';
-export const studyNavButton = '#root > div:nth-child(1) > nav:nth-child(1) > p:nth-child(2)';
+export const manageNavButton = '#root > div:nth-child(1) > nav:nth-child(1) > div:nth-child(2) > button:nth-child(2)';
+export const studyNavButton = '#root > div:nth-child(1) > nav:nth-child(1) > div:nth-child(2) > button:nth-child(1)';
 
 // Card management
 export const addCardButton = '#coloured-button-add-card';

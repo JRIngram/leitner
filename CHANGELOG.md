@@ -8,11 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+* Debounce to buttons so button actions can't be triggered for 400ms after their initial triggering.
+* Donation link
 ### Changed
+* Change items in NavBar from `<p>` to `<button>` to improve accessibility.
 ### Deprecated
 ### Removed
 ### Fixed
+* Fixed eslint config and now is able to perform lint.
+* Fixed linting errors associated with the above.
 ### Security
+* Bumps axios from 0.21.1 to 0.21.2.
 
 
 ## [1.0.0] - 2021-08-30

@@ -1,6 +1,8 @@
-import { Card, CardIdsAndCorrectness, Quiz } from '../../types';
-import axios from 'axios';
-require('dotenv').config(); // eslint-disable-line @typescript-eslint/no-var-requires
+import { Card, CardIdsAndCorrectness, CardWithoutId, Quiz, QuizWithoutId } from '../../types';
+import axios, { AxiosResponse } from 'axios';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 const host = process.env.REACT_APP_SERVER_HOST;
 const port = process.env.REACT_APP_SERVER_PORT;
@@ -13,7 +15,7 @@ if(host && port){
   axios.defaults.baseURL = `http://localhost:3001/`;
 }
 
-const addCard = async (prompt: string, answer: string) => {
+const addCard = async (prompt: string, answer: string): Promise<AxiosResponse<CardWithoutId>> => {
   return await axios({
     method: 'post',
     url: 'addCard',
@@ -24,11 +26,11 @@ const addCard = async (prompt: string, answer: string) => {
   });
 }
 
-const getAllCards = async () => {
+const getAllCards = async (): Promise<AxiosResponse<Card[]>> => {
   return await axios.get<Card[]>('getAllCards');
 };
 
-const getCardsByIds = async (cardIds: string[]) => {
+const getCardsByIds = async (cardIds: string[]): Promise<AxiosResponse<Card[]>> => {
   let queryString = '';
   cardIds.forEach(cardId => {
     queryString = queryString + `id=${cardId}&`;
@@ -37,7 +39,7 @@ const getCardsByIds = async (cardIds: string[]) => {
   return await axios.get<Card[]>(`getCardsByIds?${queryString}`)
 };
 
-const updateCard = async (id: string, prompt: string, answer: string) => {
+const updateCard = async (id: string, prompt: string, answer: string): Promise<AxiosResponse<Card[]>> => {
   return await axios({
     method: 'put',
     url: 'updateCard',
@@ -49,7 +51,7 @@ const updateCard = async (id: string, prompt: string, answer: string) => {
   });
 }
 
-const deleteCard = async (id: string) => {
+const deleteCard = async (id: string): Promise<AxiosResponse<string>> => {
   return await axios({
     method: 'delete',
     url: 'deleteCard',
@@ -59,7 +61,7 @@ const deleteCard = async (id: string) => {
   });
 }
 
-const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]) => {
+const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]): Promise<AxiosResponse<QuizWithoutId>> => {
   return await axios({
     method: 'post',
     url: 'addQuiz',
@@ -71,13 +73,13 @@ const addQuiz = async (quizName: string, quizDescription: string, cardIds: strin
   });
 }
 
-const getAllQuizzes = async () => {
+const getAllQuizzes = async (): Promise<AxiosResponse<Quiz[]>> => {
   return await axios.get<Quiz[]>('getAllQuizzes');
 }
 
 const updateQuiz = async (
   quizId: string, quizName: string, quizDescription: string, cardIds: string[],
-) => {
+): Promise<AxiosResponse<Quiz>> => {
   return await axios({
     method: 'put',
     url:'updateQuiz',
@@ -90,7 +92,7 @@ const updateQuiz = async (
   })
 }
 
-const deleteQuiz = async (quizId: string) => {
+const deleteQuiz = async (quizId: string): Promise<AxiosResponse<string>> => {
   return await axios({
     method: 'delete',
     url: 'deleteQuiz',
@@ -100,7 +102,7 @@ const deleteQuiz = async (quizId: string) => {
   });
 }
 
-const updateQuizBoxes = async (quizId: string, cardIdsAndCorrectness: CardIdsAndCorrectness[]) => {
+const updateQuizBoxes = async (quizId: string, cardIdsAndCorrectness: CardIdsAndCorrectness[]): Promise<AxiosResponse<{quizId: string, cardIdsAndCorrectness: CardIdsAndCorrectness}>> => {
   return await axios({
     method: 'put',
     url: 'updateQuizBoxes',
@@ -111,4 +113,4 @@ const updateQuizBoxes = async (quizId: string, cardIdsAndCorrectness: CardIdsAnd
   })
 };
 
-export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes}
+export { addCard, getAllCards, getCardsByIds, updateCard, deleteCard, addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes }

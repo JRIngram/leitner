@@ -21,7 +21,7 @@ const dropCollection = async (collcetionName: string) => {
   await client.close();
 };
 
-export const dropAllTestCollections = async () => {
+export const dropAllTestCollections = async (): Promise<void> => {
   await dropCollection(cardCollectionName);
   await dropCollection(quizCollectionName);
 };
@@ -31,7 +31,7 @@ export const dropAllTestCollections = async () => {
  * @param quizName The name for the quiz
  * @param quizDescription The description of the quiz
  */
-export const createQuiz = async (quizName: string, quizDescription: string) => {
+export const createQuiz = async (quizName: string, quizDescription: string): Promise<void> => {
   await addCard('testPrompt', 'testAnswer');
   const returnedCard = await getAllCards();
   const cardId = returnedCard.data[0]._id;
@@ -41,7 +41,7 @@ export const createQuiz = async (quizName: string, quizDescription: string) => {
 /**
  * Adds cards for usage in the end to end tests
  */
-export const createEndToEndCards = async () => {
+export const createEndToEndCards = async (): Promise<void> => {
   await addCard('What is the latin name for the "Eastern Gray Squirrel"?', 'Sciurus carolinensis');
   await addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
   await addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');
@@ -50,7 +50,7 @@ export const createEndToEndCards = async () => {
 /**
  * Creates a quiz for usage in the end to end tests
  */
-export const createEndToEndQuiz = async () => {
+export const createEndToEndQuiz = async (): Promise<void> => {
   await addCard('What is the latin name for the "Eastern Gray Squirrel"?', 'Sciurus carolinensis');
   await addCard('What is the latin name for the "Barn Owl"?', 'Tyto alba');
   await addCard('What is the latin name for the "Eurasian otter"?', 'Lutra lutra');

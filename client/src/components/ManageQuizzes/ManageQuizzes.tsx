@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 import AddQuiz from '../AddQuiz/AddQuiz';
 import AmendQuizzes from '../AmendQuizzes/AmendQuizzes';
@@ -8,7 +8,7 @@ enum manageQuizScreens {
   'amend quizzes'
 }
 
-const ManageQuizzes = () => {
+const ManageQuizzes = (): ReactElement => {
   const [manageQuizScreen, setManageQuizScreen] = useState(manageQuizScreens['add quiz'])
 
   const renderNavButtons = () => {
