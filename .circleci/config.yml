@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  install:
+  install-client:
     executor:
       name: node/default
     steps:
@@ -13,9 +13,20 @@ jobs:
       - save_cache:
           key: node-cache-{{ .Branch }}
           paths:
-            - node_modules/
             - client/node_modules/
-  lint: 
+  install-server:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:  
+          name: npm install
+          command: npm i && cd server && npm i && cd ../
+      - save_cache:
+          key: node-cache-{{ .Branch }}
+          paths:
+            - server/node_modules/
+  lint-client: 
     executor:
       name: node/default
     steps:
@@ -23,8 +34,8 @@ jobs:
       - restore_cache:
           keys: 
             - node-cache-{{ .Branch }}
-      - run: npm run lint 
-  tsc: 
+      - run: cd client/ && npm run lint 
+  tsc-client: 
     executor:
       name: node/default
     steps:
@@ -32,14 +43,14 @@ jobs:
       - restore_cache:
           keys: 
             - node-cache-{{ .Branch }}
-      - run: npm run tsc 
+      - run: cd client/ && npm run tsc  
 workflows:
   test:
     jobs:
-      - install
-      - lint:
+      - install-client
+      - lint-client:
           requires:
-          - install
-      - tsc:
+          - install-client
+      - tsc-client:
           requires:
-          - install
+          - install-client
