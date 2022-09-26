@@ -2,14 +2,15 @@
 . "$(dirname "$0")/_/husky.sh"
 
 cd client
-npm run lint
 npm run tsc
+npm run lint
 npm run test
 
 cd ../server
-npm run lint
 npm run tsc
+npm run lint
 npm run test
 
 cd ../e2e/
+npm run tsc
 npm run lint
