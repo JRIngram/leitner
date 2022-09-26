@@ -1,14 +1,16 @@
-import React, { useState, useEffect, ReactElement } from 'react';
-import { Quiz } from '../../../../types';
+import React, { useState, useEffect } from 'react';
+import { Quiz } from '../../../types';
 import Divider from '../../components/Divider/Divider';
-import StudyHomeListItem from '../../components/StudyHomeListItem/StudyHomeListItem';
 import { getAllQuizzes } from '../../utils/axios';
+import { ColouredButton, ButtonType } from '../../components/ColouredButton/ColouredButton';
+import ViewQuizzesListItem from '../../components/ViewQuizzesListItem/ViewQuizzesListItem';
 
 type StudyHomeProps = { 
   onQuizSelect: (arg1: Quiz, arg2: number) => void
 }
 
-const StudyHome = (props: StudyHomeProps): ReactElement => {
+
+const StudyHome = (props: StudyHomeProps) => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
@@ -23,6 +25,7 @@ const StudyHome = (props: StudyHomeProps): ReactElement => {
         }
       }
       catch(err){
+        console.error({ err })
         throw err;
       }
     });
@@ -71,6 +74,48 @@ const StudyHome = (props: StudyHomeProps): ReactElement => {
       </div>
     </div> 
   );
+}
+
+type StudyHomeListItemProps = {
+  quiz: Quiz,
+  onQuizSelect: (arg1: Quiz, arg2: number) => void
+}
+
+const StudyHomeListItem = (props: StudyHomeListItemProps) => {
+  const { quiz, onQuizSelect } = props;
+  const [boxLevel, setBoxLevel] = useState(1);
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setBoxLevel(parseInt(event.target.value));
+    
+  }
+  return (
+    <div key={quiz._id}>
+      <ColouredButton 
+        buttonType={ButtonType.nav}
+        text="start quiz" 
+        onClickAction={() => { return onQuizSelect(quiz, boxLevel)}} 
+      />
+      <div>
+        <label>Quiz Boxes:</label>
+        <div>
+          <select 
+            name="quizBoxes"
+            id="quizBoxes"
+            data-testid='quiz-box-dropdown'
+            defaultValue={"1"}
+            onChange={handleChange}
+          >
+            <option id="quizBoxes-1" value="1">Box 1</option>
+            <option id="quizBoxes-2" value="2">Box 2</option>
+            <option id="quizBoxes-3" value="3">Box 3</option>
+          </select>
+        </div>
+      </div>
+      <ViewQuizzesListItem id={quiz._id} name={quiz.name} description={quiz.description} cardObjects={[]} />
+      <Divider />
+    </div>
+  )
 }
 
 export default StudyHome;

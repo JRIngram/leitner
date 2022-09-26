@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  install:
+  install-client:
     executor:
       name: node/default
     steps:
@@ -11,35 +11,108 @@ jobs:
           name: npm install
           command: npm i && cd client && npm i && cd ../
       - save_cache:
-          key: node-cache-{{ .Branch }}
+          key: node-cache-client-{{ .Branch }}
           paths:
-            - node_modules/
             - client/node_modules/
-  lint: 
+  install-server:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:  
+          name: npm install
+          command: npm i && cd server && npm i && cd ../
+      - save_cache:
+          key: node-cache-server-{{ .Branch }}
+          paths:
+            - server/node_modules/
+  install-e2e:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:
+          name: npm install
+          command: cd e2e && npm i
+      - save_cache:
+          key: node-cache-e2e-{{ .Branch }}
+          paths:
+            - e2e/node_modules/
+  lint-client: 
     executor:
       name: node/default
     steps:
       - checkout
       - restore_cache:
           keys: 
-            - node-cache-{{ .Branch }}
-      - run: npm run lint 
-  tsc: 
+            - node-cache-client-{{ .Branch }}
+      - run: cd client/ && npm run lint 
+  tsc-client: 
     executor:
       name: node/default
     steps:
       - checkout
       - restore_cache:
           keys: 
-            - node-cache-{{ .Branch }}
-      - run: npm run tsc 
+            - node-cache-client-{{ .Branch }}
+      - run: cd client/ && npm run tsc  
+  lint-server:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - restore_cache:
+          keys: 
+            - node-cache-server-{{ .Branch }}
+      - run: cd server/ && npm run lint
+  tsc-server: 
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - restore_cache:
+          keys: 
+            - node-cache-server-{{ .Branch }}
+      - run: cd server/ && npm run tsc  
+  lint-e2e:
+      executor:
+        name: node/default
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+              - node-cache-e2e-{{ .Branch }}
+        - run: cd e2e/ && npm run lint
+  tsc-e2e:
+      executor:
+        name: node/default
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+              - node-cache-e2e-{{ .Branch }}
+        - run: cd e2e/ && npm run tsc
 workflows:
   test:
     jobs:
-      - install
-      - lint:
+      - install-client
+      - lint-client:
           requires:
-          - install
-      - tsc:
+          - install-client
+      - tsc-client:
           requires:
-          - install
+          - install-client
+      - install-server
+      - lint-server:
+          requires:
+            - install-server
+      - tsc-server:
+          requires:
+            - install-server
+      - install-e2e
+      - lint-e2e:
+          requires:
+            - install-e2e
+      - tsc-e2e:
+          requires:
+            - install-e2e

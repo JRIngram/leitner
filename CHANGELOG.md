@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Donation link
 ### Changed
 * Change items in NavBar from `<p>` to `<button>` to improve accessibility.
+* Code base structure is now changed. Server and Client require different instructions to run and use different `package.json` files.
+* End-to-end tests now use Cypress rather than TestCafe.
 ### Deprecated
 ### Removed
 ### Fixed

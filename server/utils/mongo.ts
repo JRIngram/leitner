@@ -1,5 +1,10 @@
 import { MongoClient, ObjectId } from 'mongodb';
-import { Card, CardIdsAndCorrectness, CardInQuiz, Quiz } from '../../types';
+import {
+  Card,
+  CardIdsAndCorrectness,
+  CardInQuiz,
+  Quiz,
+} from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
@@ -27,7 +32,7 @@ export const getAllCards = async (): Promise<Card[]> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
-  const queryResults: Card[] = await collection.find({}).toArray();
+  const queryResults = await collection.find<Card>({}).toArray();
   await client.close();
   return queryResults;
 };
@@ -37,12 +42,16 @@ export const getCardsByIds = async (ids: string[]): Promise<Card[]> => {
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
   const objectIds = ids.map((id) => new ObjectId(id));
-  const queryResults: Card[] = await collection.find({ _id: { $in: objectIds } }).toArray();
+  const queryResults: Card[] = await collection.find<Card>({ _id: { $in: objectIds } }).toArray();
   await client.close();
   return queryResults;
 };
 
-export const updateCard = async (cardId: string, prompt: string, answer: string): Promise<string> => {
+export const updateCard = async (
+  cardId: string,
+  prompt: string,
+  answer: string,
+): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(cardCollection);
@@ -69,7 +78,11 @@ export const deleteCard = async (cardId: string): Promise<string> => {
   return `Deleted card ${idToDelete}.`;
 };
 
-export const addQuiz = async (quizName: string, quizDescription: string, cardIds: string[]): Promise<string> => {
+export const addQuiz = async (
+  quizName: string,
+  quizDescription: string,
+  cardIds: string[],
+): Promise<string> => {
   try {
     const client = await MongoClient.connect(dbUrl);
     const db = client.db(dbName);
@@ -102,13 +115,16 @@ export const getAllQuizzes = async (): Promise<Quiz[]> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
-  const queryResults: Quiz[] = await collection.find({}).toArray();
+  const queryResults: Quiz[] = await collection.find<Quiz>({}).toArray();
   await client.close();
   return queryResults;
 };
 
 export const updateQuiz = async (
-  quizId: string, quizName: string, quizDescription: string, cardIds: string[],
+  quizId: string,
+  quizName: string,
+  quizDescription: string,
+  cardIds: string[],
 ): Promise<string> => {
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
@@ -154,7 +170,7 @@ export const updateQuizBoxes = async (
   const client = await MongoClient.connect(dbUrl);
   const db = client.db(dbName);
   const collection = db.collection(quizCollection);
-  const quizArray: Quiz[] = await collection.find({ _id: new ObjectId(quizId) }).toArray();
+  const quizArray = await collection.find({ _id: new ObjectId(quizId) }).toArray();
   const quizToUpdate = quizArray[0];
   const quizCardObjects = quizToUpdate.cardObjects;
 
@@ -168,7 +184,7 @@ export const updateQuizBoxes = async (
     return boxModifier;
   };
 
-  const updatedQuizCardObjects = quizCardObjects.map((cardObject) => {
+  const updatedQuizCardObjects = quizCardObjects.map((cardObject: any) => {
     const cardIdAndCorrectness = cardIdsAndCorrectness.find((card: CardIdsAndCorrectness) => {
       const { _id } = card;
       return _id === cardObject._id.toString();

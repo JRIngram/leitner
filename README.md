@@ -10,48 +10,42 @@ For version history and the changelog, please see [CHANGELOG.md](CHANGELOG.md)
 For information on contributing to this project, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Set-up
+### Server
 1. Have a [MongoDB](https://www.mongodb.com/) instance set-up locally.
-2. Run `npm i && cd client && npm i && cd ../`
-3. Create your `.env` files, based off of the `.env.example` file (more info below).
-4. You will also want to update the `.env` file in `client/`. Base this off of the `client/.env.example` and set the `REACT_APP_SERVER_HOST` and `REACT_APP_SERVER_PORT` variables to the same as `HOST` and `SERVER_PORT` in the `.env` file created in step 3.
-5. Run `npm run start:server`
-6. Run `npm run start:client`
-7. Get practicising!
+2. Run `cd server && npm i`.
+3. Create your `.env` file in the `server/` directory, based off of the `.env.example`
 
-By default the front-end / client runs on port `3000`, if you wish to change this go into `package.json` at the root of the project and change the following line:
-`"start:client": "cd client && npm run start",`
+To run the server, run `npm run start`.
+
+### Client
+1. Follow the steps above to have the server running.
+2. Run `cd client && npm i`.
+3. Create your `.env` file in the `client/` directory, based off of the `.env.example`.
+
+To run the client, run `npm run start`.
+
+Notes:
+By default the front-end / client runs on port `3000`, if you wish to change this go into `client/package.json` and change the following line:
+`"start": "npm run start",`
+
 to
 
-`"start:client": "cd client && set PORT=<PORT NUMBER YOU WANT TO RUN> && npm run start",` (for windows)
+`"start": "set PORT=<PORT NUMBER YOU WANT TO RUN> && npm run start",` (for windows)
 
-`"start:client": "cd client && PORT=<PORT NUMBER YOU WANT TO RUN> && npm run start",` (for mac / linux)
+`"start": "PORT=<PORT NUMBER YOU WANT TO RUN> && npm run start",` (for mac / linux)
 
 e.g.
-  `"start:client": "cd client && set PORT=4234 && npm run start",`
+  `"start": "cd client && set PORT=4234 && npm run start",`
 
 In most cases you can skip this step.
 
+### End-to-End Tests
+1. Follow the steps above to have the server and client running.
+2. Run `cd e2e && npm i`
 
-### .env file
-Your `.env` file should have the following structure:
-```
-DB_URL=mongodb://<IP-ADDRESS>
-DB_PORT=
-DB_NAME=
-SERVER_HOST=
-SERVER_PORT=
-CLIENT_HOST=
-CLIENT_PORT=
-TEST_ENV=
-```
+To run the end-to-end tests in visual mode, run `npm run cypress:open`.
 
-Your `client/.env` file should have the following structure:
-```
-SKIP_PREFLIGHT_CHECK=true
-REACT_APP_SERVER_HOST=
-REACT_APP_SERVER_PORT=
-```
-
+### .env fields
 Field|Meaning|Example
 ----|--------|------|
 `DB_URL`|The URL of the mongo instance|`mongodb://127.0.0.1`
@@ -66,14 +60,23 @@ Field|Meaning|Example
 ## Running tests
 **Note:** It is highly important that you set TEST_ENV to `true` before running `npm run test`. This command clears the database during the test run. *If `TEST_ENV` is not set to true, your production collections will be cleared and dropped!*
 
-To run the tests:
-1. Start a server instance using `npm run start:server`.
-2. Run `npm run lint` to check the code styling.
-3. Run `npm tsc` to compile and typecheck the `.ts` files
-4. Run `npm run test` to run the unit tests.
-5. Run `npm run test:e2e:chrome` to run the end to end tests in a Chrome browser and `npm run e2e:test:firefox` to run the tests in a firefox browser.
+### Server
+1. Follow the Server section in the Set-up section above.
+2. Run `cd server/`.
+3. Run `npm run tsc && npm run lint && npm run test`.
 
-The above tests run automatically on pushing and on commits.
+### Client
+1. Follow the Client section in the Set-up section above.
+2. Run `cd client/`
+3. Run `npm run tsc && npm run lint && npm run test`.
+
+### End-to-End
+1. Follow the End-to-End Tests section in the Set-up section above.
+2. Run `cd e2e`.
+3. Run `npm run lint`.
+4. Run `npm run cypress:run`.
+
+The client and server linting, tsc and test steps are ran automatically on pushing commits; the e2e linting steps are also ran automatically on commits, but the end to end tests themselves are not.
 
 ## Support
 * Donations to support this project - or even just to say thanks - are welcome here. Please donate via my [Kofi page](https://ko-fi.com/jringram).

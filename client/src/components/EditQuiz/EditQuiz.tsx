@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
-import ManageQuizzesCardList from '../ManageQuizzesCardList/ManageQuizzesCardList';
+import { ManageQuizzesCardList } from '../ManageQuizzesCardList/ManageQuizzesCardList';
 import { updateQuiz } from '../../utils/axios'
 
 const styles = { 
@@ -30,8 +30,8 @@ const EditQuiz = (props: EditQuizProps): ReactElement => {
   const [quizDescription, setQuizDescription] = useState(props.quizDescription);
   const [checkedCards, setCheckedCards] = useState<string[]>(props.cardsInQuiz);
 
-  const handleCheckChange = (itemChecked: boolean, changedCardId: string) => {
-    if(itemChecked){
+  const handleCheckChange = (isItemChecked: boolean, changedCardId: string) => {
+    if(isItemChecked){
       setCheckedCards([...checkedCards, changedCardId]);
     }
     else{

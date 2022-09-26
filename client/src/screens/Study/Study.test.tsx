@@ -2,10 +2,8 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event'
-import { dropAllTestCollections, createQuiz} from '../../../../testUtils/testUtils';
+import { dropAllTestCollections, createQuiz} from '../../../testUtils/testUtils';
 import Study from './Study';
-
-jest.mock('../../components/StudyReviewListItem/StudyReviewListItem');
 
 describe('Study', () => {
   afterAll(async () => {

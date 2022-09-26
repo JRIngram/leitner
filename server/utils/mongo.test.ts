@@ -1,9 +1,10 @@
+// eslint-disable-next-line import/no-relative-packages
+import dropAllTestCollections from '../testUtils/testUtils';
 import {
   addCard, getAllCards, getCardsByIds, updateCard, deleteCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz,
 } from './mongo';
-import { dropAllTestCollections } from '../../testUtils/testUtils';
-import { CardInQuiz } from '../../types';
+import { CardInQuiz } from '../types';
 
 beforeAll(async () => {
   await dropAllTestCollections();

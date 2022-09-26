@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactElement } from 'react';
-import { Card, CardInQuiz } from './../../../../types';
+import { Card, CardInQuiz } from './../../../types';
 import { getCardsByIds } from '../../utils/axios';
 
 type viewQuizzesListItemProps = {

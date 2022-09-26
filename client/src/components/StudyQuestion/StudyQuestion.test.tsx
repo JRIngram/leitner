@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import StudyQuestion from './StudyQuestion';
-import { dropAllTestCollections } from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../testUtils/testUtils';
 
 describe('StudyQuestion', () => {
   beforeEach(async () => {

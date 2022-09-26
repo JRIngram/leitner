@@ -1,4 +1,4 @@
-import { Card, CardIdsAndCorrectness, CardWithoutId, Quiz, QuizWithoutId } from '../../../types';
+import { Card, CardIdsAndCorrectness, CardWithoutId, Quiz, QuizWithoutId } from '../../types';
 import axios, { AxiosResponse } from 'axios';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

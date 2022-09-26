@@ -1,10 +1,9 @@
 import React, { ReactElement, useState } from 'react';
-import { Quiz, FormattedCard, QuizUnderstudy } from '../../../../types';
+import { Card, Quiz, FormattedCard, QuizUnderstudy } from '../../../types';
 import StudyHome from '../../components/StudyHome/StudyHome';
 import StudyQuestion from '../../components/StudyQuestion/StudyQuestion';
 import StudyReview from '../../components/StudyReview/StudyReview';
 import { getCardsByIds } from '../../utils/axios';
-import { Card } from '../../../../types';
 
 const Study = (): ReactElement => {
   const [quiz, setQuiz] = useState<QuizUnderstudy>({

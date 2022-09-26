@@ -43,7 +43,7 @@ describe('rendering', () => {
       expect(await findByText('No quizzes have been created.')).toBeVisible();
     });
 
-    it('user cna return to add quiz page from amend quizzes', async() => {
+    it('user can return to add quiz page from amend quizzes', async() => {
       const { getByText, findByText } = render(<ManageQuizzes />);
       fireEvent.click(getByText('amend quizzes'));
       expect(await findByText('add quiz')).toBeVisible();
