@@ -26,6 +26,18 @@ jobs:
           key: node-cache-server-{{ .Branch }}
           paths:
             - server/node_modules/
+  install-e2e:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - run:
+          name: npm install
+          command: cd e2e && npm i
+      - save_cache:
+          key: node-cache-e2e-{{ .Branch }}
+          paths:
+            - e2e/node_modules/
   lint-client: 
     executor:
       name: node/default
@@ -62,6 +74,14 @@ jobs:
           keys: 
             - node-cache-server-{{ .Branch }}
       - run: cd server/ && npm run tsc  
+  e2e-lint:
+      executor:
+        name: node/default
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+              - node-cache-e2e-{{ .Branch }}
 workflows:
   test:
     jobs:
@@ -73,3 +93,9 @@ workflows:
           requires:
           - install-client
       - install-server
+      - lint-server:
+          requires:
+            - install-server
+      - tsc-server:
+          requires:
+            - install-server
