@@ -6,7 +6,8 @@
   "scripts": {
     "cypress:open": "npx cypress open",
     "cypress:run": "npx cypress run",
-    "lint": "npx eslint . --ext .js,.ts,.tsx --fix"
+    "lint": "npx eslint . --ext .js,.ts,.tsx --fix",
+    "tsc": "npx tsc"
   },
   "author": "",
   "license": "ISC",
