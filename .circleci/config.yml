@@ -74,7 +74,7 @@ jobs:
           keys: 
             - node-cache-server-{{ .Branch }}
       - run: cd server/ && npm run tsc  
-  e2e-lint:
+  lint-e2e:
       executor:
         name: node/default
       steps:
@@ -99,3 +99,7 @@ workflows:
       - tsc-server:
           requires:
             - install-server
+      - install-e2e
+      - lint-e2e:
+          requires:
+            - install-e2e
