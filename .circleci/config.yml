@@ -82,6 +82,16 @@ jobs:
         - restore_cache:
             keys:
               - node-cache-e2e-{{ .Branch }}
+        - run: cd e2e/ && npm run lint
+  tsc-e2e:
+      executor:
+        name: node/default
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+              - node-cache-e2e-{{ .Branch }}
+        - run: cd e2e/ && npm run tsc
 workflows:
   test:
     jobs:
@@ -101,5 +111,8 @@ workflows:
             - install-server
       - install-e2e
       - lint-e2e:
+          requires:
+            - install-e2e
+      - tsc-e2e:
           requires:
             - install-e2e
