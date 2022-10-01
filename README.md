@@ -57,7 +57,7 @@ Field|Meaning|Example
 `TEST_ENV`|Whether this is running on a test environment|Set to `false` if running in production, set to `true` if running on tests|
 
 ## Running tests
-**Note:** It is highly important that you set TEST_ENV to `true` before running `npm run test`. This command clears the database during the test run. *If `TEST_ENV` is not set to true, your production collections will be cleared and dropped!*
+**Note:** It is highly important that you set TEST_ENV to `true` before running `npm run test` for the client. This command clears the database during the test run. *If `TEST_ENV` is not set to true, your production collections will be cleared and dropped!*
 
 ### Server
 1. Follow the Server section in the Set-up section above.

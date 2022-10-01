@@ -4,8 +4,8 @@ require('dotenv').config();
 
 const dbName = process.env.DB_NAME;
 const dbUrl = typeof process.env.MONGO_URL === 'undefined' ? '' : process.env.MONGO_URL;
-const cardCollectionName = 'testCards';
-const quizCollectionName = 'testQuizzes';
+const cardCollectionName = 'cards';
+const quizCollectionName = 'quizzes';
 
 const dropCollection = async (collcetionName: string) => {
   const client = await MongoClient.connect(dbUrl);
