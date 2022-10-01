@@ -76,12 +76,12 @@ jobs:
       - run: cd server/ && npm run tsc  
   unit-test-server:
     executor:
-      name: name/default
+      name: node/default
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - node-cache-server-{{ .Branch }}
+          keys:
+            - node-cache-server-{{ .Branch }}
       - run: cd server/ && npm run tsc
   lint-e2e:
       executor:
