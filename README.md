@@ -48,17 +48,12 @@ To run the end-to-end tests in visual mode, run `npm run cypress:open`.
 ### .env fields
 Field|Meaning|Example
 ----|--------|------|
-`DB_URL`|The URL of the mongo instance|`mongodb://127.0.0.1`
-`DB_PORT`|The port to connect to the mongo instance|`27017`
+`MONGO_URL`|The URL of the mongo instance|`mongodb://127.0.0.1`
 `DB_NAME`|The name of the mongo database which stores leiter data|`leitner`
 `SERVER_HOST`|The host of the server part of the software (started usign `npm run start:server`). For testing you will want this set to `localhost`|`localhost`
 `SERVER_PORT`|The port of the server part of the software (started using `npm run start:server`). For testing you will want this set to `3001`|`3001`
 `CLIENT_HOST`|The host domain for the client / front-end|`localhost` if running locally|
 `CLIENT_PORT`|The port the client runs on (only used for E2E tests)|`3000`
-`TEST_ENV`|Whether this is running on a test environment|Set to `false` if running in production, set to `true` if running on tests|
-
-## Running tests
-**Note:** It is highly important that you set TEST_ENV to `true` before running `npm run test`. This command clears the database during the test run. *If `TEST_ENV` is not set to true, your production collections will be cleared and dropped!*
 
 ### Server
 1. Follow the Server section in the Set-up section above.

@@ -10,12 +10,12 @@ import {
 require('dotenv').config();
 
 const dbName = typeof process.env.DB_NAME !== 'undefined' ? process.env.DB_NAME : '';
-const dbUrl = typeof process.env.DB_URL !== 'undefined' ? process.env.DB_URL : '';
-const cardCollection = process.env.TEST_ENV === 'true' ? 'testCards' : 'cards';
-const quizCollection = process.env.TEST_ENV === 'true' ? 'testQuizzes' : 'quizzes';
+const dbUrl = typeof process.env.MONGO_URL !== 'undefined' ? process.env.MONGO_URL : '';
+const cardCollection = 'cards';
+const quizCollection = 'quizzes';
 
 if (dbName === '' && dbUrl === '') {
-  throw Error('process.env.DB_NAME or process.env.DB_URL is undefined');
+  throw Error('process.env.DB_NAME or process.env.MONGO_URL is undefined');
 }
 
 export const addCard = async (prompt: string, answer: string): Promise<string> => {
