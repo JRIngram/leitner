@@ -54,10 +54,6 @@ Field|Meaning|Example
 `SERVER_PORT`|The port of the server part of the software (started using `npm run start:server`). For testing you will want this set to `3001`|`3001`
 `CLIENT_HOST`|The host domain for the client / front-end|`localhost` if running locally|
 `CLIENT_PORT`|The port the client runs on (only used for E2E tests)|`3000`
-`TEST_ENV`|Whether this is running on a test environment|Set to `false` if running in production, set to `true` if running on tests|
-
-## Running tests
-**Note:** It is highly important that you set TEST_ENV to `true` before running `npm run test` for the client. This command clears the database during the test run. *If `TEST_ENV` is not set to true, your production collections will be cleared and dropped!*
 
 ### Server
 1. Follow the Server section in the Set-up section above.
