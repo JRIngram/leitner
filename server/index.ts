@@ -174,5 +174,5 @@ app.put('/updateQuizBoxes', async (req: Request<unknown, unknown, updateQuizBoxe
 
 app.listen(port, () => {
   log(`Listening at http://${host}:${port}.`);
-  log(`Ensure a MongoDB data is running @ ${process.env.DB_URL}:${process.env.DB_PORT} with the project '${process.env.DB_NAME}'`);
+  log(`Ensure a MongoDB data is running @ ${process.env.MONGO_URL} with the project '${process.env.DB_NAME}'`);
 });

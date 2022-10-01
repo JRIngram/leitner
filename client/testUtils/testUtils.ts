@@ -6,7 +6,7 @@ import { Card } from '../types'
 require('dotenv').config();
 
 const dbName = process.env.DB_NAME;
-const dbUrl = typeof process.env.DB_URL === 'undefined' ? '' : process.env.DB_URL;
+const dbUrl = typeof process.env.MONGO_URL === 'undefined' ? '' : process.env.MONGO_URL;
 const cardCollectionName = 'testCards';
 const quizCollectionName = 'testQuizzes';
 

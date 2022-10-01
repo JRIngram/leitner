@@ -48,8 +48,7 @@ To run the end-to-end tests in visual mode, run `npm run cypress:open`.
 ### .env fields
 Field|Meaning|Example
 ----|--------|------|
-`DB_URL`|The URL of the mongo instance|`mongodb://127.0.0.1`
-`DB_PORT`|The port to connect to the mongo instance|`27017`
+`MONGO_URL`|The URL of the mongo instance|`mongodb://127.0.0.1`
 `DB_NAME`|The name of the mongo database which stores leiter data|`leitner`
 `SERVER_HOST`|The host of the server part of the software (started usign `npm run start:server`). For testing you will want this set to `localhost`|`localhost`
 `SERVER_PORT`|The port of the server part of the software (started using `npm run start:server`). For testing you will want this set to `3001`|`3001`
