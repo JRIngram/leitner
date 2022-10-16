@@ -1,7 +1,7 @@
 .env
 .vscode/
 **/*.env
-client/**/*.js
+client/compiled/**/*.js
 compiled/
 coverage/
 e2e/*.js
@@ -9,5 +9,4 @@ e2e/cypress/screenshots
 e2e/cypress/videos
 e2e/cypress/downloads
 node_modules/
-server/**/*.js
-testUtils/**/*.js
+server/compiled/**/*.js
