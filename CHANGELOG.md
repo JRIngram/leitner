@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Debounce to buttons so button actions can't be triggered for 400ms after their initial triggering.
 * Donation link
 ### Changed
-* Change items in NavBar from `<p>` to `<button>` to improve accessibility.
+* Change items in NavBar from `<p>` to `<button>` to improve accessibility. With undrlining when button is hovered over.
 * Code base structure is now changed. Server and Client require different instructions to run and use different `package.json` files.
 * End-to-end tests now use Cypress rather than TestCafe.
 ### Deprecated
