@@ -1,0 +1,48 @@
+.container {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.itemContainer {
+    width: 100%;
+    display: flex;
+}
+
+.navBarItem {
+    height: 30p;
+    display: flex;
+    color: #FFF;
+    background: #094d9b;
+    text-decoration: none;
+    padding: 20px;
+    margin: 0% 5%;
+    cursor: pointer;
+    font: 14px \"Century Gothic\", Futura, sans-serif;
+    border: none;
+}
+
+.navBarItem:hover {
+    text-decoration: underline;  
+}
+
+.activeNavBarItem {
+    height: 30p;
+    display: inline;
+    color: #FFF;
+    background: #094d9b;
+    text-decoration: underline;
+    padding: 20px;
+    margin: 0% 5%;
+    cursor: pointer;
+    font: 14px \"Century Gothic\", Futura, sans-serif;
+    border: none;
+}
+
+.titleStyle {
+    display: inline;
+    color: #FFF;
+    font-size: 2em;
+    margin: auto;
+    padding-left: 1%;
+    padding-right: 5%;
+}
