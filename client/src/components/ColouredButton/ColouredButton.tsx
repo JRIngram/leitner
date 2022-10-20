@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 type ColouredButtonProps = {
   text: string
   buttonType: ButtonType
-  onClickAction: Function
+  onClickAction: () => void
 }
 
-enum ButtonType{
+enum ButtonType {
   'add',
   'delete',
   'default',
@@ -30,7 +30,7 @@ const defaultButtonNormalStyle = {
   color: '#000'
 }
 
-const addButtonNormalStyle ={
+const addButtonNormalStyle = {
   ...colouredButtonStyle,
   backgroundColor: '#9D9',
   border: '2px #9D9 solid',
@@ -59,7 +59,7 @@ const navButtonFilledStyle = {
   color: '#FFF'
 }
 
-const styles ={
+const styles = {
   default: {
     defaultButtonHover: {
       ...defaultButtonNormalStyle,
@@ -121,74 +121,84 @@ const styles ={
   }
 }
 
-const ColouredButton = (props: ColouredButtonProps) => {
-  const [actionStyle, setActionStyle] = useState('default')
+const ColouredButton = (props: ColouredButtonProps): ReactElement => {
+  const [actionStyle, setActionStyle] = useState('default');
+  const [debounceActive, setDebounceActive] = useState(false);
+  const DEBOUCNCE_TIMEOUT_MS = 400;
 
   const renderButtonStyle = (buttonStyle: ButtonType) => {
-    switch(buttonStyle){
+    switch (buttonStyle) {
       case ButtonType.add:
-        const {addButtonClick, addButtonHover} = styles.add;
-        if(actionStyle === 'hover'){
-          return ({...addButtonHover});
+        const { addButtonClick, addButtonHover } = styles.add;
+        if (actionStyle === 'hover') {
+          return ({ ...addButtonHover });
         }
-        else if(actionStyle === 'click'){
-          return ({...addButtonClick});
+        else if (actionStyle === 'click') {
+          return ({ ...addButtonClick });
         }
-        return ({...addButtonNormalStyle});
+        return ({ ...addButtonNormalStyle });
       case ButtonType.delete:
-        const {deleteButtonClick, deleteButtonHover} = styles.delete;
-        if(actionStyle === 'hover'){
-          return ({...deleteButtonHover});
+        const { deleteButtonClick, deleteButtonHover } = styles.delete;
+        if (actionStyle === 'hover') {
+          return ({ ...deleteButtonHover });
         }
-        else if(actionStyle === 'click'){
-          return ({...deleteButtonClick});
+        else if (actionStyle === 'click') {
+          return ({ ...deleteButtonClick });
         }
-        return ({...deleteButtonNormalStyle});
+        return ({ ...deleteButtonNormalStyle });
       case ButtonType.nav:
-        const {navButtonClick, navButtonHover} = styles.nav;
-        if(actionStyle === 'hover'){
-          return({...navButtonHover})
+        const { navButtonClick, navButtonHover } = styles.nav;
+        if (actionStyle === 'hover') {
+          return ({ ...navButtonHover })
         }
-        else if(actionStyle === 'click'){
-          return({...navButtonClick})
+        else if (actionStyle === 'click') {
+          return ({ ...navButtonClick })
         }
-        return ({...navButtonNormalStyle});
+        return ({ ...navButtonNormalStyle });
       case ButtonType.navFilled:
         const { navFilledButtonClick, navFilledButtonHover } = styles.navFilled;
-        if(actionStyle === 'hover'){
-          return({...navFilledButtonHover});
+        if (actionStyle === 'hover') {
+          return ({ ...navFilledButtonHover });
         }
-        else if(actionStyle === 'click'){
-          return({...navFilledButtonClick});
+        else if (actionStyle === 'click') {
+          return ({ ...navFilledButtonClick });
         }
-        return({...navButtonFilledStyle});
+        return ({ ...navButtonFilledStyle });
       case ButtonType.default:
       default:
-        const {defaultButtonClick, defaultButtonHover} = styles.default;
-        if(actionStyle === 'hover'){
-          return ({...defaultButtonHover});
+        const { defaultButtonClick, defaultButtonHover } = styles.default;
+        if (actionStyle === 'hover') {
+          return ({ ...defaultButtonHover });
         }
-        else if(actionStyle === 'click'){
-          return ({...defaultButtonClick});
+        else if (actionStyle === 'click') {
+          return ({ ...defaultButtonClick });
         }
-        return ({...defaultButtonNormalStyle});
+        return ({ ...defaultButtonNormalStyle });
     }
   }
 
-  return(
+  return (
     <button
       id={`coloured-button-${props.text.toLowerCase().replace(/\s/g, '-')}`}
       data-testid={`coloured-button-${props.text.toLowerCase().replace(/\s/g, '-')}`}
-      style={renderButtonStyle(props.buttonType)} 
-      onMouseLeave={() => {setActionStyle('default')}}
-      onMouseUp={() => {setActionStyle('hover')}}
-      onMouseOver={() =>{setActionStyle('hover')}}
-      onMouseDown={() => {setActionStyle('click')}}
-      onClick={() => { return props.onClickAction() }}
+      style={renderButtonStyle(props.buttonType)}
+      onMouseLeave={() => { setActionStyle('default'); }}
+      onMouseUp={() => { setActionStyle('hover') }}
+      onMouseOver={() => { setActionStyle('hover') }}
+      onMouseDown={() => { setActionStyle('click') }}
+      onClick={() => {
+        if (!debounceActive) {
+          setDebounceActive(true);
+          setTimeout(() => {
+            setDebounceActive(false);
+          }, DEBOUCNCE_TIMEOUT_MS)
+          return props.onClickAction();
+        }
+      }}
     >
       {props.text}
     </button>
   )
 }
 
-export {ColouredButton, ButtonType};
+export { ColouredButton, ButtonType };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { dropAllTestCollections } from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../testUtils/testUtils';
 import ViewQuizzesListItem from './ViewQuizzesListItem';
 import { addCard, getAllCards } from '../../utils/axios';
-import { CardInQuiz } from '../../../../types';
+import { CardInQuiz } from '../../../types';
 
 
 beforeAll(async () => { await dropAllTestCollections() });

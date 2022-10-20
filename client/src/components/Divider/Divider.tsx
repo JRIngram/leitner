@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 
 const styles = {
@@ -8,7 +8,7 @@ const styles = {
   borderBottomWidth: '1px'
 }
 
-const Divider = () => {
+const Divider = (): ReactElement => {
   return <div data-testid='divider' style={styles}></div>
 }
 

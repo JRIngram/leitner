@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Card } from '../../../../types';
+import React, { useState, useEffect, ReactElement } from 'react';
+import { Card } from '../../../types';
 import { getAllCards } from '../../utils/axios';
-import ManageQuizzesCardListItem from '../ManageQuizzesCardListItem/ManageQuizzesCardListItem';
 import Divider from '../Divider/Divider';
 
 type ManageQuizzesCardListProps = {
-  handleCheckChange: Function
+  handleCheckChange: (itemChecked: boolean, changedCardId: string) => void
   selectedCardIds: string[]
   testId: string
 }
 
-const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
+export const ManageQuizzesCardList = (props: ManageQuizzesCardListProps): ReactElement => {
   const [cards, setCards] = useState<Card[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
@@ -74,4 +73,54 @@ const ManageQuizzesCardList = (props: ManageQuizzesCardListProps) => {
   )
 }
 
-export default ManageQuizzesCardList;
+type  ManageQuizzesCardListItemProps = {
+  id: string,
+  index: number,
+  prompt: string,
+  answer: string,
+  handleCheckChange: (isItemChecked: boolean, changedCardId: string) => void,
+  checked: boolean
+}
+
+const manageQuizzesCardListItemStyles = {
+  checkboxContainer: {
+    display: 'inline-block'
+  },
+  paragraphContainer: {
+    display: 'inline-block',
+    marginLeft: '20px'
+  }
+}
+
+const ManageQuizzesCardListItem = (props: ManageQuizzesCardListItemProps) => {
+  const [isChecked, setIsChecked] = useState(props.checked);
+  const testId = `manage-quiz-card-list-item-${props.id}`
+
+  return (
+    <div data-testid={testId}>
+      <div style={manageQuizzesCardListItemStyles.checkboxContainer}>
+        <label 
+          htmlFor={`add card ${props.id}`}
+          data-testid={`${testId}-checkbox-label`}
+        >
+          Add Card
+        </label>
+        <input 
+          data-testid={`${testId}-checkbox-${isChecked}`}
+          type="checkbox"
+          id={`add-card-checkbox-${props.index}`}
+          checked={isChecked}
+          onChange={
+            (e) => {
+              setIsChecked(e.target.checked)
+              props.handleCheckChange(e.target.checked, props.id)
+            }
+          }/>
+      </div>
+      <div style={manageQuizzesCardListItemStyles.paragraphContainer}>
+        <p data-testid={`${testId}-prompt`}>Prompt: {props.prompt}</p>
+        <p data-testid={`${testId}-answer`}>Answer: {props.answer}</p>
+      </div>
+    </div>
+  );
+}

@@ -3,11 +3,11 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import StudyReview from './StudyReview';
 
-jest.mock('../StudyReviewListItem/StudyReviewListItem');
+// jest.mock('../StudyReviewListItem/StudyReviewListItem');
 
 describe('StudyReview', () =>{
   it('renders quiz review title', () => {
-    const { getByText } = render(<StudyReview quizId={''} cardList={[]} onFinishReview={() => {}}/>);
+    const { getByText } = render(<StudyReview quizId={''} cardList={[]} onFinishReview={() => true}/>);
     expect(getByText('Quiz Review')).toBeVisible();
   });
 
@@ -37,7 +37,7 @@ describe('StudyReview', () =>{
           correct: true
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
       expect(getByText('2 correct out of 2 - 100.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -48,7 +48,7 @@ describe('StudyReview', () =>{
         {
           _id: '0',
           prompt: 'p1',
-          answer: 'a2',
+          answer: 'a1',
           givenAnswer: 'g1',
           correct: false
         },
@@ -60,7 +60,11 @@ describe('StudyReview', () =>{
           correct: false
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
+
+      expect(getByText('Prompt: p1')).toBeVisible();
+      expect(getByText('Your Answer: g1')).toBeVisible();
+      expect(getByText('Actual Answer: a1')).toBeVisible();
       expect(getByText('0 correct out of 2 - 0.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -71,7 +75,7 @@ describe('StudyReview', () =>{
         {
           _id: '0',
           prompt: 'p1',
-          answer: 'a2',
+          answer: 'a1',
           givenAnswer: 'g1',
           correct: true
         },
@@ -83,7 +87,10 @@ describe('StudyReview', () =>{
           correct: false
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
+      expect(getByText('Prompt: p1')).toBeVisible();
+      expect(getByText('Your Answer: g1')).toBeVisible();
+      expect(getByText('Actual Answer: a1')).toBeVisible();
       expect(getByText('1 correct out of 2 - 50.00%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(2);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();
@@ -94,7 +101,7 @@ describe('StudyReview', () =>{
         {
           _id: '0',
           prompt: 'p1',
-          answer: 'a2',
+          answer: 'a1',
           givenAnswer: 'g1',
           correct: true
         },
@@ -113,7 +120,10 @@ describe('StudyReview', () =>{
           correct: false
         },
       ];
-      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => {}}/>);
+      const { getByText, getAllByTestId } = render(<StudyReview quizId={''} cardList={cardList} onFinishReview={() => true}/>);
+      expect(getByText('Prompt: p1')).toBeVisible();
+      expect(getByText('Your Answer: g1')).toBeVisible();
+      expect(getByText('Actual Answer: a1')).toBeVisible();
       expect(getByText('1 correct out of 3 - 33.33%')).toBeVisible();
       expect(getAllByTestId('study-review-list-item-container').length).toBe(3);
       expect(getAllByTestId('study-review-list-item-container')[0]).toBeVisible();

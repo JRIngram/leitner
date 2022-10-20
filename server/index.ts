@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { CardIdsAndCorrectness } from '../types';
+import { CardIdsAndCorrectness } from './types';
 import {
   getAllCards, getCardsByIds, deleteCard, addCard, updateCard,
   addQuiz, getAllQuizzes, updateQuiz, deleteQuiz, updateQuizBoxes,
 } from './utils/mongo';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 const { log, error } = console;
@@ -58,8 +60,8 @@ app.get('/getAllCards', async (req: Request, res: Response) => {
 
 app.get('/getCardsByIds', async (req: Request, res: Response) => {
   try {
-    const cardIds = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
-    const queryResponse = await getCardsByIds(cardIds);
+    const requestCardId = <string[]> (Array.isArray(req.query.id) ? req.query.id : [req.query.id]);
+    const queryResponse = await getCardsByIds(requestCardId);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -69,7 +71,7 @@ app.get('/getCardsByIds', async (req: Request, res: Response) => {
 
 app.put('/updateCard', async (req: Request, res: Response) => {
   try {
-    const cardId = <string> req.body.id;
+    const cardId = req.body.id;
     const updatedPrompt = <string> req.body.prompt;
     const updatedAnswer = <string> req.body.answer;
     const queryResponse = await updateCard(cardId, updatedPrompt, updatedAnswer);
@@ -97,12 +99,12 @@ type addQuizQuery = {
   cardIds: string[]
 }
 
-app.post('/addQuiz', async (req: Request<{}, {}, addQuizQuery, {}>, res: Response) => {
+app.post('/addQuiz', async (req: Request<unknown, unknown, addQuizQuery, unknown>, res: Response) => {
   try {
     const { quizName } = req.body;
     const { quizDescription } = req.body;
-    const { cardIds } = req.body;
-    const queryResponse = await addQuiz(quizName, quizDescription, cardIds);
+    const requestCardIds = req.body.cardIds;
+    const queryResponse = await addQuiz(quizName, quizDescription, requestCardIds);
     res.send(queryResponse);
   } catch (err) {
     error(err);
@@ -127,12 +129,14 @@ type updateQuizQuery = {
   cardIds: string[]
 }
 
-app.put('/updateQuiz', async (req: Request<{}, {}, updateQuizQuery, {}>, res: Response) => {
+app.put('/updateQuiz', async (req: Request<unknown, unknown, updateQuizQuery, unknown>, res: Response) => {
   try {
-    const { quizId } = req.body;
-    const { quizName } = req.body;
-    const { quizDescription } = req.body;
-    const { cardIds } = req.body;
+    const {
+      quizId,
+      quizName,
+      quizDescription,
+      cardIds,
+    } = req.body;
     const queryResponse = await updateQuiz(quizId, quizName, quizDescription, cardIds);
     res.send(queryResponse);
   } catch (err) {
@@ -157,7 +161,7 @@ type updateQuizBoxesQuery = {
   cardIdsAndCorrectness: CardIdsAndCorrectness[];
 }
 
-app.put('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}>, res: Response) => {
+app.put('/updateQuizBoxes', async (req: Request<unknown, unknown, updateQuizBoxesQuery, unknown>, res: Response) => {
   try {
     const { quizId, cardIdsAndCorrectness } = req.body;
     const queryResponse = await updateQuizBoxes(quizId, cardIdsAndCorrectness);
@@ -170,5 +174,5 @@ app.put('/updateQuizBoxes', async (req: Request<{}, {}, updateQuizBoxesQuery, {}
 
 app.listen(port, () => {
   log(`Listening at http://${host}:${port}.`);
-  log(`Ensure a MongoDB data is running @ ${process.env.DB_URL}:${process.env.DB_PORT} with the project '${process.env.DB_NAME}'`);
+  log(`Ensure a MongoDB data is running @ ${process.env.MONGO_URL} with the project '${process.env.DB_NAME}'`);
 });

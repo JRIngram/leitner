@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { ColouredButton, ButtonType } from '../ColouredButton/ColouredButton';
 
 type StudyQuestionProps = {
@@ -9,7 +9,7 @@ type StudyQuestionProps = {
   onQuestionFinished: (givenAnswer: string, correct: boolean) => void,
 }
 
-const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCount, onQuestionFinished}: StudyQuestionProps) => {
+const StudyQuestion = ({prompt, answer, currentQuestionNumber, totalQuestionCount, onQuestionFinished}: StudyQuestionProps): ReactElement => {
   const [isReviewing, setIsReviewing] = useState(false);
   const [givenAnswer, setGivenAnswer] = useState('');
 

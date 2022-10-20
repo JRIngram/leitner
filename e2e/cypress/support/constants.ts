@@ -1,0 +1,14 @@
+export const cardOnePromptText = 'What is the latin name for the "Eastern Gray Squirrel"?';
+export const cardOneAnswerText = 'Sciurus carolinensis';
+export const cardTwoPromptText = 'What is the name for the "Tawny Owl"?';
+export const cardTwoAnswerText = 'Tawnius Owlius';
+export const updatedCardTwoPromptText = 'What is the latin name for the "Tawny Owl"?';
+export const updatedCardTwoAnswerText = 'Strix aluco';
+export const cardThreePromptText = 'What is the latin name for the "Eurasian otter"?';
+export const cardThreeAnswerText = 'Lutra lutra';
+export const quizName = 'Latin animal names';
+export const quizDescription = 'All things Latin and furry!';
+export const updatedQuizName = 'Animal latin names';
+export const updatedQuizDescription = 'Latina omnia et furry!';
+export const correctAnswer = 'I am a correct answer';
+export const incorrectAnswer = 'I am an incorrect answer';

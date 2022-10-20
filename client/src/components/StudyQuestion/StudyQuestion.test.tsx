@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import StudyQuestion from './StudyQuestion';
-import { dropAllTestCollections } from '../../../../testUtils/testUtils';
+import { dropAllTestCollections } from '../../../testUtils/testUtils';
 
 describe('StudyQuestion', () => {
   beforeEach(async () => {
@@ -16,7 +16,7 @@ describe('StudyQuestion', () => {
       answer='testAnswer'
       currentQuestionNumber={0}
       totalQuestionCount={10}
-      onQuestionFinished={() => {}}
+      onQuestionFinished={() => true}
     />);
 
     expect(getByTestId('study-question')).toBeVisible();
@@ -32,7 +32,7 @@ describe('StudyQuestion', () => {
       answer='testAnswer'
       currentQuestionNumber={0}
       totalQuestionCount={10}
-      onQuestionFinished={() => {}}
+      onQuestionFinished={() => true}
     />);
     userEvent.type(getByTestId('answer-input'), 'testUserAnswer');
     fireEvent.click(getByTestId('coloured-button-submit-answer'));

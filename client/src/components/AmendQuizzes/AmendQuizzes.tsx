@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Quiz } from '../../../../types';
+import React, { useState, useEffect, useCallback, ReactElement } from 'react';
+import { Quiz } from '../../../types';
 import { getAllQuizzes } from '../../utils/axios';
 import {ColouredButton, ButtonType} from '../ColouredButton/ColouredButton';
 import ViewQuizzesListItem from '../ViewQuizzesListItem/ViewQuizzesListItem';
@@ -7,7 +7,7 @@ import Divider from '../Divider/Divider';
 import { deleteQuiz } from '../../utils/axios';
 import EditQuiz from '../EditQuiz/EditQuiz';
 
-const AmendQuizzes = () => {
+const AmendQuizzes = (): ReactElement => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [editQuizId, setEditQuizId] = useState('');
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -15,9 +15,8 @@ const AmendQuizzes = () => {
   const loadData =  useCallback(() => getAllQuizzes().then(response => {
       try{
         setQuizzes(response.data);
-      }
-      catch(err){
-        throw new Error(err);
+      } catch(err) {
+        console.error({ err })
       }
     }), []);
 

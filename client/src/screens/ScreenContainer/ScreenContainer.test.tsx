@@ -3,8 +3,6 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import ScreenContainer from './ScreenContainer';
 
-jest.mock('../../components/StudyReviewListItem/StudyReviewListItem');
-
 describe('ScreenContainer', () => {
   describe('navbar', () => {
     it('renders correctly on initial render', () => {
